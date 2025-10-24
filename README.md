@@ -90,7 +90,7 @@ pnpm start
 ## 🗂️ Project Structure
 
 ```
-awmate-rx-main/
+AWMate/
 ├── app/                    # Next.js app directory
 │   ├── api/chat/          # Chat API route
 │   ├── layout.tsx         # Root layout
