@@ -8,7 +8,6 @@ import { Tooltip, TooltipKeybind } from "@awmate/ui/tooltip"
 import { useTheme } from "@awmate/ui/theme/context"
 import { IconButtonV2 } from "@awmate/ui/v2/icon-button-v2"
 import { Icon as IconV2 } from "@awmate/ui/v2/icon"
-import { KeybindV2 } from "@awmate/ui/v2/keybind-v2"
 import { TooltipV2 } from "@awmate/ui/v2/tooltip-v2"
 
 import { LayoutRoute, useLayout } from "@/context/layout"
@@ -25,9 +24,7 @@ import { readSessionTabsRemovedDetail, SESSION_TABS_REMOVED_EVENT } from "@/comp
 import { useGlobal } from "@/context/global"
 import { ServerConnection, useServer } from "@/context/server"
 import { tabKey, useTabs } from "@/context/tabs"
-import type { PromptSession } from "@/context/prompt"
 import "./titlebar.css"
-import { newTabTooltipKeybind } from "./command-tooltip-keybind"
 
 type TauriDesktopWindow = {
   startDragging?: () => Promise<void>
@@ -321,56 +318,6 @@ export function Titlebar(props: { update?: TitlebarUpdate }) {
               tabsStoreActions.removeSessions(detail)
             })
 
-            const openNewTab = () => {
-              const route = layout.route()
-              const activeSession = session()
-              if (route.type === "session" && activeSession) {
-                const sessionTab = {
-                  type: "session" as const,
-                  server: route.server ?? server.key,
-                  sessionId: activeSession.id,
-                }
-                const model = tabs.stateValue<PromptSession>(sessionTab, "prompt")?.model.current()
-                tabs.newDraft({ server: sessionTab.server, directory: activeSession.directory }, "", model)
-                return
-              }
-
-              const activeTab = currentTab()
-              if (activeTab?.type === "draft") {
-                const model = tabs.stateValue<PromptSession>(activeTab, "prompt")?.model.current()
-                tabs.newDraft({ server: activeTab.server, directory: activeTab.directory }, "", model)
-                return
-              }
-
-              if (route.type === "home") {
-                const selection = layout.home.selection()
-                const conn = global.servers.list().find((item) => ServerConnection.key(item) === selection.server)
-                const project = conn
-                  ? global
-                      .ensureServerCtx(conn)
-                      .projects.list()
-                      .find((item) => item.worktree === selection.directory)
-                  : undefined
-                if (conn && project) {
-                  tabs.newDraft({ server: ServerConnection.key(conn), directory: project.worktree }, "")
-                  return
-                }
-              }
-
-              const current = layout.projects.list()[0]
-              if (current) {
-                tabs.newDraft({ server: server.key, directory: current.worktree }, "")
-                return
-              }
-
-              const fallback = global.servers.list().flatMap((conn) => {
-                const project = global.ensureServerCtx(conn).projects.list()[0]
-                return project ? [{ server: ServerConnection.key(conn), project }] : []
-              })[0]
-              if (!fallback) return
-
-              tabs.newDraft({ server: fallback.server, directory: fallback.project.worktree }, "")
-            }
             const toggleHome = () => tabs.toggleHome({ home: layout.route().type === "home", current: currentTab() })
 
             command.register("titlebar-home", () => [
@@ -388,14 +335,6 @@ export function Titlebar(props: { update?: TitlebarUpdate }) {
               const current = currentTab()
 
               return [
-                {
-                  id: "tab.new",
-                  category: "tab",
-                  title: language.t("command.session.new"),
-                  keybind: "mod+t",
-                  hidden: true,
-                  onSelect: openNewTab,
-                },
                 current && {
                   id: "tab.close",
                   category: "tab",
@@ -464,31 +403,8 @@ export function Titlebar(props: { update?: TitlebarUpdate }) {
               >
                 <ChannelIndicator />
                 <Show when={windows() || linux()}>
-                  <WindowsAppMenu command={command} platform={platform} variant="v2" />
+                  <WindowsAppMenu command={command} platform={platform} variant="v2" locked />
                 </Show>
-                <TooltipV2
-                  placement="bottom"
-                  value={
-                    <>
-                      {language.t("home.title")}
-                      <KeybindV2 keys={command.keybindParts("home.toggle")} variant="neutral" />
-                    </>
-                  }
-                  class="shrink-0"
-                >
-                  <IconButtonV2
-                    type="button"
-                    variant="ghost-muted"
-                    size="large"
-                    class="!w-9 shrink-0"
-                    icon={<IconV2 name="grid-plus" />}
-                    state={layout.route().type === "home" ? "pressed" : undefined}
-                    onClick={toggleHome}
-                    aria-label={language.t("home.title")}
-                    aria-pressed={layout.route().type === "home"}
-                  />
-                </TooltipV2>
-
                 <TitlebarTabStrip
                   tabs={tabsStore}
                   currentTab={currentTab}
@@ -504,27 +420,6 @@ export function Titlebar(props: { update?: TitlebarUpdate }) {
                   }}
                   onReorder={(keys) => tabsStoreActions.reorder(keys)}
                 />
-                <Show when={!creating()}>
-                  <TooltipV2
-                    placement="bottom"
-                    value={
-                      <>
-                        {language.t("command.session.new")}
-                        <KeybindV2 keys={newTabTooltipKeybind(command)} variant="neutral" />
-                      </>
-                    }
-                  >
-                    <IconButtonV2
-                      type="button"
-                      variant="ghost-muted"
-                      size="large"
-                      class="shrink-0"
-                      icon={<IconV2 name="plus" />}
-                      onClick={openNewTab}
-                      aria-label={language.t("command.session.new")}
-                    />
-                  </TooltipV2>
-                </Show>
                 <div class="flex-1" />
                 <TitlebarV2Right state={v2RightState()} />
                 <Show when={windows() && !electronWindows()}>
@@ -574,22 +469,7 @@ export function Titlebar(props: { update?: TitlebarUpdate }) {
                 </div>
               </Show>
               <div class="flex items-center gap-1 shrink-0">
-                <TooltipKeybind
-                  class={web() ? "hidden xl:flex shrink-0 ml-14" : "hidden xl:flex shrink-0 ml-2"}
-                  placement="bottom"
-                  title={language.t("command.sidebar.toggle")}
-                  keybind={command.keybind("sidebar.toggle")}
-                >
-                  <Button
-                    variant="ghost"
-                    class="group/sidebar-toggle titlebar-icon w-8 h-6 p-0 box-border"
-                    onClick={layout.sidebar.toggle}
-                    aria-label={language.t("command.sidebar.toggle")}
-                    aria-expanded={layout.sidebar.opened()}
-                  >
-                    <Icon size="small" name={layout.sidebar.opened() ? "sidebar-active" : "sidebar"} />
-                  </Button>
-                </TooltipKeybind>
+                <div class={web() ? "hidden xl:block shrink-0 ml-14" : "hidden xl:block shrink-0 ml-2"} />
                 <div class="hidden xl:flex items-center shrink-0">
                   <Show when={params.dir}>
                     <div
@@ -749,12 +629,11 @@ function TitlebarUpdateIconButton(props: { state: TitlebarUpdatePillState }) {
 
 function ChannelIndicator() {
   return (
-    <>
-      {["beta", "dev"].includes(import.meta.env.VITE_AWMATE_CHANNEL) && (
-        <div class="bg-icon-interactive-base text-[#FFF] font-medium px-2 rounded-sm uppercase font-mono">
-          {import.meta.env.VITE_AWMATE_CHANNEL.toUpperCase()}
-        </div>
-      )}
-    </>
+    <div class="flex h-7 shrink-0 items-center gap-1.5 rounded-[6px] px-2 text-v2-text-text-base">
+      <span class="text-[13px] [font-weight:600]">AWMate</span>
+      <span class="rounded-[4px] bg-v2-background-bg-layer-03 px-1.5 py-0.5 text-[9px] uppercase tracking-wide text-v2-text-text-muted [font-weight:600]">
+        Beta
+      </span>
+    </div>
   )
 }

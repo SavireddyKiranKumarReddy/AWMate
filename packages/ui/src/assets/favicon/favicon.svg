@@ -1,7 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512"><svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="512" height="512" fill="#131010"></rect>
-<path d="M320 224V352H192V224H320Z" fill="#5A5858"></path>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M384 416H128V96H384V416ZM320 160H192V352H320V160Z" fill="white"></path>
-</svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
-@media (prefers-color-scheme: dark) { :root { filter: none; } }
-</style></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000">
+  <rect width="2000" height="2000" fill="#000" />
+  <path fill="#fff" fill-rule="evenodd" d="M538 575h135l257 637H775l-49-127H485l-46 127H280L538 575Zm68 196-72 185h145l-73-185Z" />
+  <path fill="#fff" d="M820 575h161l112 437 117-437h109l113 437 116-437h159l-179 637h-162l-103-357-98 357h-165L820 575Z" />
+</svg>

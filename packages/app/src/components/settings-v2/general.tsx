@@ -430,7 +430,7 @@ export const SettingsGeneralV2: Component<{
           description={
             <>
               {language.t("settings.general.row.theme.description")}{" "}
-              <Link class="settings-v2-link" href="https://awmate.ai/docs/themes/">
+              <Link class="settings-v2-link" href="https://ai.awmate.nxtgensec.org/docs/themes/">
                 {language.t("common.learnMore")}
               </Link>
             </>

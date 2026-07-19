@@ -141,7 +141,6 @@ export const DESKTOP_MENU: DesktopMenu[] = [
     id: "view",
     label: "View",
     items: [
-      { type: "item", label: "Toggle Sidebar", command: "sidebar.toggle" },
       { type: "item", label: "Toggle Terminal", command: "terminal.toggle", accelerator: { macos: "Ctrl+`" } },
       { type: "item", label: "Toggle File Tree", command: "fileTree.toggle" },
       { type: "separator" },
@@ -200,7 +199,7 @@ export const DESKTOP_MENU: DesktopMenu[] = [
     id: "help",
     label: "Help",
     items: [
-      { type: "item", label: "AWMate Documentation", href: "https://awmate.ai/docs" },
+      { type: "item", label: "AWMate Documentation", href: "https://ai.awmate.nxtgensec.org/docs" },
       { type: "item", label: "Support Forum", href: "https://discord.com/invite/awmate" },
       { type: "item", label: "Export Logs...", command: "logs.export" },
       { type: "separator" },

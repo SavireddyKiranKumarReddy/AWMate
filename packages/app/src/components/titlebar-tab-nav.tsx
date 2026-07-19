@@ -276,7 +276,6 @@ export function TabNavItem(props: {
               "select-text": editing(),
             }}
             contenteditable={editing() ? true : undefined}
-            onDblClick={openRename}
             onKeyDown={(event) => {
               event.stopPropagation()
               if (event.key === "Enter") {

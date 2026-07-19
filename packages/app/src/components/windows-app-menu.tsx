@@ -4,6 +4,7 @@ import { Icon } from "@awmate/ui/icon"
 import { IconButton } from "@awmate/ui/icon-button"
 import { IconButtonV2 } from "@awmate/ui/v2/icon-button-v2"
 import { Icon as IconV2 } from "@awmate/ui/v2/icon"
+import { TooltipV2 } from "@awmate/ui/v2/tooltip-v2"
 
 import { useCommand } from "@/context/command"
 import { DESKTOP_MENU, desktopMenuVisible, type DesktopMenuAction, type DesktopMenuEntry } from "@/desktop-menu"
@@ -13,6 +14,7 @@ export function WindowsAppMenu(props: {
   command: ReturnType<typeof useCommand>
   platform: ReturnType<typeof usePlatform>
   variant?: "legacy" | "v2"
+  locked?: boolean
 }) {
   let lastFocused: HTMLElement | undefined
 
@@ -44,6 +46,27 @@ export function WindowsAppMenu(props: {
       return
     }
     if (entry.href) props.platform.openLink(entry.href)
+  }
+
+  if (props.locked && props.variant === "v2") {
+    return (
+      <TooltipV2 placement="bottom" value="Available after beta">
+        <div
+          data-component="desktop-icon-button"
+          data-locked="true"
+          class="flex h-7 w-9 shrink-0 cursor-not-allowed items-center justify-center rounded-[6px] px-1 opacity-70"
+        >
+          <IconButtonV2
+            variant="ghost-muted"
+            size="large"
+            icon={<IconV2 name="menu" />}
+            aria-label="AWMate menu unavailable"
+            aria-disabled="true"
+            tabIndex={-1}
+          />
+        </div>
+      </TooltipV2>
+    )
   }
 
   return (

@@ -389,6 +389,7 @@ export const useSessionCommands = (actions: SessionCommandContext) => {
   }
 
   const shareCmds = () => {
+    if (settings.general.newLayoutDesigns()) return []
     if (sync().data.config.share === "disabled") return []
     return [
       sessionCommand({

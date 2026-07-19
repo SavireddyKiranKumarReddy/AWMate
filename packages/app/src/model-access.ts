@@ -1,5 +1,5 @@
 export const MODEL_ACCESS = {
   displayName: "AWMate",
-  deniedMessage: "Not authorised to switch model",
+  deniedMessage: "Available after beta",
   canSwitch: false,
 } as const

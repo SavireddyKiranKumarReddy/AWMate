@@ -452,7 +452,7 @@ export const SettingsGeneral: Component = () => {
           description={
             <>
               {language.t("settings.general.row.theme.description")}{" "}
-              <Link href="https://awmate.ai/docs/themes/">{language.t("common.learnMore")}</Link>
+              <Link href="https://ai.awmate.nxtgensec.org/docs/themes/">{language.t("common.learnMore")}</Link>
             </>
           }
         >

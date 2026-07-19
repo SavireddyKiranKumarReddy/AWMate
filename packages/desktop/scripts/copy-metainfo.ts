@@ -32,7 +32,7 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
   <content_rating type="oars-1.1" />
 
   <url type="bugtracker">https://github.com/anomalyco/awmate/issues</url>
-  <url type="homepage">https://awmate.ai</url>
+  <url type="homepage">https://ai.awmate.nxtgensec.org</url>
   <url type="vcs-browser">https://github.com/anomalyco/awmate</url>
 
   <screenshots>

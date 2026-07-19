@@ -5,11 +5,10 @@ export const Mark = (props: { class?: string }) => {
     <svg
       data-component="logo-mark"
       classList={{ [props.class ?? ""]: !!props.class }}
-      viewBox="0 0 16 20"
-      fill="none"
+      viewBox="0 0 2000 2000"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect x="2" y="2" width="12" height="16" rx="2" fill="var(--icon-strong-base)" />
+      <BrandMark />
     </svg>
   )
 }
@@ -20,22 +19,34 @@ export const Splash = (props: Pick<ComponentProps<"svg">, "ref" | "class">) => {
       ref={props.ref}
       data-component="logo-splash"
       classList={{ [props.class ?? ""]: !!props.class }}
-      viewBox="0 0 80 100"
-      fill="none"
+      viewBox="0 0 2000 2000"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect x="10" y="10" width="60" height="80" rx="8" fill="var(--icon-strong-base)" />
+      <BrandMark />
     </svg>
+  )
+}
+
+function BrandMark() {
+  return (
+    <>
+      <rect width="2000" height="2000" fill="#000" />
+      <path
+        fill="#fff"
+        fill-rule="evenodd"
+        d="M538 575h135l257 637H775l-49-127H485l-46 127H280L538 575Zm68 196-72 185h145l-73-185Z"
+      />
+      <path
+        fill="#fff"
+        d="M820 575h161l112 437 117-437h109l113 437 116-437h159l-179 637h-162l-103-357-98 357h-165L820 575Z"
+      />
+    </>
   )
 }
 
 export const Logo = (props: { class?: string }) => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 160 36"
-      classList={{ [props.class ?? ""]: !!props.class }}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" classList={{ [props.class ?? ""]: !!props.class }}>
       <text
         x="0"
         y="28"

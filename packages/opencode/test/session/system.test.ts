@@ -90,6 +90,10 @@ describe("session.system", () => {
     )
   })
 
+  test("uses the AWMate identity for the Big Pickle model", () => {
+    expect(SystemPrompt.provider({ api: { id: "big-pickle" } } as Provider.Model)[0]).toContain("You are AWMate")
+  })
+
   it.effect("skills output is sorted by name and stable across calls", () =>
     Effect.gen(function* () {
       const prompt = yield* SystemPrompt.Service

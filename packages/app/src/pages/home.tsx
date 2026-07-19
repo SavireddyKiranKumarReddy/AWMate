@@ -540,34 +540,7 @@ export function NewHome() {
 
   return (
     <div class="rounded-[10px] shadow-[var(--v2-elevation-raised)] m-2 min-h-0 lg:overflow-hidden bg-v2-background-bg-base self-stretch flex-1">
-      <div class="mx-auto grid h-full w-full max-w-[1080px] grid-rows-[auto_minmax(0,1fr)_auto] gap-4 px-3 lg:grid-cols-[280px_minmax(0,720px)] lg:grid-rows-1 lg:gap-8 lg:px-6">
-        <HomeProjectColumn
-          projects={projects()}
-          recentlyClosed={recentlyClosed()}
-          homedir={homedir()}
-          selected={selection()}
-          focusServer={focusServer}
-          selectProject={selectProject}
-          openNewSession={openProjectNewSession}
-          openRecentProject={(conn, directory) => addProjects(conn, [directory])}
-          chooseProject={(conn) => void chooseProject(conn)}
-          editProject={editProject}
-          closeProject={(conn, directory) => {
-            const next = closeHomeProject(
-              selection(),
-              ServerConnection.key(conn),
-              global.ensureServerCtx(conn).projects,
-              directory,
-            )
-            if (next) setSelection(next)
-          }}
-          clearNotifications={clearNotifications}
-          unseenCount={unseenCount}
-          openSettings={openSettings}
-          openHelp={() => platform.openLink("https://awmate.ai/desktop-feedback")}
-          language={language}
-        />
-
+      <div class="mx-auto grid h-full w-full max-w-[900px] grid-rows-[minmax(0,1fr)_auto] gap-4 px-3 lg:grid-rows-1 lg:px-6">
         <section
           class="min-h-0 min-w-0 flex-1 flex flex-col pt-6 lg:pt-12 relative"
           aria-label={language.t("sidebar.project.recentSessions")}
@@ -656,7 +629,7 @@ export function NewHome() {
         <HomeUtilityNav
           class="flex lg:hidden"
           openSettings={openSettings}
-          openHelp={() => platform.openLink("https://awmate.ai/desktop-feedback")}
+          openHelp={() => platform.openLink("https://ai.awmate.nxtgensec.org/desktop-feedback")}
           language={language}
         />
       </div>
@@ -666,12 +639,15 @@ export function NewHome() {
 
 function HomeProjectColumn(props: {
   projects: LocalProject[]
+  sessions: HomeSessionRecord[]
   recentlyClosed: LocalProject[]
   homedir: string
   selected: HomeProjectSelection
   focusServer: (server: ServerConnection.Any) => void
   selectProject: (server: ServerConnection.Any, directory: string) => void
   openNewSession: (server: ServerConnection.Any, directory: string) => void
+  openSession: (session: Session, options?: OpenSessionOptions) => void
+  newChat: () => void
   openRecentProject: (server: ServerConnection.Any, directory: string) => void
   chooseProject: (server: ServerConnection.Any) => void
   editProject: (server: ServerConnection.Any, project: LocalProject) => void
@@ -696,12 +672,21 @@ function HomeProjectColumn(props: {
   )
 
   return (
-    <aside
-      class="mt-6 flex min-h-0 min-w-0 flex-col gap-4 overflow-hidden lg:mt-14 lg:pt-[52px]"
-      aria-label={props.language.t("home.projects")}
-    >
+    <aside class="mt-6 flex min-h-0 min-w-0 flex-col gap-4 overflow-hidden lg:mt-14 lg:pt-[52px]" aria-label="Chats">
+      <div class="flex shrink-0 flex-col gap-1 pr-3">
+        <div class="flex h-7 min-w-0 items-center px-1.5 text-v2-text-text-base [font-weight:530]">Chats</div>
+        <button
+          type="button"
+          data-action="home-sidebar-new-chat"
+          class={`${HOME_PROJECT_NAV_ROW} [&>[data-slot=icon-svg]]:text-v2-icon-icon-muted`}
+          onClick={props.newChat}
+        >
+          <IconV2 name="edit" size="small" />
+          <span class={HOME_PROJECT_NAV_LABEL}>New chat</span>
+        </button>
+      </div>
       <div class="flex h-7 min-w-0 shrink-0 items-center justify-between pl-1.5 pr-3">
-        <div class="text-v2-text-text-muted [font-weight:530]">{props.language.t("home.projects")}</div>
+        <div class="text-v2-text-text-muted [font-weight:530]">Folders</div>
         <Show
           when={global.servers.list().length === 1 && !(props.projects.length === 0 && props.recentlyClosed.length > 0)}
         >
@@ -910,9 +895,11 @@ function HomeServerRow(props: {
 function HomeProjectList(props: {
   server: ServerConnection.Any
   projects: LocalProject[]
+  sessions: HomeSessionRecord[]
   selected: HomeProjectSelection
   selectProject: (server: ServerConnection.Any, directory: string) => void
   openNewSession: (server: ServerConnection.Any, directory: string) => void
+  openSession: (session: Session, options?: OpenSessionOptions) => void
   editProject: (server: ServerConnection.Any, project: LocalProject) => void
   closeProject: (server: ServerConnection.Any, directory: string) => void
   clearNotifications: (server: ServerConnection.Any, project: LocalProject) => void
@@ -922,23 +909,31 @@ function HomeProjectList(props: {
   return (
     <div class="flex min-w-0 flex-col gap-1">
       <For each={props.projects}>
-        {(project) => (
-          <HomeProjectRow
-            project={project}
-            server={props.server}
-            selected={
-              props.selected.server === ServerConnection.key(props.server) &&
-              props.selected.directory === project.worktree
-            }
-            unseenCount={props.unseenCount(props.server, project)}
-            selectProject={props.selectProject}
-            openNewSession={props.openNewSession}
-            editProject={props.editProject}
-            closeProject={props.closeProject}
-            clearNotifications={props.clearNotifications}
-            language={props.language}
-          />
-        )}
+        {(project) => {
+          const sessions = () =>
+            props.selected.server === ServerConnection.key(props.server)
+              ? props.sessions.filter((record) => record.project.worktree === project.worktree)
+              : []
+          return (
+            <HomeProjectRow
+              project={project}
+              server={props.server}
+              selected={
+                props.selected.server === ServerConnection.key(props.server) &&
+                props.selected.directory === project.worktree
+              }
+              sessions={sessions()}
+              unseenCount={props.unseenCount(props.server, project)}
+              selectProject={props.selectProject}
+              openNewSession={props.openNewSession}
+              openSession={props.openSession}
+              editProject={props.editProject}
+              closeProject={props.closeProject}
+              clearNotifications={props.clearNotifications}
+              language={props.language}
+            />
+          )
+        }}
       </For>
     </div>
   )
@@ -1021,9 +1016,11 @@ function HomeProjectRow(props: {
   project: LocalProject
   server: ServerConnection.Any
   selected: boolean
+  sessions: HomeSessionRecord[]
   unseenCount: number
   selectProject: (server: ServerConnection.Any, directory: string) => void
   openNewSession: (server: ServerConnection.Any, directory: string) => void
+  openSession: (session: Session, options?: OpenSessionOptions) => void
   editProject: (server: ServerConnection.Any, project: LocalProject) => void
   closeProject: (server: ServerConnection.Any, directory: string) => void
   clearNotifications: (server: ServerConnection.Any, project: LocalProject) => void
@@ -1049,70 +1046,86 @@ function HomeProjectRow(props: {
     )
   }
   return (
-    <div class="group/project relative flex h-7 min-w-0 items-center rounded-[6px]">
-      <button
-        type="button"
-        data-component="home-project-row"
-        class={`${HOME_PROJECT_NAV_ROW} pr-16 disabled:opacity-60`}
-        data-selected={props.selected ? "" : undefined}
-        aria-current={props.selected ? "page" : undefined}
-        disabled={serverUnreachable()}
-        onClick={() => props.selectProject(props.server, props.project.worktree)}
-      >
-        <HomeProjectAvatar project={props.project} />
-        <span class={HOME_PROJECT_NAV_LABEL}>{displayName(props.project)}</span>
-      </button>
-      <div
-        class="hover-reveal absolute right-1 top-1/2 flex -translate-y-1/2 items-center gap-1 group-hover/project:opacity-100 focus-within:opacity-100 data-[menu=true]:opacity-100"
-        data-menu={state.menuOpen}
-      >
-        <MenuV2
-          gutter={6}
-          modal={false}
-          placement="bottom-end"
-          open={state.menuOpen}
-          onOpenChange={(open) => setState("menuOpen", open)}
+    <div class="flex min-w-0 flex-col gap-px">
+      <div class="group/project relative flex h-7 min-w-0 items-center rounded-[6px]">
+        <button
+          type="button"
+          data-component="home-project-row"
+          class={`${HOME_PROJECT_NAV_ROW} pr-16 disabled:opacity-60`}
+          data-selected={props.selected ? "" : undefined}
+          aria-current={props.selected ? "page" : undefined}
+          disabled={serverUnreachable()}
+          onClick={() => props.selectProject(props.server, props.project.worktree)}
         >
-          <MenuV2.Trigger
-            as={IconButtonV2}
-            data-action="home-project-menu"
+          <IconV2 name="folder" size="small" />
+          <span class={HOME_PROJECT_NAV_LABEL}>{displayName(props.project)}</span>
+        </button>
+        <div
+          class="hover-reveal absolute right-1 top-1/2 flex -translate-y-1/2 items-center gap-1 group-hover/project:opacity-100 focus-within:opacity-100 data-[menu=true]:opacity-100"
+          data-menu={state.menuOpen}
+        >
+          <MenuV2
+            gutter={6}
+            modal={false}
+            placement="bottom-end"
+            open={state.menuOpen}
+            onOpenChange={(open) => setState("menuOpen", open)}
+          >
+            <MenuV2.Trigger
+              as={IconButtonV2}
+              data-action="home-project-menu"
+              variant="ghost-muted"
+              size="small"
+              icon={<IconV2 name="outline-dots" />}
+              aria-label={props.language.t("common.moreOptions")}
+            />
+            <MenuV2.Portal>
+              <MenuV2.Content>
+                <MenuV2.Item onSelect={() => props.openNewSession(props.server, props.project.worktree)}>
+                  {props.language.t("command.session.new")}
+                </MenuV2.Item>
+                <MenuV2.Item onSelect={() => props.editProject(props.server, props.project)}>
+                  {props.language.t("dialog.project.edit.title")}
+                </MenuV2.Item>
+                <Show when={canRevealInFileManager()}>
+                  <MenuV2.Item onSelect={revealInFileManager}>{fileManagerActionLabel()}</MenuV2.Item>
+                </Show>
+                <MenuV2.Item
+                  disabled={props.unseenCount === 0}
+                  onSelect={() => props.clearNotifications(props.server, props.project)}
+                >
+                  {props.language.t("sidebar.project.clearNotifications")}
+                </MenuV2.Item>
+                <MenuV2.Separator />
+                <MenuV2.Item onSelect={() => props.closeProject(props.server, props.project.worktree)}>
+                  {props.language.t("common.close")}
+                </MenuV2.Item>
+              </MenuV2.Content>
+            </MenuV2.Portal>
+          </MenuV2>
+          <IconButtonV2
+            data-action="home-project-new-session"
             variant="ghost-muted"
             size="small"
-            icon={<IconV2 name="outline-dots" />}
-            aria-label={props.language.t("common.moreOptions")}
+            icon={<IconV2 name="edit" />}
+            aria-label={props.language.t("command.session.new")}
+            onClick={() => props.openNewSession(props.server, props.project.worktree)}
           />
-          <MenuV2.Portal>
-            <MenuV2.Content>
-              <MenuV2.Item onSelect={() => props.openNewSession(props.server, props.project.worktree)}>
-                {props.language.t("command.session.new")}
-              </MenuV2.Item>
-              <MenuV2.Item onSelect={() => props.editProject(props.server, props.project)}>
-                {props.language.t("dialog.project.edit.title")}
-              </MenuV2.Item>
-              <Show when={canRevealInFileManager()}>
-                <MenuV2.Item onSelect={revealInFileManager}>{fileManagerActionLabel()}</MenuV2.Item>
-              </Show>
-              <MenuV2.Item
-                disabled={props.unseenCount === 0}
-                onSelect={() => props.clearNotifications(props.server, props.project)}
-              >
-                {props.language.t("sidebar.project.clearNotifications")}
-              </MenuV2.Item>
-              <MenuV2.Separator />
-              <MenuV2.Item onSelect={() => props.closeProject(props.server, props.project.worktree)}>
-                {props.language.t("common.close")}
-              </MenuV2.Item>
-            </MenuV2.Content>
-          </MenuV2.Portal>
-        </MenuV2>
-        <IconButtonV2
-          data-action="home-project-new-session"
-          variant="ghost-muted"
-          size="small"
-          icon={<IconV2 name="edit" />}
-          aria-label={props.language.t("command.session.new")}
-          onClick={() => props.openNewSession(props.server, props.project.worktree)}
-        />
+        </div>
+      </div>
+      <div class="ml-7 flex min-w-0 flex-col gap-px">
+        <For each={props.sessions}>
+          {(record) => (
+            <button
+              type="button"
+              data-component="home-project-session-row"
+              class={`${HOME_PROJECT_NAV_ROW} text-v2-text-text-faint`}
+              onClick={(event) => props.openSession(record.session, { background: isBackgroundOpen(event) })}
+            >
+              <span class={HOME_PROJECT_NAV_LABEL}>{sessionTitle(record.session.title) || record.session.id}</span>
+            </button>
+          )}
+        </For>
       </div>
     </div>
   )

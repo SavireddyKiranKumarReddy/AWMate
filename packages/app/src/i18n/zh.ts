@@ -165,7 +165,7 @@ export const dict = {
   "provider.connect.opencodeZen.line1": "AWMate Zen 为你提供一组精选的可靠优化模型，用于代码智能体。",
   "provider.connect.opencodeZen.line2": "只需一个 API 密钥，你就能使用 Claude、GPT、Gemini、GLM 等模型。",
   "provider.connect.opencodeZen.visit.prefix": "访问 ",
-  "provider.connect.opencodeZen.visit.link": "awmate.ai/zen",
+  "provider.connect.opencodeZen.visit.link": "ai.awmate.nxtgensec.org/zen",
   "provider.connect.opencodeZen.visit.suffix": " 获取你的 API 密钥。",
   "provider.connect.oauth.code.visit.prefix": "访问 ",
   "provider.connect.oauth.code.visit.link": "此链接",

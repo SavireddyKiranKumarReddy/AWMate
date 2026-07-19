@@ -5,7 +5,7 @@ describe("model access", () => {
   test("keeps the model selector branded and locked", () => {
     expect(MODEL_ACCESS).toEqual({
       displayName: "AWMate",
-      deniedMessage: "Not authorised to switch model",
+      deniedMessage: "Available after beta",
       canSwitch: false,
     })
   })

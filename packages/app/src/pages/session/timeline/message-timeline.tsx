@@ -34,7 +34,7 @@ import { IconButton } from "@awmate/ui/icon-button"
 import { Icon as IconV2 } from "@awmate/ui/v2/icon"
 import { IconButtonV2 } from "@awmate/ui/v2/icon-button-v2"
 import { DropdownMenu } from "@awmate/ui/dropdown-menu"
-import { MenuV2 } from "@awmate/ui/v2/menu-v2"
+import { TooltipV2 } from "@awmate/ui/v2/tooltip-v2"
 import { Dialog } from "@awmate/ui/dialog"
 import { DialogFooter, DialogHeader, DialogTitleGroup, DialogV2 } from "@awmate/ui/v2/dialog-v2"
 import { InlineInput } from "@awmate/ui/inline-input"
@@ -45,13 +45,7 @@ import { StickyAccordionHeader } from "@awmate/ui/sticky-accordion-header"
 import { TextField } from "@awmate/ui/text-field"
 import { TextReveal } from "@awmate/ui/text-reveal"
 import { TextShimmer } from "@awmate/ui/text-shimmer"
-import type {
-  AssistantMessage,
-  Message as MessageType,
-  Part as PartType,
-  ToolPart,
-  UserMessage,
-} from "@awmate/sdk/v2"
+import type { AssistantMessage, Message as MessageType, Part as PartType, ToolPart, UserMessage } from "@awmate/sdk/v2"
 import { showToast } from "@/utils/toast"
 import { getDirectory, getFilename } from "@awmate/core/util/path"
 import { Popover as KobaltePopover } from "@kobalte/core/popover"
@@ -1428,7 +1422,8 @@ export function MessageTimeline(props: {
                               settings.general.newLayoutDesigns(),
                             "grow-1 min-w-0": !settings.general.newLayoutDesigns(),
                           }}
-                          onClick={openTitleEditor}
+                          onClick={settings.general.newLayoutDesigns() ? undefined : openTitleEditor}
+                          aria-disabled={settings.general.newLayoutDesigns() ? "true" : undefined}
                         >
                           {childTitle()}
                         </h1>
@@ -1563,73 +1558,22 @@ export function MessageTimeline(props: {
                           </DropdownMenu>
                         }
                       >
-                        <MenuV2
-                          gutter={6}
-                          placement="bottom-end"
-                          open={title.menuOpen}
-                          onOpenChange={(open) => {
-                            setTitle("menuOpen", open)
-                            if (open) return
-                          }}
-                        >
-                          <MenuV2.Trigger
-                            as={IconButtonV2}
+                        <TooltipV2 placement="bottom-end" value="Available after beta">
+                          <IconButtonV2
+                            data-action="session-menu-locked"
+                            data-locked="true"
                             icon={<IconV2 name="outline-dots" />}
                             variant="ghost-muted"
                             size="large"
-                            state={share.open || title.pendingShare ? "pressed" : undefined}
-                            aria-label={language.t("common.moreOptions")}
-                            aria-expanded={title.menuOpen || share.open || title.pendingShare}
+                            class="cursor-not-allowed opacity-70"
+                            aria-label="Chat options unavailable"
+                            aria-disabled="true"
+                            tabIndex={-1}
                             ref={(el: HTMLButtonElement) => {
                               more = el
                             }}
                           />
-                          <MenuV2.Portal>
-                            <MenuV2.Content
-                              style={{ width: "120px", "min-width": "120px" }}
-                              onCloseAutoFocus={(event) => {
-                                if (title.pendingRename) {
-                                  event.preventDefault()
-                                  setTitle("pendingRename", false)
-                                  openTitleEditor()
-                                  return
-                                }
-                                if (title.pendingShare) {
-                                  event.preventDefault()
-                                  requestAnimationFrame(() => {
-                                    setShare({ open: true, dismiss: null })
-                                    setTitle("pendingShare", false)
-                                  })
-                                }
-                              }}
-                            >
-                              <MenuV2.Item
-                                onSelect={() => {
-                                  setTitle("pendingRename", true)
-                                  setTitle("menuOpen", false)
-                                }}
-                              >
-                                {language.t("common.rename")}
-                              </MenuV2.Item>
-                              <Show when={shareEnabled()}>
-                                <MenuV2.Item
-                                  onSelect={() => {
-                                    setTitle({ pendingShare: true, menuOpen: false })
-                                  }}
-                                >
-                                  {language.t("session.share.action.share")}...
-                                </MenuV2.Item>
-                              </Show>
-                              <MenuV2.Item onSelect={() => void archiveSession(id)}>
-                                {language.t("common.archive")}
-                              </MenuV2.Item>
-                              <MenuV2.Separator />
-                              <MenuV2.Item onSelect={() => dialog.show(() => <DialogDeleteSession sessionID={id} />)}>
-                                {language.t("common.delete")}...
-                              </MenuV2.Item>
-                            </MenuV2.Content>
-                          </MenuV2.Portal>
-                        </MenuV2>
+                        </TooltipV2>
                       </Show>
 
                       <KobaltePopover

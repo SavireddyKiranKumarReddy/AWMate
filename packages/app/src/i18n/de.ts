@@ -133,7 +133,7 @@ export const dict = {
   "provider.connect.opencodeZen.line2":
     "Mit einem einzigen API-Schlüssel erhalten Sie Zugriff auf Modelle wie Claude, GPT, Gemini, GLM und mehr.",
   "provider.connect.opencodeZen.visit.prefix": "Besuchen Sie ",
-  "provider.connect.opencodeZen.visit.link": "awmate.ai/zen",
+  "provider.connect.opencodeZen.visit.link": "ai.awmate.nxtgensec.org/zen",
   "provider.connect.opencodeZen.visit.suffix": ", um Ihren API-Schlüssel zu erhalten.",
   "provider.connect.oauth.code.visit.prefix": "Besuchen Sie ",
   "provider.connect.oauth.code.visit.link": "diesen Link",
@@ -718,8 +718,7 @@ export const dict = {
   "settings.general.row.appearance.title": "Erscheinungsbild",
   "settings.general.row.appearance.description": "Anpassen, wie AWMate auf Ihrem Gerät aussieht",
   "settings.general.row.colorScheme.title": "Farbschema",
-  "settings.general.row.colorScheme.description":
-    "Wählen Sie, ob AWMate dem System-, hellen oder dunklen Thema folgt",
+  "settings.general.row.colorScheme.description": "Wählen Sie, ob AWMate dem System-, hellen oder dunklen Thema folgt",
   "settings.general.row.theme.title": "Thema",
   "settings.general.row.theme.description": "Das Thema von AWMate anpassen.",
   "settings.general.row.font.title": "Code-Schriftart",

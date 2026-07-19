@@ -81,6 +81,7 @@ import {
   type WorkspaceSidebarContext,
 } from "./layout/sidebar-workspace"
 import { ProjectDragOverlay, SortableProject, type ProjectSidebarContext } from "./layout/sidebar-project"
+import { ChatsSidebar } from "./layout/sidebar-chats"
 import { SidebarContent } from "./layout/sidebar-shell"
 
 export default function LegacyLayout(props: ParentProps) {
@@ -896,13 +897,6 @@ export default function LegacyLayout(props: ParentProps) {
 
   command.register("layout", () => {
     const commands: CommandOption[] = [
-      {
-        id: "sidebar.toggle",
-        title: language.t("command.sidebar.toggle"),
-        category: language.t("command.category.view"),
-        keybind: "mod+b",
-        onSelect: () => layout.sidebar.toggle(),
-      },
       {
         id: "project.open",
         title: language.t("command.project.open"),
@@ -2238,10 +2232,24 @@ export default function LegacyLayout(props: ParentProps) {
       settingsKeybind={() => command.keybind("settings.open")}
       onOpenSettings={openSettings}
       helpLabel={() => language.t("sidebar.help")}
-      onOpenHelp={() => platform.openLink("https://awmate.ai/desktop-feedback")}
-      renderPanel={() =>
-        mobile ? <SidebarPanel project={currentProject} mobile /> : <SidebarPanel project={currentProject} merged />
-      }
+      onOpenHelp={() => platform.openLink("https://ai.awmate.nxtgensec.org/desktop-feedback")}
+      renderPanel={() => (
+        <ChatsSidebar
+          projects={projects}
+          ctx={projectSidebarCtx}
+          sortNow={sortNow}
+          mobile={mobile}
+          onNewChat={() => {
+            const project = currentProject()
+            if (!project) {
+              chooseProject()
+              return
+            }
+            navigateWithSidebarReset(`/${base64Encode(project.worktree)}/session`)
+          }}
+          onOpenProject={chooseProject}
+        />
+      )}
     />
   )
 
