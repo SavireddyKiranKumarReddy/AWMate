@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://awmate.ai">
+  <a href="https://ai.awmate.nxtgensec.org">
     <picture>
       <source srcset="packages/console/app/src/asset/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
       <source srcset="packages/console/app/src/asset/logo-ornate-light.svg" media="(prefers-color-scheme: light)">
@@ -9,7 +9,7 @@
 </p>
 <p align="center">وكيل برمجة بالذكاء الاصطناعي مفتوح المصدر.</p>
 <p align="center">
-  <a href="https://awmate.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
+  <a href="https://ai.awmate.nxtgensec.org/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
   <a href="https://www.npmjs.com/package/awmate-ai"><img alt="npm" src="https://img.shields.io/npm/v/awmate-ai?style=flat-square" /></a>
   <a href="https://github.com/anomalyco/awmate/actions/workflows/publish.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/anomalyco/awmate/publish.yml?style=flat-square&branch=dev" /></a>
 </p>
@@ -39,7 +39,7 @@
   <a href="README.vi.md">Tiếng Việt</a>
 </p>
 
-[![AWMate Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://awmate.ai)
+[![AWMate Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://ai.awmate.nxtgensec.org)
 
 ---
 
@@ -47,7 +47,7 @@
 
 ```bash
 # YOLO
-curl -fsSL https://awmate.ai/install | bash
+curl -fsSL https://ai.awmate.nxtgensec.org/install | bash
 
 # مديري الحزم
 npm i -g awmate-ai@latest        # او bun/pnpm/yarn
@@ -66,7 +66,7 @@ nix run nixpkgs#opencode           # او github:anomalyco/awmate لاحدث ف�
 
 ### تطبيق سطح المكتب (BETA)
 
-يتوفر AWMate ايضا كتطبيق سطح مكتب. قم بالتنزيل مباشرة من [صفحة الاصدارات](https://github.com/anomalyco/awmate/releases) او من [opencode.ai/download](https://awmate.ai/download).
+يتوفر AWMate ايضا كتطبيق سطح مكتب. قم بالتنزيل مباشرة من [صفحة الاصدارات](https://github.com/anomalyco/awmate/releases) او من [opencode.ai/download](https://ai.awmate.nxtgensec.org/download).
 
 | المنصة                | التنزيل                            |
 | --------------------- | ---------------------------------- |
@@ -93,8 +93,8 @@ scoop bucket add extras; scoop install extras/awmate-desktop
 
 ```bash
 # امثلة
-AWMATE_INSTALL_DIR=/usr/local/bin curl -fsSL https://awmate.ai/install | bash
-XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://awmate.ai/install | bash
+AWMATE_INSTALL_DIR=/usr/local/bin curl -fsSL https://ai.awmate.nxtgensec.org/install | bash
+XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://ai.awmate.nxtgensec.org/install | bash
 ```
 
 ### Agents
@@ -110,11 +110,11 @@ XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://awmate.ai/install | bash
 بالاضافة الى ذلك يوجد وكيل فرعي **general** للبحث المعقد والمهام متعددة الخطوات.
 يستخدم داخليا ويمكن استدعاؤه بكتابة `@general` في الرسائل.
 
-تعرف على المزيد حول [agents](https://awmate.ai/docs/agents).
+تعرف على المزيد حول [agents](https://ai.awmate.nxtgensec.org/docs/agents).
 
 ### التوثيق
 
-لمزيد من المعلومات حول كيفية ضبط AWMate، [**راجع التوثيق**](https://awmate.ai/docs).
+لمزيد من المعلومات حول كيفية ضبط AWMate، [**راجع التوثيق**](https://ai.awmate.nxtgensec.org/docs).
 
 ### المساهمة
 

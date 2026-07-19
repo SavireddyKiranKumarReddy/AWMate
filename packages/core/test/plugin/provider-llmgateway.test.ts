@@ -46,7 +46,7 @@ describe("LLMGatewayPlugin", () => {
       yield* addPlugin()
       expect((yield* catalog.provider.get(ProviderV2.ID.make("llmgateway")))?.request.headers).toEqual({
         Existing: "value",
-        "HTTP-Referer": "https://awmate.ai/",
+        "HTTP-Referer": "https://ai.awmate.nxtgensec.org/",
         "X-Title": "awmate",
         "X-Source": "awmate",
       })

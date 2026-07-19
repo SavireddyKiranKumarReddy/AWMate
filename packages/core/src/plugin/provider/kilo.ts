@@ -11,7 +11,7 @@ export const KiloPlugin = define({
           if (item.provider.api.package !== "@ai-sdk/openai-compatible") continue
           if (item.provider.api.url !== "https://api.kilo.ai/api/gateway") continue
           evt.provider.update(item.provider.id, (provider) => {
-            provider.request.headers["HTTP-Referer"] = "https://awmate.ai/"
+            provider.request.headers["HTTP-Referer"] = "https://ai.awmate.nxtgensec.org/"
             provider.request.headers["X-Title"] = "opencode"
           })
         }

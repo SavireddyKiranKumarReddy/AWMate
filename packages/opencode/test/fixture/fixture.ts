@@ -96,7 +96,7 @@ export async function tmpdir<T>(options?: TmpDirOptions<T>) {
     await Bun.write(
       path.join(dirpath, "awmate.json"),
       JSON.stringify({
-        $schema: "https://awmate.ai/config.json",
+        $schema: "https://ai.awmate.nxtgensec.org/config.json",
         ...options.config,
       }),
     )
@@ -154,7 +154,7 @@ export function tmpdirScoped<E = never, R = never>(options?: {
       yield* Effect.promise(() =>
         fs.writeFile(
           path.join(dir, "awmate.json"),
-          JSON.stringify({ $schema: "https://awmate.ai/config.json", ...resolved }),
+          JSON.stringify({ $schema: "https://ai.awmate.nxtgensec.org/config.json", ...resolved }),
         ),
       )
     }

@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://awmate.ai">
+  <a href="https://ai.awmate.nxtgensec.org">
     <picture>
       <source srcset="packages/console/app/src/asset/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
       <source srcset="packages/console/app/src/asset/logo-ornate-light.svg" media="(prefers-color-scheme: light)">
@@ -9,7 +9,7 @@
 </p>
 <p align="center">AI-kodeagent med åpen kildekode.</p>
 <p align="center">
-  <a href="https://awmate.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
+  <a href="https://ai.awmate.nxtgensec.org/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
   <a href="https://www.npmjs.com/package/awmate-ai"><img alt="npm" src="https://img.shields.io/npm/v/awmate-ai?style=flat-square" /></a>
   <a href="https://github.com/anomalyco/awmate/actions/workflows/publish.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/anomalyco/awmate/publish.yml?style=flat-square&branch=dev" /></a>
 </p>
@@ -39,7 +39,7 @@
   <a href="README.vi.md">Tiếng Việt</a>
 </p>
 
-[![AWMate Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://awmate.ai)
+[![AWMate Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://ai.awmate.nxtgensec.org)
 
 ---
 
@@ -47,7 +47,7 @@
 
 ```bash
 # YOLO
-curl -fsSL https://awmate.ai/install | bash
+curl -fsSL https://ai.awmate.nxtgensec.org/install | bash
 
 # Pakkehåndterere
 npm i -g awmate-ai@latest        # eller bun/pnpm/yarn
@@ -66,7 +66,7 @@ nix run nixpkgs#opencode           # eller github:anomalyco/awmate for nyeste de
 
 ### Desktop-app (BETA)
 
-AWMate er også tilgjengelig som en desktop-app. Last ned direkte fra [releases-siden](https://github.com/anomalyco/awmate/releases) eller [opencode.ai/download](https://awmate.ai/download).
+AWMate er også tilgjengelig som en desktop-app. Last ned direkte fra [releases-siden](https://github.com/anomalyco/awmate/releases) eller [opencode.ai/download](https://ai.awmate.nxtgensec.org/download).
 
 | Plattform             | Nedlasting                         |
 | --------------------- | ---------------------------------- |
@@ -93,8 +93,8 @@ Installasjonsskriptet bruker følgende prioritet for installasjonsstien:
 
 ```bash
 # Eksempler
-AWMATE_INSTALL_DIR=/usr/local/bin curl -fsSL https://awmate.ai/install | bash
-XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://awmate.ai/install | bash
+AWMATE_INSTALL_DIR=/usr/local/bin curl -fsSL https://ai.awmate.nxtgensec.org/install | bash
+XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://ai.awmate.nxtgensec.org/install | bash
 ```
 
 ### Agents
@@ -110,11 +110,11 @@ AWMate har to innebygde agents du kan bytte mellom med `Tab`-tasten.
 Det finnes også en **general**-subagent for komplekse søk og flertrinnsoppgaver.
 Den brukes internt og kan kalles via `@general` i meldinger.
 
-Les mer om [agents](https://awmate.ai/docs/agents).
+Les mer om [agents](https://ai.awmate.nxtgensec.org/docs/agents).
 
 ### Dokumentasjon
 
-For mer info om hvordan du konfigurerer AWMate, [**se dokumentasjonen**](https://awmate.ai/docs).
+For mer info om hvordan du konfigurerer AWMate, [**se dokumentasjonen**](https://ai.awmate.nxtgensec.org/docs).
 
 ### Bidra
 

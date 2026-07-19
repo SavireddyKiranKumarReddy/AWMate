@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://awmate.ai/desktop-theme.json",
+  "$id": "https://ai.awmate.nxtgensec.org/desktop-theme.json",
   "title": "AWMate Desktop Theme",
   "description": "A theme definition for the AWMate desktop application",
   "type": "object",

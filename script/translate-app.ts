@@ -145,7 +145,7 @@ export function modelVariants(output: string, model: string) {
 
 export function translationConfig(agent: string, model: string, targets: string[]) {
   return {
-    $schema: "https://awmate.ai/config.json",
+    $schema: "https://ai.awmate.nxtgensec.org/config.json",
     model,
     default_agent: agent,
     share: "disabled" as const,

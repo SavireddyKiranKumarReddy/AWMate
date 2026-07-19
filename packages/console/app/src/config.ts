@@ -3,7 +3,7 @@
  */
 export const config = {
   // Base URL
-  baseUrl: "https://awmate.ai",
+  baseUrl: "https://ai.awmate.nxtgensec.org",
 
   // GitHub
   github: {

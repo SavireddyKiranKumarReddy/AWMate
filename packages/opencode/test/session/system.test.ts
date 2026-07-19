@@ -91,7 +91,10 @@ describe("session.system", () => {
   })
 
   test("uses the AWMate identity for the Big Pickle model", () => {
-    expect(SystemPrompt.provider({ api: { id: "big-pickle" } } as Provider.Model)[0]).toContain("You are AWMate")
+    const prompt = SystemPrompt.provider({ api: { id: "big-pickle" } } as Provider.Model)[0]
+    expect(prompt).toContain("You are AWMate")
+    expect(prompt).toContain("powered by NxtGenSec (Next Generation Security)")
+    expect(prompt).not.toContain("big-pickle")
   })
 
   it.effect("skills output is sorted by name and stable across calls", () =>

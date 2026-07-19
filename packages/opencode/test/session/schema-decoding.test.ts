@@ -240,7 +240,7 @@ describe("SessionStatus.Info", () => {
         title: "Free limit reached",
         message: "Subscribe to AWMate Go.",
         label: "subscribe",
-        link: "https://awmate.ai/go",
+        link: "https://ai.awmate.nxtgensec.org/go",
       },
       next: 500,
     }

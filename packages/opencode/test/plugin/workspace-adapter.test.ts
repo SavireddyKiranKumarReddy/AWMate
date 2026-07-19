@@ -74,7 +74,7 @@ describe("plugin.workspace", () => {
           path.join(dir, "awmate.json"),
           JSON.stringify(
             {
-              $schema: "https://awmate.ai/config.json",
+              $schema: "https://ai.awmate.nxtgensec.org/config.json",
               plugin: [pathToFileURL(file).href],
             },
             null,

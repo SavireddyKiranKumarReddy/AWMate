@@ -1,7 +1,7 @@
 {
   "name": "@awmate/desktop",
   "private": true,
-  "version": "1.17.20",
+  "version": "1.17.21",
   "type": "module",
   "license": "MIT",
   "homepage": "https://ai.awmate.nxtgensec.org",
@@ -24,6 +24,7 @@
   },
   "main": "./out/main/index.js",
   "dependencies": {
+    "@supabase/supabase-js": "2.57.4",
     "@zip.js/zip.js": "2.7.62",
     "effect": "catalog:",
     "electron-context-menu": "4.1.2",

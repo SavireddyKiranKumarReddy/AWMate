@@ -69,7 +69,7 @@ const notify: Platform["notify"] = async (title, description, href) => {
 
   const notification = new Notification(title, {
     body: description ?? "",
-    icon: "https://awmate.ai/favicon-96x96-v3.png",
+    icon: "https://ai.awmate.nxtgensec.org/favicon-96x96-v3.png",
   })
 
   notification.onclick = () => {

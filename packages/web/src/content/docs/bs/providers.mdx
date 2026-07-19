@@ -35,7 +35,7 @@ Možete prilagoditi osnovni URL za bilo kojeg provajdera postavljanjem opcije `b
 
 ```json title="awmate.json" {6}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "anthropic": {
       "options": {
@@ -57,7 +57,7 @@ testirano i potvrđeno da dobro radi sa AWMate. [Saznajte više](/docs/zen).
 Ako ste novi, preporučujemo da počnete sa AWMate Zen.
 :::
 
-1. Pokrenite naredbu `/connect` u TUI-u, odaberite AWMate i idite na [AWMate.ai/auth](https://awmate.ai/auth).
+1. Pokrenite naredbu `/connect` u TUI-u, odaberite AWMate i idite na [ai.awmate.nxtgensec.org/auth](https://ai.awmate.nxtgensec.org/auth).
 
 ```txt
    /connect
@@ -88,7 +88,7 @@ Radi kao i svaki drugi provajder u AWMate i potpuno je opcionalan za korištenje
 
 AWMate Go je jeftin plan pretplate koji pruža pouzdan pristup popularnim modelima otvorenog kodiranja koje pruža AWMate tim i koji su testirani i verificirani da dobro rade s AWMate-om.
 
-1. Pokrenite naredbu `/connect` u TUI-u, odaberite `AWMate Go` i idite na [AWMate.ai/auth](https://awmate.ai/zen).
+1. Pokrenite naredbu `/connect` u TUI-u, odaberite `AWMate Go` i idite na [ai.awmate.nxtgensec.org/auth](https://ai.awmate.nxtgensec.org/zen).
 
    ```txt
    /connect
@@ -194,7 +194,7 @@ Za konfiguraciju specifičnu za projekat ili trajnu konfiguraciju, koristite `aw
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "amazon-bedrock": {
       "options": {
@@ -222,7 +222,7 @@ Ako koristite VPC krajnje tačke za Bedrock:
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "amazon-bedrock": {
       "options": {
@@ -268,7 +268,7 @@ Za prilagođene profile zaključivanja, koristite ime modela i dobavljača u klj
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "amazon-bedrock": {
       // ...
@@ -330,7 +330,7 @@ Možete konfigurirati AWMate za korištenje lokalnih modela preko [Atomic Chata]
 
 ```json title="awmate.json" "atomic-chat" {5, 6, 8, 10-14}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "atomic-chat": {
       "npm": "@ai-sdk/openai-compatible",
@@ -558,7 +558,7 @@ Također možete dodati modele kroz svoju AWMate konfiguraciju.
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "cloudflare-ai-gateway": {
       "models": {
@@ -766,7 +766,7 @@ da biste koristili samo svoju vlastitu instancu koju hostuje GitLab, dodajte slj
 
 ```json
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "small_model": "gitlab/duo-chat-haiku-4-5",
   "share": "disabled"
 }
@@ -828,7 +828,7 @@ Prilagodite putem `awmate.json`:
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "gitlab": {
       "options": {
@@ -845,7 +845,7 @@ Za pristup GitLab alatima (zahtjevi za spajanje, problemi, cjevovodi, CI/CD, itd
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "plugin": ["AWMate-gitlab-plugin"]
 }
 ```
@@ -1028,7 +1028,7 @@ Evo [Heliconeov katalog modela](https://helicone.ai/models), ovo će vam trebati
 
 ```jsonc title="~/.config/awmate/awmate.jsonc"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "helicone": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1056,7 +1056,7 @@ Helicone podržava prilagođena zaglavlja za funkcije kao što su keširanje, pr
 
 ```jsonc title="~/.config/awmate/awmate.jsonc"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "helicone": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1110,7 +1110,7 @@ Možete konfigurirati AWMate za korištenje lokalnih modela putem [llama.cpp's](
 
 ```json title="awmate.json" "llama.cpp" {5, 6, 8, 10-15}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "llama.cpp": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1177,7 +1177,7 @@ Možete konfigurirati AWMate za korištenje lokalnih modela preko LM Studio.
 
 ```json title="awmate.json" "lmstudio" {5, 6, 8, 10-14}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "lmstudio": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1298,7 +1298,7 @@ Ollama se može automatski konfigurirati za AWMate. Pogledajte [Ollama integraci
 
 ```json title="awmate.json" "ollama" {5, 6, 8, 10-14}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1460,7 +1460,7 @@ Također možete dodati dodatne modele putem vaše AWMate konfiguracije.
 
 ```json title="awmate.json" {6}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "openrouter": {
       "models": {
@@ -1475,7 +1475,7 @@ Također možete dodati dodatne modele putem vaše AWMate konfiguracije.
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "openrouter": {
       "models": {
@@ -1724,7 +1724,7 @@ Također možete prilagoditi modele kroz svoju AWMate konfiguraciju. Evo primjer
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "vercel": {
       "models": {
@@ -1834,7 +1834,7 @@ Također možete dodati dodatne modele putem vaše AWMate konfiguracije.
 
 ```json title="awmate.json" {6}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "zenmux": {
       "models": {
@@ -1902,7 +1902,7 @@ Odaberite ID koji se pamti, to ćete koristiti u svom konfiguracijskom fajlu.
 
 ```json title="awmate.json" ""myprovider"" {5-15}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "myprovider": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1941,7 +1941,7 @@ Evo primjera postavljanja opcija `apiKey`, `headers` i modela `limit`.
 
 ```json title="awmate.json" {9,11,17-20}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "myprovider": {
       "npm": "@ai-sdk/openai-compatible",

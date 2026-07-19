@@ -147,7 +147,7 @@ export namespace User {
             // @ts-ignore
             InviteEmail({
               inviter: emailInfo.inviterEmail,
-              assetsUrl: `https://awmate.ai/email`,
+              assetsUrl: `https://ai.awmate.nxtgensec.org/email`,
               workspaceID: workspaceID,
               workspaceName: emailInfo.workspaceName,
             }),

@@ -33607,9 +33607,9 @@
     "id": "opencode-go",
     "env": ["AWMATE_API_KEY"],
     "npm": "@ai-sdk/openai-compatible",
-    "api": "https://awmate.ai/zen/go/v1",
+    "api": "https://ai.awmate.nxtgensec.org/zen/go/v1",
     "name": "AWMate Go",
-    "doc": "https://awmate.ai/docs/zen",
+    "doc": "https://ai.awmate.nxtgensec.org/docs/zen",
     "models": {
       "deepseek-v4-flash": {
         "id": "deepseek-v4-flash",
@@ -90323,9 +90323,9 @@
     "id": "opencode",
     "env": ["AWMATE_API_KEY"],
     "npm": "@ai-sdk/openai-compatible",
-    "api": "https://awmate.ai/zen/v1",
+    "api": "https://ai.awmate.nxtgensec.org/zen/v1",
     "name": "AWMate Zen",
-    "doc": "https://awmate.ai/docs/zen",
+    "doc": "https://ai.awmate.nxtgensec.org/docs/zen",
     "models": {
       "ring-2.6-1t-free": {
         "id": "ring-2.6-1t-free",

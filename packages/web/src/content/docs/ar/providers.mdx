@@ -34,7 +34,7 @@ export const console = config.console
 
 ```json title="awmate.json" {6}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "anthropic": {
       "options": {
@@ -56,7 +56,7 @@ AWMate Zen هي قائمة نماذج يوفّرها فريق AWMate وقد تم
 إذا كنت جديدا، فننصح بالبدء مع AWMate Zen.
 :::
 
-1. شغّل الأمر `/connect` في TUI، واختر AWMate، ثم انتقل إلى [AWMate.ai/auth](https://awmate.ai/auth).
+1. شغّل الأمر `/connect` في TUI، واختر AWMate، ثم انتقل إلى [ai.awmate.nxtgensec.org/auth](https://ai.awmate.nxtgensec.org/auth).
 
    ```txt
    /connect
@@ -87,7 +87,7 @@ AWMate Zen هي قائمة نماذج يوفّرها فريق AWMate وقد تم
 
 AWMate Go هي خطة اشتراك منخفضة التكلفة توفّر وصولا موثوقا إلى نماذج البرمجة المفتوحة الشهيرة المقدّمة من فريق AWMate، والتي تم اختبارها والتحقق من أنها تعمل بشكل جيد مع AWMate.
 
-1. شغّل الأمر `/connect` في TUI، واختر `AWMate Go`، ثم انتقل إلى [AWMate.ai/auth](https://awmate.ai/zen).
+1. شغّل الأمر `/connect` في TUI، واختر `AWMate Go`، ثم انتقل إلى [ai.awmate.nxtgensec.org/auth](https://ai.awmate.nxtgensec.org/zen).
 
    ```txt
    /connect
@@ -193,7 +193,7 @@ AWMate Go هي خطة اشتراك منخفضة التكلفة توفّر وصو
 
    ```json title="awmate.json"
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "amazon-bedrock": {
          "options": {
@@ -220,7 +220,7 @@ AWMate Go هي خطة اشتراك منخفضة التكلفة توفّر وصو
 
    ```json title="awmate.json"
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "amazon-bedrock": {
          "options": {
@@ -263,7 +263,7 @@ AWMate Go هي خطة اشتراك منخفضة التكلفة توفّر وصو
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "amazon-bedrock": {
       // ...
@@ -325,7 +325,7 @@ AWMate Go هي خطة اشتراك منخفضة التكلفة توفّر وصو
 
 ```json title="awmate.json" "atomic-chat" {5, 6, 8, 10-14}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "atomic-chat": {
       "npm": "@ai-sdk/openai-compatible",
@@ -553,7 +553,7 @@ AWMate Go هي خطة اشتراك منخفضة التكلفة توفّر وصو
 
    ```json title="awmate.json"
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "cloudflare-ai-gateway": {
          "models": {
@@ -758,7 +758,7 @@ AWMate Go هي خطة اشتراك منخفضة التكلفة توفّر وصو
 
 ```json
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "small_model": "gitlab/duo-chat-haiku-4-5",
   "share": "disabled"
 }
@@ -820,7 +820,7 @@ export GITLAB_OAUTH_CLIENT_ID=your_application_id_here
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "gitlab": {
       "options": {
@@ -837,7 +837,7 @@ export GITLAB_OAUTH_CLIENT_ID=your_application_id_here
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "plugin": ["AWMate-gitlab-plugin"]
 }
 ```
@@ -1019,7 +1019,7 @@ export GITLAB_OAUTH_CLIENT_ID=your_application_id_here
 
 ```jsonc title="~/.config/awmate/awmate.jsonc"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "helicone": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1047,7 +1047,7 @@ export GITLAB_OAUTH_CLIENT_ID=your_application_id_here
 
 ```jsonc title="~/.config/awmate/awmate.jsonc"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "helicone": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1101,7 +1101,7 @@ npm install -g AWMate-helicone-session
 
 ```json title="awmate.json" "llama.cpp" {5, 6, 8, 10-15}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "llama.cpp": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1168,7 +1168,7 @@ npm install -g AWMate-helicone-session
 
 ```json title="awmate.json" "lmstudio" {5, 6, 8, 10-14}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "lmstudio": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1289,7 +1289,7 @@ npm install -g AWMate-helicone-session
 
 ```json title="awmate.json" "ollama" {5, 6, 8, 10-14}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1451,7 +1451,7 @@ AWMate Zen هي قائمة من النماذج التي تم اختبارها و
 
    ```json title="awmate.json" {6}
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "openrouter": {
          "models": {
@@ -1466,7 +1466,7 @@ AWMate Zen هي قائمة من النماذج التي تم اختبارها و
 
    ```json title="awmate.json"
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "openrouter": {
          "models": {
@@ -1715,7 +1715,7 @@ AWMate Zen هي قائمة من النماذج التي تم اختبارها و
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "vercel": {
       "models": {
@@ -1825,7 +1825,7 @@ AWMate Zen هي قائمة من النماذج التي تم اختبارها و
 
    ```json title="awmate.json" {6}
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "zenmux": {
          "models": {
@@ -1893,7 +1893,7 @@ AWMate Zen هي قائمة من النماذج التي تم اختبارها و
 
    ```json title="awmate.json" ""myprovider"" {5-15}
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "myprovider": {
          "npm": "@ai-sdk/openai-compatible",
@@ -1931,7 +1931,7 @@ AWMate Zen هي قائمة من النماذج التي تم اختبارها و
 
 ```json title="awmate.json" {9,11,17-20}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "myprovider": {
       "npm": "@ai-sdk/openai-compatible",

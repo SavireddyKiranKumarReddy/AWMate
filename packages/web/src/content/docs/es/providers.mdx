@@ -35,7 +35,7 @@ Puede personalizar la URL base para cualquier proveedor configurando la opción 
 
 ```json title="awmate.json" {6}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "anthropic": {
       "options": {
@@ -57,7 +57,7 @@ probado y verificado para funcionar bien con AWMate. [Más información](/docs/z
 Si eres nuevo, te recomendamos comenzar con AWMate Zen.
 :::
 
-1. Ejecute el comando `/connect` en TUI, seleccione AWMate y diríjase a [AWMate.ai/auth](https://awmate.ai/auth).
+1. Ejecute el comando `/connect` en TUI, seleccione AWMate y diríjase a [ai.awmate.nxtgensec.org/auth](https://ai.awmate.nxtgensec.org/auth).
 
    ```txt
    /connect
@@ -89,7 +89,7 @@ Funciona como cualquier otro proveedor en AWMate y su uso es completamente opcio
 AWMate Go es un plan de suscripción de bajo costo que brinda acceso confiable a modelos de codificación abiertos populares proporcionados por el equipo de AWMate que han sido
 probado y verificado para funcionar bien con AWMate.
 
-1. Ejecute el comando `/connect` en TUI, seleccione `AWMate Go` y diríjase a [AWMate.ai/auth](https://awmate.ai/zen).
+1. Ejecute el comando `/connect` en TUI, seleccione `AWMate Go` y diríjase a [ai.awmate.nxtgensec.org/auth](https://ai.awmate.nxtgensec.org/zen).
 
    ```txt
    /connect
@@ -195,7 +195,7 @@ Para usar Amazon Bedrock con AWMate:
 
    ```json title="awmate.json"
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "amazon-bedrock": {
          "options": {
@@ -222,7 +222,7 @@ Para usar Amazon Bedrock con AWMate:
 
    ```json title="awmate.json"
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "amazon-bedrock": {
          "options": {
@@ -266,7 +266,7 @@ Para perfiles de inferencia personalizados, utilice el modelo y el nombre del pr
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "amazon-bedrock": {
       // ...
@@ -328,7 +328,7 @@ Puedes configurar AWMate para usar modelos locales mediante [Atomic Chat](https:
 
 ```json title="awmate.json" "atomic-chat" {5, 6, 8, 10-14}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "atomic-chat": {
       "npm": "@ai-sdk/openai-compatible",
@@ -556,7 +556,7 @@ Cloudflare AI Gateway le permite acceder a modelos de OpenAI, Anthropic, Workers
 
    ```json title="awmate.json"
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "cloudflare-ai-gateway": {
          "models": {
@@ -763,7 +763,7 @@ Archivo `awmate.json`. También se recomienda desactivar el uso compartido de se
 
 ```json
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "small_model": "gitlab/duo-chat-haiku-4-5",
   "share": "disabled"
 }
@@ -825,7 +825,7 @@ Personalizar a través de `awmate.json`:
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "gitlab": {
       "options": {
@@ -842,7 +842,7 @@ Para acceder a herramientas GitLab (solicitudes de fusión, problemas, canalizac
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "plugin": ["AWMate-gitlab-plugin"]
 }
 ```
@@ -1024,7 +1024,7 @@ Aquí está el [Directorio de modelos de Helicone](https://helicone.ai/models), 
 
 ```jsonc title="~/.config/awmate/awmate.jsonc"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "helicone": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1052,7 +1052,7 @@ Helicone admite encabezados personalizados para funciones como almacenamiento en
 
 ```jsonc title="~/.config/awmate/awmate.jsonc"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "helicone": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1106,7 +1106,7 @@ Puede configurar AWMate para usar modelos locales a través de la utilidad llama
 
 ```json title="awmate.json" "llama.cpp" {5, 6, 8, 10-15}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "llama.cpp": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1173,7 +1173,7 @@ Puede configurar AWMate para usar modelos locales a través de LM Studio.
 
 ```json title="awmate.json" "lmstudio" {5, 6, 8, 10-14}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "lmstudio": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1294,7 +1294,7 @@ Ollama puede configurarse automáticamente para AWMate. Consulte los [documentos
 
 ```json title="awmate.json" "ollama" {5, 6, 8, 10-14}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1457,7 +1457,7 @@ AWMate Zen es una lista de modelos probados y verificados proporcionada por el e
 
    ```json title="awmate.json" {6}
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "openrouter": {
          "models": {
@@ -1472,7 +1472,7 @@ AWMate Zen es una lista de modelos probados y verificados proporcionada por el e
 
    ```json title="awmate.json"
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "openrouter": {
          "models": {
@@ -1721,7 +1721,7 @@ También puede personalizar modelos a través de su configuración AWMate. A con
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "vercel": {
       "models": {
@@ -1831,7 +1831,7 @@ Algunas opciones de enrutamiento útiles:
 
    ```json title="awmate.json" {6}
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "zenmux": {
          "models": {
@@ -1899,7 +1899,7 @@ Puede utilizar cualquier proveedor compatible con OpenAI con AWMate. La mayoría
 
    ```json title="awmate.json" ""myprovider"" {5-15}
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "myprovider": {
          "npm": "@ai-sdk/openai-compatible",
@@ -1937,7 +1937,7 @@ A continuación se muestra un ejemplo de configuración de las opciones `apiKey`
 
 ```json title="awmate.json" {9,11,17-20}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "myprovider": {
       "npm": "@ai-sdk/openai-compatible",

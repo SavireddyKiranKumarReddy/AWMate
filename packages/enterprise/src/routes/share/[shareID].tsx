@@ -272,7 +272,7 @@ export default function () {
                         <div class="relative bg-background-stronger w-screen h-screen overflow-hidden flex flex-col">
                           <header class="h-12 px-6 py-2 flex items-center justify-between self-stretch bg-background-base border-b border-border-weak-base">
                             <div class="">
-                              <a href="https://awmate.ai">
+                              <a href="https://ai.awmate.nxtgensec.org">
                                 <span class="text-14-bold text-text-base">AWMate</span>
                               </a>
                             </div>
@@ -286,7 +286,7 @@ export default function () {
                               />
                               <IconButton
                                 as={"a"}
-                                href="https://awmate.ai/discord"
+                                href="https://ai.awmate.nxtgensec.org/discord"
                                 target="_blank"
                                 icon="discord"
                                 variant="ghost"

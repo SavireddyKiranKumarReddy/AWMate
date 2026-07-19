@@ -1,10 +1,10 @@
 # AWMate VS Code Extension
 
-A Visual Studio Code extension that integrates [awmate](https://awmate.ai) directly into your development workflow.
+A Visual Studio Code extension that integrates [awmate](https://ai.awmate.nxtgensec.org) directly into your development workflow.
 
 ## Prerequisites
 
-This extension requires the [awmate CLI](https://awmate.ai) to be installed on your system. Visit [awmate.ai](https://awmate.ai) for installation instructions.
+This extension requires the [awmate CLI](https://ai.awmate.nxtgensec.org) to be installed on your system. Visit [ai.awmate.nxtgensec.org](https://ai.awmate.nxtgensec.org) for installation instructions.
 
 ## Features
 

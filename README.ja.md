@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://awmate.ai">
+  <a href="https://ai.awmate.nxtgensec.org">
     <picture>
       <source srcset="packages/console/app/src/asset/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
       <source srcset="packages/console/app/src/asset/logo-ornate-light.svg" media="(prefers-color-scheme: light)">
@@ -9,7 +9,7 @@
 </p>
 <p align="center">オープンソースのAIコーディングエージェント。</p>
 <p align="center">
-  <a href="https://awmate.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
+  <a href="https://ai.awmate.nxtgensec.org/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
   <a href="https://www.npmjs.com/package/awmate-ai"><img alt="npm" src="https://img.shields.io/npm/v/awmate-ai?style=flat-square" /></a>
   <a href="https://github.com/anomalyco/awmate/actions/workflows/publish.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/anomalyco/awmate/publish.yml?style=flat-square&branch=dev" /></a>
 </p>
@@ -39,7 +39,7 @@
   <a href="README.vi.md">Tiếng Việt</a>
 </p>
 
-[![AWMate Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://awmate.ai)
+[![AWMate Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://ai.awmate.nxtgensec.org)
 
 ---
 
@@ -47,7 +47,7 @@
 
 ```bash
 # YOLO
-curl -fsSL https://awmate.ai/install | bash
+curl -fsSL https://ai.awmate.nxtgensec.org/install | bash
 
 # パッケージマネージャー
 npm i -g awmate-ai@latest        # bun/pnpm/yarn でもOK
@@ -66,7 +66,7 @@ nix run nixpkgs#opencode           # または github:anomalyco/awmate で最新
 
 ### デスクトップアプリ (BETA)
 
-AWMate はデスクトップアプリとしても利用できます。[releases page](https://github.com/anomalyco/awmate/releases) から直接ダウンロードするか、[opencode.ai/download](https://awmate.ai/download) を利用してください。
+AWMate はデスクトップアプリとしても利用できます。[releases page](https://github.com/anomalyco/awmate/releases) から直接ダウンロードするか、[opencode.ai/download](https://ai.awmate.nxtgensec.org/download) を利用してください。
 
 | プラットフォーム      | ダウンロード                       |
 | --------------------- | ---------------------------------- |
@@ -93,8 +93,8 @@ scoop bucket add extras; scoop install extras/awmate-desktop
 
 ```bash
 # 例
-AWMATE_INSTALL_DIR=/usr/local/bin curl -fsSL https://awmate.ai/install | bash
-XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://awmate.ai/install | bash
+AWMATE_INSTALL_DIR=/usr/local/bin curl -fsSL https://ai.awmate.nxtgensec.org/install | bash
+XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://ai.awmate.nxtgensec.org/install | bash
 ```
 
 ### Agents
@@ -110,11 +110,11 @@ AWMate には組み込みの Agent が2つあり、`Tab` キーで切り替え�
 また、複雑な検索やマルチステップのタスク向けに **general** サブ Agent も含まれています。
 内部的に使用されており、メッセージで `@general` と入力して呼び出せます。
 
-[agents](https://awmate.ai/docs/agents) の詳細はこちら。
+[agents](https://ai.awmate.nxtgensec.org/docs/agents) の詳細はこちら。
 
 ### ドキュメント
 
-AWMate の設定については [**ドキュメント**](https://awmate.ai/docs) を参照してください。
+AWMate の設定については [**ドキュメント**](https://ai.awmate.nxtgensec.org/docs) を参照してください。
 
 ### コントリビュート
 

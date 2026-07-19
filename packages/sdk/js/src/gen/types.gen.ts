@@ -1209,7 +1209,7 @@ export type Config = {
     diff_style?: "auto" | "stacked"
   }
   /**
-   * Command configuration, see https://awmate.ai/docs/commands
+   * Command configuration, see https://ai.awmate.nxtgensec.org/docs/commands
    */
   command?: {
     [key: string]: {
@@ -1266,7 +1266,7 @@ export type Config = {
     [key: string]: AgentConfig | undefined
   }
   /**
-   * Agent configuration, see https://awmate.ai/docs/agent
+   * Agent configuration, see https://ai.awmate.nxtgensec.org/docs/agent
    */
   agent?: {
     plan?: AgentConfig

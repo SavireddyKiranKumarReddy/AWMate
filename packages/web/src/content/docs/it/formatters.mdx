@@ -62,7 +62,7 @@ Puoi personalizzare i formattatori nella sezione `formatter` della config di AWM
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "formatter": {}
 }
 ```
@@ -86,7 +86,7 @@ Per disabilitare **tutti** i formattatori globalmente, imposta `formatter` a `fa
 
 ```json title="awmate.json" {3}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "formatter": false
 }
 ```
@@ -95,7 +95,7 @@ Per disabilitare un formattatore **specifico**, imposta `disabled` a `true`:
 
 ```json title="awmate.json" {5}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "formatter": {
     "prettier": {
       "disabled": true
@@ -112,7 +112,7 @@ Puoi sovrascrivere i formattatori integrati o aggiungerne di nuovi specificando 
 
 ```json title="awmate.json" {4-14}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "formatter": {
     "prettier": {
       "command": ["npx", "prettier", "--write", "$FILE"],

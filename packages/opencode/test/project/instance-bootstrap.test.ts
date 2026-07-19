@@ -52,7 +52,7 @@ const bootstrapFixture = Effect.gen(function* () {
     Bun.write(
       path.join(dir, "awmate.json"),
       JSON.stringify({
-        $schema: "https://awmate.ai/config.json",
+        $schema: "https://ai.awmate.nxtgensec.org/config.json",
         plugin: [pathToFileURL(pluginFile).href],
       }),
     ),

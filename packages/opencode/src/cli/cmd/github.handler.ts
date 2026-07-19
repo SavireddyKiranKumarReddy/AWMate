@@ -200,7 +200,7 @@ export const githubInstall = Effect.fn("Cli.github.install")(function* () {
             "",
             "    3. Go to a GitHub issue and comment `/oc summarize` to see the agent in action",
             "",
-            "   Learn more about the GitHub agent - https://awmate.ai/docs/github/#usage-examples",
+            "   Learn more about the GitHub agent - https://ai.awmate.nxtgensec.org/docs/github/#usage-examples",
           ].join("\n"),
         )
       }
@@ -426,7 +426,7 @@ export const githubRun = Effect.fn("Cli.github.run")(function* (args: { event?: 
         ? (payload as IssueCommentEvent | IssuesEvent).issue.number
         : (payload as PullRequestEvent | PullRequestReviewCommentEvent).pull_request.number
     const runUrl = `/${owner}/${repo}/actions/runs/${runId}`
-    const shareBaseUrl = isMock ? "https://dev.awmate.ai" : "https://awmate.ai"
+    const shareBaseUrl = isMock ? "https://dev.awmate.ai" : "https://ai.awmate.nxtgensec.org"
 
     let appToken: string
     let octoRest: Octokit

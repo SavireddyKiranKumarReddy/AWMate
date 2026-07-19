@@ -456,7 +456,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://awmate.ai/",
+            "HTTP-Referer": "https://ai.awmate.nxtgensec.org/",
             "X-Title": "awmate",
             "X-Source": "awmate",
           },
@@ -467,7 +467,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://awmate.ai/",
+            "HTTP-Referer": "https://ai.awmate.nxtgensec.org/",
             "X-Title": "awmate",
           },
         },
@@ -477,7 +477,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: provider.source === "config",
         options: {
           headers: {
-            "HTTP-Referer": "https://awmate.ai/",
+            "HTTP-Referer": "https://ai.awmate.nxtgensec.org/",
             "X-Title": "awmate",
             "X-BILLING-INVOKE-ORIGIN": "AWMate",
           },
@@ -488,7 +488,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "http-referer": "https://awmate.ai/",
+            "http-referer": "https://ai.awmate.nxtgensec.org/",
             "x-title": "awmate",
           },
         },
@@ -594,7 +594,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://awmate.ai/",
+            "HTTP-Referer": "https://ai.awmate.nxtgensec.org/",
             "X-Title": "awmate",
           },
         },
@@ -852,7 +852,7 @@ function custom(dep: CustomDep): Record<string, CustomLoader> {
         autoload: false,
         options: {
           headers: {
-            "HTTP-Referer": "https://awmate.ai/",
+            "HTTP-Referer": "https://ai.awmate.nxtgensec.org/",
             "X-Title": "awmate",
           },
         },

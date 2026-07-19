@@ -24,6 +24,8 @@ jobs:
     runs-on: windows-2025
     env:
       AWMATE_CHANNEL: prod
+      VITE_SUPABASE_URL: ${{ vars.AWMATE_SUPABASE_URL }}
+      VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.AWMATE_SUPABASE_PUBLISHABLE_KEY }}
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}

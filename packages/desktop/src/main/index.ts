@@ -3,7 +3,7 @@ import { mkdirSync, rmSync } from "node:fs"
 import * as http from "node:http"
 import { createServer } from "node:net"
 import { homedir, tmpdir } from "node:os"
-import { join } from "node:path"
+import { join, resolve } from "node:path"
 import { getCACertificates, setDefaultCACertificates } from "node:tls"
 import type { Event } from "electron"
 import { app } from "electron"
@@ -42,6 +42,7 @@ import { registerWslIpcHandlers } from "./wsl/ipc"
 import { spawnWslSidecar } from "./wsl/sidecar"
 import { migrate } from "./migrate"
 import { cleanupStoreFiles } from "./store-cleanup"
+import { collectAwmateDeepLinks, describeDeepLink } from "./deep-links"
 
 const APP_NAMES: Record<string, string> = {
   dev: "AWMate Dev",
@@ -55,6 +56,7 @@ const APP_IDS: Record<string, string> = {
 }
 const TEST_ONBOARDING = process.env.AWMATE_TEST_ONBOARDING === "1"
 const jsCallStackFeature = "DocumentPolicyIncludeJSCallStacksInCrashReports"
+const developmentEntry = process.argv[1] ? resolve(process.argv[1]) : undefined
 
 let logger: ReturnType<typeof initLogging>
 let server: SidecarListener | null = null
@@ -186,6 +188,17 @@ const main = Effect.gen(function* () {
   app.commandLine.appendSwitch("enable-features", features ? `${jsCallStackFeature},${features}` : jsCallStackFeature)
   if (!app.isPackaged) app.commandLine.appendSwitch("remote-debugging-port", "9222")
 
+  const protocolRegistered = app.isPackaged
+    ? app.setAsDefaultProtocolClient("awmate")
+    : developmentEntry
+      ? app.setAsDefaultProtocolClient("awmate", process.execPath, [developmentEntry])
+      : false
+  logger.log("deep link protocol registration", {
+    protocol: "awmate",
+    registered: protocolRegistered,
+    packaged: app.isPackaged,
+  })
+
   if (!app.requestSingleInstanceLock()) {
     app.quit()
     return
@@ -193,14 +206,17 @@ const main = Effect.gen(function* () {
 
   preferAppEnv(app.getPath("userData"))
 
+  pendingDeepLinks.push(...collectAwmateDeepLinks(process.argv))
+
   app.on("second-instance", (_event: Event, argv: string[]) => {
-    const urls = argv.filter((arg: string) => arg.startsWith("awmate://"))
+    const urls = collectAwmateDeepLinks(argv)
     if (urls.length) {
-      logger.log("deep link received via second-instance", { urls })
+      logger.log("deep link received via second-instance", { urls: urls.map(describeDeepLink) })
       emitDeepLinks(urls)
     }
     const win = getLastFocusedWindow()
     if (win) {
+      if (win.isMinimized()) win.restore()
       win.show()
       win.focus()
     }
@@ -208,7 +224,7 @@ const main = Effect.gen(function* () {
 
   app.on("open-url", (event: Event, url: string) => {
     event.preventDefault()
-    logger.log("deep link received via open-url", { url })
+    logger.log("deep link received via open-url", { url: describeDeepLink(url) })
     emitDeepLinks([url])
   })
 
@@ -259,7 +275,6 @@ const main = Effect.gen(function* () {
       }),
     ),
   )
-  app.setAsDefaultProtocolClient("awmate")
   registerRendererProtocol()
   setDockIcon()
   const updater = setupAutoUpdater(stopSidecars)

@@ -118,10 +118,10 @@ export default function Download() {
             <div data-component="section-content">
               <button
                 data-component="cli-row"
-                onClick={handleCopyClick("curl -fsSL https://awmate.ai/install | bash")}
+                onClick={handleCopyClick("curl -fsSL https://ai.awmate.nxtgensec.org/install | bash")}
               >
                 <code>
-                  curl -fsSL https://<strong>awmate.ai/install</strong> | bash
+                  curl -fsSL https://<strong>ai.awmate.nxtgensec.org/install</strong> | bash
                 </code>
                 <CopyStatus />
               </button>

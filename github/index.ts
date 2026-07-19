@@ -363,7 +363,7 @@ function useIssueId() {
 }
 
 function useShareUrl() {
-  return isMock() ? "https://dev.awmate.ai" : "https://awmate.ai"
+  return isMock() ? "https://dev.awmate.ai" : "https://ai.awmate.nxtgensec.org"
 }
 
 async function getAccessToken() {

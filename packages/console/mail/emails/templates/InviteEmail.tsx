@@ -15,7 +15,7 @@ import {
   buttonText,
 } from "../styles"
 
-const CONSOLE_URL = "https://awmate.ai/"
+const CONSOLE_URL = "https://ai.awmate.nxtgensec.org/"
 
 interface InviteEmailProps {
   inviter: string

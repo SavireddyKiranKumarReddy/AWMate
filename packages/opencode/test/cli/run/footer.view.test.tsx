@@ -59,7 +59,7 @@ function model(input: {
     providerID: "opencode",
     api: {
       id: "opencode",
-      url: "https://awmate.ai",
+      url: "https://ai.awmate.nxtgensec.org",
       npm: "@ai-sdk/openai-compatible",
     },
     name: input.name,

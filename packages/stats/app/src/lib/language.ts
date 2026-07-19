@@ -21,7 +21,7 @@ export {
 export type { Locale } from "../../../../console/app/src/lib/language"
 
 export const basePath = "/data"
-export const baseUrl = "https://awmate.ai"
+export const baseUrl = "https://ai.awmate.nxtgensec.org"
 
 function normalizeDataPathname(pathname: string) {
   const next = localeStrip(pathname)

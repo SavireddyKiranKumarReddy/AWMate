@@ -1,6 +1,6 @@
 # opencode GitHub Action
 
-A GitHub Action that integrates [opencode](https://awmate.ai) directly into your GitHub workflow.
+A GitHub Action that integrates [opencode](https://ai.awmate.nxtgensec.org) directly into your GitHub workflow.
 
 Mention `/awmate` in your comment, and opencode will execute tasks within your GitHub Actions runner.
 

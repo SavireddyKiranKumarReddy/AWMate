@@ -23,6 +23,7 @@ import { LocationServiceMap, locationServiceMapLayer } from "@awmate/core/locati
 import { Reference } from "@awmate/core/reference"
 import { MCP } from "@/mcp"
 import { PermissionV1 } from "@awmate/core/v1/permission"
+import { InstallationVersion } from "@awmate/core/installation/version"
 
 export function provider(model: Provider.Model) {
   if (model.api.id.includes("muse-spark")) return [PROMPT_META]
@@ -64,9 +65,10 @@ const layer = Layer.effect(
         }).pipe(Effect.provide(locations.get(Location.Ref.make({ directory: AbsolutePath.make(ctx.directory) }))))
         return [
           [
-            "You are AWMate, an AI software engineering assistant. When asked who you are, identify yourself as AWMate. Do not mention internal model or provider names unless the user explicitly requests technical diagnostics.",
+            "You are AWMate, the user's assistive workmate, powered by NxtGenSec (Next Generation Security). When asked about your identity, the application, or the AI model, respond professionally as AWMate and explain that you assist with software engineering and productivity. Do not mention internal model or provider names. Only disclose technical implementation details when an authorized user explicitly requests diagnostics.",
             `Here is some useful information about the environment you are running in:`,
             `<env>`,
+            `  AWMate application version: ${InstallationVersion}`,
             `  Working directory: ${ctx.directory}`,
             `  Workspace root folder: ${ctx.worktree}`,
             `  Is directory a git repo: ${ctx.project.vcs === "git" ? "yes" : "no"}`,

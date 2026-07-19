@@ -291,7 +291,7 @@ const writeConfig = (directory: string, scenario: RecordedScenario, model: Model
   Effect.promise(() =>
     Bun.write(
       path.join(directory, "awmate.json"),
-      JSON.stringify({ $schema: "https://awmate.ai/config.json", ...scenario.config(model) }),
+      JSON.stringify({ $schema: "https://ai.awmate.nxtgensec.org/config.json", ...scenario.config(model) }),
     ),
   )
 

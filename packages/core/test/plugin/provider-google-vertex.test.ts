@@ -95,7 +95,7 @@ describe("GoogleVertexPlugin", () => {
           provider.api = {
             type: "aisdk",
             package: "@ai-sdk/openai-compatible",
-            url: "https://awmate.ai/zen/v1",
+            url: "https://ai.awmate.nxtgensec.org/zen/v1",
           }
         }),
       )

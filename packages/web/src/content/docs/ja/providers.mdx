@@ -35,7 +35,7 @@ config.
 
 ```json title="awmate.json" {6}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "anthropic": {
       "options": {
@@ -57,7 +57,7 @@ AWMate で適切に動作することがテストおよび検証されていま�
 初めての方は、AWMate Zen から始めることをお勧めします。
 :::
 
-1. TUI で `/connect` コマンドを実行し、`AWMate Zen` を選択して、[AWMate.ai/zen](https://awmate.ai/zen) にアクセスします。
+1. TUI で `/connect` コマンドを実行し、`AWMate Zen` を選択して、[ai.awmate.nxtgensec.org/zen](https://ai.awmate.nxtgensec.org/zen) にアクセスします。
 
    ```txt
    /connect
@@ -88,7 +88,7 @@ AWMate で適切に動作することがテストおよび検証されていま�
 
 AWMate Go は、AWMate チームによって提供される、人気のあるオープンコーディングモデルへの信頼性の高いアクセスを提供する低コストのサブスクリプションプランです。これらは AWMate でうまく機能することがテストおよび検証されています。
 
-1. TUI で `/connect` コマンドを実行し、`AWMate Go` を選択して、[AWMate.ai/zen](https://awmate.ai/zen) にアクセスします。
+1. TUI で `/connect` コマンドを実行し、`AWMate Go` を選択して、[ai.awmate.nxtgensec.org/zen](https://ai.awmate.nxtgensec.org/zen) にアクセスします。
 
    ```txt
    /connect
@@ -197,7 +197,7 @@ AWMate で Amazon Bedrock を使用するには:
 
    ```json title="awmate.json"
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "amazon-bedrock": {
          "options": {
@@ -226,7 +226,7 @@ AWMate で Amazon Bedrock を使用するには:
 
    ```json title="awmate.json"
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "amazon-bedrock": {
          "options": {
@@ -275,7 +275,7 @@ AWMate で Amazon Bedrock を使用するには:
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "amazon-bedrock": {
       // ...
@@ -335,7 +335,7 @@ AWMate は、OpenAI 互換の API サーバーの背後でローカル LLM を�
 
 ```json title="awmate.json" "atomic-chat" {5, 6, 8, 10-14}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "atomic-chat": {
       "npm": "@ai-sdk/openai-compatible",
@@ -563,7 +563,7 @@ AWMate 設定を通じてモデルを追加することもできます。
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "cloudflare-ai-gateway": {
       "models": {
@@ -865,7 +865,7 @@ export GITLAB_OAUTH_CLIENT_ID=your_application_id_here
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "gitlab": {
       "options": {
@@ -882,7 +882,7 @@ GitLab ツール (マージリクエスト、問題、パイプライン、CI/CD
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "plugin": ["AWMate-gitlab-plugin"]
 }
 ```
@@ -1066,7 +1066,7 @@ AWMate を通じて自動的に構成されていない Helicone の機能また
 
 ```jsonc title="~/.config/awmate/awmate.jsonc"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "helicone": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1094,7 +1094,7 @@ Helicone は、キャッシュ、ユーザー追跡、セッション管理な�
 
 ```jsonc title="~/.config/awmate/awmate.jsonc"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "helicone": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1148,7 +1148,7 @@ npm install -g AWMate-helicone-session
 
 ```json title="awmate.json" "llama.cpp" {5, 6, 8, 10-15}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "llama.cpp": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1215,7 +1215,7 @@ LM Studio を通じてローカルモデルを使用するように AWMate を�
 
 ```json title="awmate.json" "lmstudio" {5, 6, 8, 10-14}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "lmstudio": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1336,7 +1336,7 @@ Ollama は AWMate 用に自動的に構成できます。詳細については�
 
 ```json title="awmate.json" "ollama" {5, 6, 8, 10-14}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
@@ -1498,7 +1498,7 @@ AWMate 設定を通じて追加のモデルを追加することもできます�
 
 ```json title="awmate.json" {6}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "openrouter": {
       "models": {
@@ -1513,7 +1513,7 @@ AWMate 設定を通じて追加のモデルを追加することもできます�
 
    ```json title="awmate.json"
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "openrouter": {
          "models": {
@@ -1729,7 +1729,7 @@ AWMate 設定を通じてモデルをカスタマイズすることもできま�
 
 ```json title="awmate.json"
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "vercel": {
       "models": {
@@ -1839,7 +1839,7 @@ AWMate 設定を通じて追加のモデルを追加することもできます�
 
 ```json title="awmate.json" {6}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "zenmux": {
       "models": {
@@ -1907,7 +1907,7 @@ OpenAI と互換性のある任意のプロバイダーを AWMate で使用で�
 
    ```json title="awmate.json" ""myprovider"" {5-15}
    {
-     "$schema": "https://awmate.ai/config.json",
+     "$schema": "https://ai.awmate.nxtgensec.org/config.json",
      "provider": {
        "myprovider": {
          "npm": "@ai-sdk/openai-compatible",
@@ -1946,7 +1946,7 @@ OpenAI と互換性のある任意のプロバイダーを AWMate で使用で�
 
 ```json title="awmate.json" {9,11,17-20}
 {
-  "$schema": "https://awmate.ai/config.json",
+  "$schema": "https://ai.awmate.nxtgensec.org/config.json",
   "provider": {
     "myprovider": {
       "npm": "@ai-sdk/openai-compatible",

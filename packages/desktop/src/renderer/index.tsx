@@ -28,6 +28,7 @@ import { resetZoom, setPinchZoomEnabled, webviewZoom, zoomIn, zoomOut } from "./
 import { availableStartupServer, readyWslConnections } from "./wsl/connections"
 import "./styles.css"
 import { useTheme } from "@awmate/ui/theme/context"
+import { DesktopAuthGate } from "./auth-gate"
 
 const root = document.getElementById("root")
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
@@ -249,7 +250,7 @@ const createPlatform = (windowState: DesktopWindowState): Platform => {
 
       const notification = new Notification(title, {
         body: description ?? "",
-        icon: "https://awmate.ai/favicon-96x96-v3.png",
+        icon: "https://ai.awmate.nxtgensec.org/favicon-96x96-v3.png",
       })
       notification.onclick = () => {
         void window.api.showWindow()
@@ -434,9 +435,11 @@ function DesktopRoot(props: { windowState: DesktopWindowState }) {
 
   return (
     <PlatformProvider value={platform}>
-      <AppBaseProviders locale={locale.latest}>
-        <Show when={true}>{(_) => <App />}</Show>
-      </AppBaseProviders>
+      <DesktopAuthGate>
+        <AppBaseProviders locale={locale.latest}>
+          <Show when={true}>{(_) => <App />}</Show>
+        </AppBaseProviders>
+      </DesktopAuthGate>
     </PlatformProvider>
   )
 }

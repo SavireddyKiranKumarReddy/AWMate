@@ -38,9 +38,9 @@ describe("inlineCodeKind", () => {
   })
 
   test("detects urls", () => {
-    expect(inlineCodeKind(`https://awmate.ai/docs`)).toBe("url")
+    expect(inlineCodeKind(`https://ai.awmate.nxtgensec.org/docs`)).toBe("url")
     expect(inlineCodeKind(`http://localhost:4444`)).toBe("url")
     expect(inlineCodeKind(`file:///tmp/awmate`)).toBeUndefined()
-    expect(inlineCodeKind(`ftp://awmate.ai/docs`)).toBeUndefined()
+    expect(inlineCodeKind(`ftp://ai.awmate.nxtgensec.org/docs`)).toBeUndefined()
   })
 })

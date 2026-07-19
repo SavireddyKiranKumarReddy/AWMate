@@ -41,7 +41,7 @@ function withProject<A, E, R>(source: string, self: Effect.Effect<A, E, R>) {
             path.join(test.directory, "awmate.json"),
             JSON.stringify(
               {
-                $schema: "https://awmate.ai/config.json",
+                $schema: "https://ai.awmate.nxtgensec.org/config.json",
                 plugin: [pathToFileURL(file).href],
               },
               null,

@@ -16,7 +16,7 @@
           {
             "group": "Getting started",
             "pages": ["index", "quickstart", "development"],
-            "openapi": "https://awmate.ai/openapi.json"
+            "openapi": "https://ai.awmate.nxtgensec.org/openapi.json"
           }
         ]
       }

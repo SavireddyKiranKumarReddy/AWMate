@@ -1276,7 +1276,7 @@ it.instance(
   Effect.gen(function* () {
     const providers = yield* list
     expect(providers[ProviderV2.ID.make("nvidia")].options.headers).toEqual({
-      "HTTP-Referer": "https://awmate.ai/",
+      "HTTP-Referer": "https://ai.awmate.nxtgensec.org/",
       "X-Title": "awmate",
       "X-BILLING-INVOKE-ORIGIN": "AWMate",
     })
@@ -1289,7 +1289,7 @@ it.instance(
   Effect.gen(function* () {
     const providers = yield* list
     expect(providers[ProviderV2.ID.make("nvidia")].options.headers).toEqual({
-      "HTTP-Referer": "https://awmate.ai/",
+      "HTTP-Referer": "https://ai.awmate.nxtgensec.org/",
       "X-Title": "awmate",
       "X-BILLING-INVOKE-ORIGIN": "AWMate",
     })
