@@ -40,6 +40,16 @@ jobs:
 
       - uses: ./.github/actions/setup-bun
 
+      - name: Validate Supabase public configuration
+        shell: pwsh
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:VITE_SUPABASE_URL)) {
+            throw "Missing repository variable AWMATE_SUPABASE_URL"
+          }
+          if ([string]::IsNullOrWhiteSpace($env:VITE_SUPABASE_PUBLISHABLE_KEY)) {
+            throw "Missing repository variable AWMATE_SUPABASE_PUBLISHABLE_KEY"
+          }
+
       - name: Resolve and validate version
         id: version
         shell: pwsh
@@ -57,11 +67,14 @@ jobs:
             $latest = gh api "repos/$env:GITHUB_REPOSITORY/releases/latest" --jq .tag_name 2>$null
             if ($LASTEXITCODE -eq 0 -and $latest -match '^v?(\d+\.\d+\.\d+)$') {
               $released = [version]$Matches[1]
-              if ($released -gt $base) {
-                $base = $released
+              if ($released -ge $base) {
+                "$($released.Major).$($released.Minor).$($released.Build + 1)"
+              } else {
+                $base.ToString()
               }
+            } else {
+              $base.ToString()
             }
-            "$($base.Major).$($base.Minor).$($base.Build + 1)"
           }
           if ($version -notmatch '^\d+\.\d+\.\d+$') {
             throw "Version must use major.minor.patch format; received '$version'"

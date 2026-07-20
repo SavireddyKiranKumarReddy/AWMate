@@ -86,6 +86,15 @@ jobs:
           opencode-app-id: ${{ vars.OPENCODE_APP_ID }}
           opencode-app-secret: ${{ secrets.OPENCODE_APP_SECRET }}
 
+      - name: Validate Supabase public configuration
+        shell: bash
+        env:
+          VITE_SUPABASE_URL: ${{ vars.AWMATE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.AWMATE_SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          test -n "$VITE_SUPABASE_URL" || { echo "Missing repository variable AWMATE_SUPABASE_URL"; exit 1; }
+          test -n "$VITE_SUPABASE_PUBLISHABLE_KEY" || { echo "Missing repository variable AWMATE_SUPABASE_PUBLISHABLE_KEY"; exit 1; }
+
       - name: Build
         id: build
         run: |
