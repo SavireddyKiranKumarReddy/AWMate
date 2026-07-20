@@ -135,7 +135,12 @@ function getConfig() {
         appId,
         productName: "AWMate",
         protocols: { name: "AWMate", schemes: ["awmate"] },
-        publish: { provider: "github", owner: "nxtgensec", repo: "awmate", channel: "latest" },
+        publish: {
+          provider: "github",
+          owner: "SavireddyKiranKumarReddy",
+          repo: "AWMate",
+          channel: "latest",
+        },
         deb: { fpm: [legacyDesktopEntryFpm] },
         rpm: { packageName: "awmate", fpm: [legacyDesktopEntryFpm] },
       }

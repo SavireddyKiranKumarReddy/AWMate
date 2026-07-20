@@ -51,6 +51,24 @@ test("keeps a hidden prod launcher for old Linux pins", async () => {
   expect(desktop).toContain("NoDisplay=true")
 })
 
+test("publishes production updates from the canonical AWMate repository", async () => {
+  const previous = process.env.AWMATE_CHANNEL
+  process.env.AWMATE_CHANNEL = "prod"
+
+  const module = await import("./electron-builder.config.ts?publish=prod")
+  const config = module.default as Configuration
+
+  if (previous === undefined) delete process.env.AWMATE_CHANNEL
+  else process.env.AWMATE_CHANNEL = previous
+
+  expect(config.publish).toEqual({
+    provider: "github",
+    owner: "SavireddyKiranKumarReddy",
+    repo: "AWMate",
+    channel: "latest",
+  })
+})
+
 for (const channel of channels) {
   test(`ships a complete Windows icon for ${channel.channel}`, async () => {
     const bytes = new Uint8Array(await Bun.file(`icons/${channel.channel}/icon.ico`).arrayBuffer())
