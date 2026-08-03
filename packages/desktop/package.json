@@ -1,7 +1,7 @@
 {
   "name": "@awmate/desktop",
   "private": true,
-  "version": "1.17.24",
+  "version": "1.17.25",
   "type": "module",
   "license": "MIT",
   "homepage": "https://ai.awmate.nxtgensec.org",

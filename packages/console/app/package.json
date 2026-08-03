@@ -1,6 +1,6 @@
 {
   "name": "@awmate/console-app",
-  "version": "1.17.18",
+  "version": "1.17.25",
   "type": "module",
   "license": "MIT",
   "scripts": {

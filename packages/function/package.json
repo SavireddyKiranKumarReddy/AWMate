@@ -1,6 +1,6 @@
 {
   "name": "@awmate/function",
-  "version": "1.17.18",
+  "version": "1.17.25",
   "$schema": "https://json.schemastore.org/package.json",
   "private": true,
   "type": "module",
