@@ -1,0 +1,222 @@
+﻿---
+title: "Agentfærdigheder"
+description: "Definer gjenbrugbar atferd via SKILL.md-definisjoner"
+---
+
+Agentferdigheter lar AWMate oppdage gjenbrugbare instruksjoner fra repo- eller hjemmekatalogen din.
+Ferdigheter lastes inn på forespørsel via det opprinnelige `skill`-verktøyet – agenter ser tilgængelige ferdigheter og kan laste inn hele innholdet når det er nødvendig.
+
+---
+
+## Placer filer
+
+Opret én mappe per ferdighetsnavn og tilføj inn en `SKILL.md` i den.
+AWMate søker etter disse stedene:
+
+- Prosjektkonfigurasjon: `.awmate/skills/<name>/SKILL.md`
+- Global konfigurasjon: `~/.config/awmate/skills/<name>/SKILL.md`
+- Prosjekt Claude-kompatibel: `.claude/skills/<name>/SKILL.md`
+- Global Claude-kompatibel: `~/.claude/skills/<name>/SKILL.md`
+- Prosjektagent-kompatibel: `.agents/skills/<name>/SKILL.md`
+- Global agent-kompatibel: `~/.agents/skills/<name>/SKILL.md`
+
+---
+
+## Forstå opdagelsen
+
+For prosjektlokale stier går AWMate opp fra din nåværende arbejdskatalog til den når git-arbeidstreet.
+Den laster alle matchende `skills/*/SKILL.md` i `.awmate/` og alle matchende `.claude/skills/*/SKILL.md` eller `.agents/skills/*/SKILL.md` underveis.
+
+Globale definisjoner lastes også inn fra `~/.config/awmate/skills/*/SKILL.md`, `~/.claude/skills/*/SKILL.md` og `~/.agents/skills/*/SKILL.md`.
+
+---
+
+## Skriv frontmatter
+
+Hver `SKILL.md` må starte med YAML frontmatter.
+Bare disse feltene gjenkjennes:
+
+- `name` (påkrevd)
+- `description` (påkrevd)
+- `license` (valgfritt)
+- `compatibility` (valgfritt)
+- `metadata` (valgfritt, streng-til-streng kart)
+
+Ukjente frontmatter-felter ignoreres.
+
+---
+
+## Bekræft navn
+
+`name` må:
+
+- Bestå av 1–64 tegn
+- Vær alfanumerisk med små bokstaver med skilletegn med enkelt bindestrek
+- Ikke begynne eller slutte med `-`
+- Ikke inneholde påfølgende `--`
+- Match katalognavnet som inneholder `SKILL.md`
+
+Ekvivalent regulært uttrykk:
+
+```text
+^[a-z0-9]+(-[a-z0-9]+)*$
+```
+
+---
+
+## Følg længdereglerne
+
+`description` må bestå av 1-1024 tegn.
+Hold det spesifikt nok til at agenten kan velge riktig.
+
+---
+
+## Brug et eksempel
+
+Lag `.awmate/skills/git-release/SKILL.md` slik:
+
+```markdown
+---
+name: git-release
+description: Create consistent releases and changelogs
+license: MIT
+compatibility: AWMate
+metadata:
+  audience: maintainers
+  workflow: github
+---
+
+## What I do
+
+- Draft release notes from merged PRs
+- Propose a version bump
+- Provide a copy-pasteable `gh release create` command
+
+## When to use me
+
+Use this when you are preparing a tagged release.
+Ask clarifying questions if the target versioning scheme is unclear.
+```
+
+---
+
+## Genkend værktøjsbeskrivelsen
+
+AWMate viser tilgængelige ferdigheter i `skill` verktøybeskrivelsen.
+Hver oppføring inneholder ferdighetsnavnet og beskrivelsen:
+
+```xml
+<available_skills>
+  <skill>
+    <name>git-release</name>
+    <description>Create consistent releases and changelogs</description>
+  </skill>
+</available_skills>
+```
+
+Agenten laster inn en ferdighet ved at kalle verktøyet:
+
+```
+skill({ name: "git-release" })
+```
+
+---
+
+## Konfigurer tilladelser
+
+Kontroller hvilke ferdigheter agenter har tilgang til ved at bruge mønsterbaserte tillatelser i `awmate.json`:
+
+```json
+{
+  "permission": {
+    "skill": {
+      "*": "allow",
+      "pr-review": "allow",
+      "internal-*": "deny",
+      "experimental-*": "ask"
+    }
+  }
+}
+```
+
+| Tillatelse | Atferd                                     |
+| ---------- | ------------------------------------------ |
+| `allow`    | Ferdigheter lastes umiddelbart             |
+| `deny`     | Ferdighet skjult for agent, tilgang avvist |
+| `ask`      | Bruger bedt om godkjenning før lasting     |
+
+Mønstre støtter jokertegn: `internal-*` samsvarer med `internal-docs`, `internal-tools` osv.
+
+---
+
+## Tilsidesættelse pr. agent
+
+Gi spesifikke agenter andre tillatelser enn de globale standardinnstillingene.
+
+**For egendefinerte agenter** (i agent frontmatter):
+
+```yaml
+---
+permission:
+  skill:
+    "documents-*": "allow"
+---
+```
+
+**For innebygde agenter** (i `awmate.json`):
+
+```json
+{
+  "agent": {
+    "plan": {
+      "permission": {
+        "skill": {
+          "internal-*": "allow"
+        }
+      }
+    }
+  }
+}
+```
+
+---
+
+## Deaktiver færdighedsværktøjet
+
+Deaktiver ferdigheter fullstendig for agenter som ikke bør bruge dem:
+
+**For egendefinerte agenter**:
+
+```yaml
+---
+tools:
+  skill: false
+---
+```
+
+**For innebygde agenter**:
+
+```json
+{
+  "agent": {
+    "plan": {
+      "tools": {
+        "skill": false
+      }
+    }
+  }
+}
+```
+
+Når den er deaktivert, blir `<available_skills>`-delen utelatt helt.
+
+---
+
+## Fejlfind indlæsning
+
+Hvis en ferdighet ikke vises:
+
+1. Kontroller at `SKILL.md` er stavet med store bokstaver
+2. Tjek at frontmatter inkluderer `name` og `description`
+3. Sørg for at ferdighetsnavnene er unike på alle steder
+4. Tjek tillatelser – ferdigheter med `deny` er skjult for agenter

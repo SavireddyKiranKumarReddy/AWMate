@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Disallow shared content pages
+Disallow: /s/
+Disallow: /share/
+
+Sitemap: https://ai.awmate.nxtgensec.org/sitemap.xml
+Sitemap: https://ai.awmate.nxtgensec.org/data/sitemap.xml

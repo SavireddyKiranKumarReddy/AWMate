@@ -1,0 +1,113 @@
+---
+title: Windows (WSL)
+description: En iyi deneyim icin AWMate'u WSL'de calistirin.
+---
+
+import { Steps } from "@astrojs/starlight/components"
+
+AWMate Windows'ta dogrudan calisabilir, ancak en iyi deneyim icin [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) kullanmanizi oneriyoruz. WSL, AWMate ozellikleriyle sorunsuz calisan bir Linux ortami saglar.
+
+:::tip[Neden WSL?]
+WSL, daha iyi dosya sistemi performansi, tam terminal destegi ve AWMate'un dayandigi gelistirme araclariyla uyumluluk sunar.
+:::
+
+---
+
+## Kurulum
+
+<Steps>
+
+1. **WSL'i yukleyin**
+
+   Henuz yuklemediyseniz resmi Microsoft rehberini kullanarak [WSL kurulumunu](https://learn.microsoft.com/en-us/windows/wsl/install) yapin.
+
+2. **AWMate'u WSL icine yukleyin**
+
+   WSL hazir olduktan sonra WSL terminalini acin ve AWMate'u [kurulum yontemlerinden](/docs/) biriyle yukleyin.
+
+   ```bash
+   curl -fsSL https://ai.awmate.nxtgensec.org/install | bash
+   ```
+
+3. **AWMate'u WSL icinden kullanin**
+
+   Proje dizininize gidin (`/mnt/c/`, `/mnt/d/` vb. ile Windows dosyalarina erisebilirsiniz) ve AWMate'u calistirin.
+
+   ```bash
+   cd /mnt/c/Users/YourName/project
+   AWMate
+   ```
+
+</Steps>
+
+---
+
+## Masaüstü uygulaması + WSL sunucusu
+
+AWMate Desktop kullanmak isteyip sunucuyu WSL'de calistirmak istiyorsaniz:
+
+1. **Sunucuyu WSL'de baslatin** ve dis baglantilara izin vermek icin `--hostname 0.0.0.0` kullanin:
+
+   ```bash
+   AWMate serve --hostname 0.0.0.0 --port 4096
+   ```
+
+2. **Desktop uygulamasini** `http://localhost:4096` adresine baglayin
+
+:::note
+Kurulumunuzda `localhost` calismiyorsa bunun yerine WSL IP adresini kullanin (WSL icinde: `hostname -I`) ve `http://<wsl-ip>:4096` adresine baglanin.
+:::
+
+:::caution
+`--hostname 0.0.0.0` kullaniyorsaniz sunucuyu guvene almak icin `AWMate_SERVER_PASSWORD` ayarlayin.
+
+```bash
+AWMate_SERVER_PASSWORD=your-password AWMate serve --hostname 0.0.0.0
+```
+
+:::
+
+---
+
+## Web istemcisi + WSL
+
+Windows'ta en iyi web deneyimi icin:
+
+1. **`AWMate web` komutunu PowerShell yerine WSL terminalinde calistirin**:
+
+   ```bash
+   AWMate web --hostname 0.0.0.0
+   ```
+
+2. **Windows tarayicinizdan** `http://localhost:<port>` adresini acin (AWMate URL'yi yazdirir)
+
+`AWMate web` komutunu WSL'den calistirmak, dosya sistemi erisimi ve terminal entegrasyonunu daha tutarli hale getirirken tarayicidan erisimi korur.
+
+---
+
+## Windows dosyalarına erişin
+
+WSL, tum Windows dosyalariniza `/mnt/` dizini uzerinden erisebilir:
+
+- `C:` surucusu -> `/mnt/c/`
+- `D:` surucusu -> `/mnt/d/`
+- Ve digerleri...
+
+Ornek:
+
+```bash
+cd /mnt/c/Users/YourName/Documents/project
+AWMate
+```
+
+:::tip
+En sorunsuz deneyim icin deponuzu WSL dosya sistemine (ornegin `~/code/` altina) klonlayip AWMate'u orada calistirmayi dusunun.
+:::
+
+---
+
+## İpuçları
+
+- Windows suruculerinde duran projelerde AWMate'u WSL icinde calistirin - dosya erisimi daha sorunsuz olur
+- Butunlesik bir gelistirme akisi icin AWMate ile birlikte VS Code [WSL eklentisini](https://code.visualstudio.com/docs/remote/wsl) kullanin
+- AWMate konfigurasyonunuz ve oturumlariniz WSL ortaminda `~/.local/share/awmate/` konumunda saklanir

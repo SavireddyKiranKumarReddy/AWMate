@@ -1,0 +1,33 @@
+{
+  "$schema": "https://v2-8-13.turborepo.dev/schema.json",
+  "globalEnv": ["CI", "AWMATE_DISABLE_SHARE"],
+  "globalPassThroughEnv": ["CI", "AWMATE_DISABLE_SHARE"],
+  "tasks": {
+    "typecheck": {},
+    "build": {
+      "dependsOn": [],
+      "outputs": ["dist/**"]
+    },
+    "awmate#test": {
+      "dependsOn": ["^build"],
+      "outputs": [],
+      "passThroughEnv": ["*"]
+    },
+    "@awmate/core#test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "@awmate/app#test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "@awmate/ui#test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "@awmate/session-ui#test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    }
+  }
+}

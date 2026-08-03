@@ -1,0 +1,617 @@
+﻿---
+title: CLI
+description: AWMate CLI muligheder og kommandoer.
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components"
+
+AWMate CLI starter som standard [TUI](/docs/tui), når den kører uden nogen argumenter.
+
+```bash
+AWMate
+```
+
+Men den accepterer også kommandoer som dokumenteret på denne side. Dette giver dig mulighed for at interagere med AWMate programmatisk.
+
+```bash
+AWMate run "Explain how closures work in JavaScript"
+```
+
+---
+
+### tui
+
+Start AWMate terminalbrugergrænsefladen.
+
+```bash
+AWMate [project]
+```
+
+#### Flag
+
+| Flag                                     | Kort | Beskrivelse                                                                  |
+| ---------------------------------------- | ---- | ---------------------------------------------------------------------------- |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | Fortsæt sidste session                                                       |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | Sessions-id for at fortsætte                                                 |
+| <nobr><code>{"--fork"}</code></nobr>     |      | Forgren sessionen ved fortsættelse (brug med `--continue` eller `--session`) |
+| <nobr><code>{"--prompt"}</code></nobr>   |      | Spørg om at bruge                                                            |
+| <nobr><code>{"--model"}</code></nobr>    | `-m` | Model til brug i form af provider/model                                      |
+| <nobr><code>{"--agent"}</code></nobr>    |      | Agent hos bruge                                                              |
+| <nobr><code>{"--port"}</code></nobr>     |      | Port at lytte på                                                             |
+| <nobr><code>{"--hostname"}</code></nobr> |      | Værtsnavn at lytte på                                                        |
+
+---
+
+## Kommandoer
+
+AWMate CLI har også følgende kommandoer.
+
+---
+
+### agent
+
+Administrer agenter i AWMate.
+
+```bash
+AWMate agent [command]
+```
+
+---
+
+### attach
+
+Tilslut en terminal til en allerede kørende AWMate backend-server startet via `serve` eller `web` kommandoer.
+
+```bash
+AWMate attach [url]
+```
+
+Dette gør det muligt at bruge TUI med en ekstern AWMate backend. For eksempel:
+
+```bash
+# Start the backend server for web/mobile access
+AWMate web --port 4096 --hostname 0.0.0.0
+
+# In another terminal, attach the TUI to the running backend
+AWMate attach http://10.20.30.40:4096
+```
+
+#### Flag
+
+| Flag                                     | Kort | Beskrivelse                                                                       |
+| ---------------------------------------- | ---- | --------------------------------------------------------------------------------- |
+| <nobr><code>{"--dir"}</code></nobr>      |      | Arbejdsmappe til at starte TUI i                                                  |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | Fortsæt den seneste session                                                       |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | Sessions-id for at fortsætte                                                      |
+| <nobr><code>{"--fork"}</code></nobr>     |      | Forgren sessionen ved fortsættelse (brug med `--continue` eller `--session`)      |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | Adgangskode til basic auth (standard: `AWMate_SERVER_PASSWORD`)                 |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | Brugernavn til basic auth (standard: `AWMate_SERVER_USERNAME` eller `AWMate`) |
+
+---
+
+#### create
+
+Opret en ny agent med brugerdefineret konfiguration.
+
+```bash
+awmate agent create
+```
+
+Denne kommando vil guide dig gennem oprettelse af en ny agent med en brugerdefineret systemprompt og værktøjskonfiguration.
+
+---
+
+#### list
+
+Liste over alle tilgængelige agenter.
+
+```bash
+AWMate agent list
+```
+
+---
+
+### auth
+
+Kommando til at administrere legitimationsoplysninger og login for udbydere.
+
+```bash
+AWMate auth [command]
+```
+
+---
+
+#### login
+
+AWMate drives af udbyderlisten på [Models.dev](https://models.dev), så du kan bruge `AWMate auth login` til at konfigurere API-nøgler for enhver udbyder, du vil bruge. Dette er gemt i `~/.local/share/awmate/auth.json`.
+
+```bash
+AWMate auth login
+```
+
+Når AWMate starter op, indlæser den udbyderne fra legitimationsfilen. Og hvis der er nogen nøgler defineret i dine miljøer eller en `.env` fil i dit projekt.
+
+---
+
+#### list
+
+Viser alle de godkendte udbydere som gemt i legitimationsfilen.
+
+```bash
+awmate auth list
+```
+
+Eller den korte version.
+
+```bash
+AWMate auth ls
+```
+
+---
+
+#### logout
+
+Logger dig ud af en udbyder ved at rydde den fra legitimationsfilen.
+
+```bash
+AWMate auth logout
+```
+
+---
+
+### github
+
+Administrator GitHub-agenten til lagerautomatisering.
+
+```bash
+AWMate github [command]
+```
+
+---
+
+#### install
+
+Installatør GitHub-agenten i dit lager.
+
+```bash
+awmate github install
+```
+
+Dette opsætter det nødvendige GitHub Actions workflow og guider dig gennem konfigurationsprocessen. [Learn more](/docs/github).
+
+---
+
+#### run
+
+Kør GitHub-agenten. Dette bruges typisk i GitHub Actions.
+
+```bash
+awmate github run
+```
+
+##### Flag
+
+| Flag                                  | Beskrivelse                                    |
+| ------------------------------------- | ---------------------------------------------- |
+| <nobr><code>{"--event"}</code></nobr> | GitHub mock begivenhed for at køre agenten for |
+| <nobr><code>{"--token"}</code></nobr> | GitHub personlig adgangstoken                  |
+
+---
+
+### mcp
+
+Administrator Model Context Protocol-servere.
+
+```bash
+AWMate mcp [command]
+```
+
+---
+
+#### add
+
+Tilføj en MCP-server til din konfiguration.
+
+```bash
+awmate mcp add
+```
+
+Denne kommando vil guide dig gennem tilføjelse af enten en lokal eller ekstern MCP-server.
+
+---
+
+#### list
+
+Liste over alle konfigurerede MCP-servere og deres forbindelsesstatus.
+
+```bash
+AWMate mcp list
+```
+
+Eller brug den korte version.
+
+```bash
+AWMate mcp ls
+```
+
+---
+
+#### auth
+
+Godkendt med en OAuth-aktiveret MCP-server.
+
+```bash
+awmate mcp auth [name]
+```
+
+Hvis du ikke angiver et servernavn, bliver du bedt om at vælge blandt tilgængelige OAuth-kompatible servere.
+
+Du kan også angive OAuth-kompatible servere og deres godkendelsesstatus.
+
+```bash
+awmate mcp auth list
+```
+
+Eller brug den korte version.
+
+```bash
+awmate mcp auth ls
+```
+
+---
+
+#### logout
+
+Fjern OAuth-legitimationsoplysninger for en MCP-server.
+
+```bash
+AWMate mcp logout [name]
+```
+
+---
+
+#### debug
+
+Fejlfinding af OAuth-forbindelsesproblemer for en MCP-server.
+
+```bash
+AWMate mcp debug <name>
+```
+
+---
+
+### models
+
+Liste over alle tilgængelige modeller fra konfigurerede udbydere.
+
+```bash
+AWMate models [provider]
+```
+
+Denne kommando viser alle tilgængelige modeller på tværs af dine konfigurerede udbydere i formatet `provider/model`.
+
+Dette er nyttigt til at finde ud af det nøjagtige modelnavn, der skal bruges i [your config](/docs/config/).
+
+Du kan eventuelt videregive et udbyder-id for at filtrere modeller efter den udbyder.
+
+```bash
+AWMate models anthropic
+```
+
+#### Flag
+
+| Flag                                    | Beskrivelse                                                             |
+| --------------------------------------- | ----------------------------------------------------------------------- |
+| <nobr><code>{"--refresh"}</code></nobr> | Opdater modelcachen fra models.dev                                      |
+| <nobr><code>{"--verbose"}</code></nobr> | Brug mere detaljeret modeloutput (inkluderer metadata som omkostninger) |
+
+Brug flaget `--refresh` til at opdatere den cachelagrede modelliste. Dette er nyttigt, når nye modeller er blevet tilføjet til en udbyder, og du vil se dem i AWMate.
+
+```bash
+AWMate models --refresh
+```
+
+---
+
+### run
+
+Kør AWMate i ikke-interaktiv tilstand ved at sende en prompt direkte.
+
+```bash
+AWMate run [message..]
+```
+
+Dette er nyttigt til scripting, automatisering, eller når du vil have et hurtigt svar uden at starte hele TUI. F.eks.
+
+```bash "AWMate run"
+AWMate run Explain the use of context in Go
+```
+
+Du kan også vedhæfte til en kørende `AWMate serve`-instans for at undgå MCP serverens kolde opstartstider ved hver kørsel:
+
+```bash
+# Start a headless server in one terminal
+AWMate serve
+
+# In another terminal, run commands that attach to it
+AWMate run --attach http://localhost:4096 "Explain async/await in JavaScript"
+```
+
+#### Flag
+
+| Flag                                     | Kort | Beskrivelse                                                                         |
+| ---------------------------------------- | ---- | ----------------------------------------------------------------------------------- |
+| <nobr><code>{"--command"}</code></nobr>  |      | Kommandoen til at køre, brug besked til args                                        |
+| <nobr><code>{"--continue"}</code></nobr> | `-c` | Fortsæt sidste session                                                              |
+| <nobr><code>{"--session"}</code></nobr>  | `-s` | Sessions-id for at fortsætte                                                        |
+| <nobr><code>{"--fork"}</code></nobr>     |      | Forgren sessionen ved fortsættelse (brug med `--continue` eller `--session`)        |
+| <nobr><code>{"--share"}</code></nobr>    |      | Del sessionen                                                                       |
+| <nobr><code>{"--model"}</code></nobr>    | `-m` | Model til brug i form af provider/model                                             |
+| <nobr><code>{"--agent"}</code></nobr>    |      | Agent til brug                                                                      |
+| <nobr><code>{"--file"}</code></nobr>     | `-f` | Fil(er), der skal vedhæftes til meddelelsen                                         |
+| <nobr><code>{"--format"}</code></nobr>   |      | Format: standard (formateret) eller json (rå JSON hændelser)                        |
+| <nobr><code>{"--title"}</code></nobr>    |      | Titel for sessionen (bruger trunkeret prompt, hvis der ikke er angivet nogen værdi) |
+| <nobr><code>{"--attach"}</code></nobr>   |      | Tilslut til en kørende AWMate-server (f.eks. http://localhost:4096)               |
+| <nobr><code>{"--password"}</code></nobr> | `-p` | Adgangskode til basic auth (standard: `AWMate_SERVER_PASSWORD`)                   |
+| <nobr><code>{"--username"}</code></nobr> | `-u` | Brugernavn til basic auth (standard: `AWMate_SERVER_USERNAME` eller `AWMate`)   |
+| <nobr><code>{"--dir"}</code></nobr>      |      | Mappe at køre i, eller sti på fjernserveren ved tilkobling                          |
+| <nobr><code>{"--variant"}</code></nobr>  |      | Modelvariant (udbyder-specifik ræsonneringsindsats)                                 |
+| <nobr><code>{"--thinking"}</code></nobr> |      | Vis tænkeblokke                                                                     |
+| <nobr><code>{"--port"}</code></nobr>     |      | Port til den lokale server (standard til vilkårlig port)                            |
+
+---
+
+### serve
+
+Start en hovedløs AWMate-server til API-adgang. Tjek [server docs](/docs/server) for den fulde HTTP-grænseflade.
+
+```bash
+AWMate serve
+```
+
+Dette starter en HTTP-server, der giver API-adgang til AWMate-funktionalitet uden TUI-grænsefladen. Indstil `AWMate_SERVER_PASSWORD` for at aktivere HTTP grundlæggende godkendelse (brugernavn er standard til `AWMate`).
+
+#### Flag
+
+| Flag                                     | Beskrivelse                                      |
+| ---------------------------------------- | ------------------------------------------------ |
+| <nobr><code>{"--port"}</code></nobr>     | Port at lytte på                                 |
+| <nobr><code>{"--hostname"}</code></nobr> | Værtsnavn at lytte på                            |
+| <nobr><code>{"--mdns"}</code></nobr>     | Aktiver mDNS-opdagelse                           |
+| <nobr><code>{"--cors"}</code></nobr>     | Yderligere browseroprindelse til at tillade CORS |
+
+---
+
+### session
+
+Administrator AWMate sessionsholder.
+
+```bash
+awmate session [command]
+```
+
+---
+
+#### list
+
+Liste over alle AWMate sessioner.
+
+```bash
+awmate session list
+```
+
+##### Flag
+
+| Flag                                      | Kort | Beskrivelse                            |
+| ----------------------------------------- | ---- | -------------------------------------- |
+| <nobr><code>{"--max-count"}</code></nobr> | `-n` | Begræns til N seneste sessioner        |
+| <nobr><code>{"--format"}</code></nobr>    |      | Outputformat: tabel eller json (tabel) |
+
+---
+
+### stats
+
+Vis tokenbrug og omkostningsstatistikker for dine AWMate-sessioner.
+
+```bash
+AWMate stats
+```
+
+#### Flag
+
+| Flag                                    | Beskrivelse                                                                 |
+| --------------------------------------- | --------------------------------------------------------------------------- |
+| <nobr><code>{"--days"}</code></nobr>    | Vis statistik for de sidste N dage (hele tiden)                             |
+| <nobr><code>{"--tools"}</code></nobr>   | Antal værktøjer, der skal vises (alle)                                      |
+| <nobr><code>{"--models"}</code></nobr>  | Vis modelbrugsopdeling (skjult som standard). Send et tal for at vise top N |
+| <nobr><code>{"--project"}</code></nobr> | Filtre efter projekt (alle projekter, tom streng: nuværende projekt)        |
+
+---
+
+### export
+
+Eksporter sessionsdata som JSON.
+
+```bash
+AWMate export [sessionID]
+```
+
+Hvis du ikke angiver et sessions-id, bliver du bedt om at vælge mellem tilgængelige sessioner.
+
+---
+
+### import
+
+Importer sessionsdata fra en JSON fil eller AWMate del URL.
+
+```bash
+AWMate import <file>
+```
+
+Du kan importere fra en lokal fil eller en AWMate share URL.
+
+```bash
+AWMate import session.json
+AWMate import https://opncd.ai/s/abc123
+```
+
+---
+
+### web
+
+Start en hovedløs AWMate-server med en webgrænseflade.
+
+```bash
+AWMate web
+```
+
+Dette starter en HTTP-server og åbner en webbrowser for at få adgang til AWMate via en webgrænseflade. Indstil `AWMate_SERVER_PASSWORD` for at aktivere HTTP grundlæggende godkendelse (brugernavn er standard til `AWMate`).
+
+#### Flag
+
+| Flag                                     | Beskrivelse                                      |
+| ---------------------------------------- | ------------------------------------------------ |
+| <nobr><code>{"--port"}</code></nobr>     | Port at lytte på                                 |
+| <nobr><code>{"--hostname"}</code></nobr> | Værtsnavn at lytte på                            |
+| <nobr><code>{"--mdns"}</code></nobr>     | Aktiver mDNS-opdagelse                           |
+| <nobr><code>{"--cors"}</code></nobr>     | Yderligere browseroprindelse til at tillade CORS |
+
+---
+
+### acp
+
+Start en ACP-server (Agent Client Protocol).
+
+```bash
+AWMate acp
+```
+
+Denne kommando starter en ACP-server, der kommunikerer via stdin/stdout ved hjælp af nd-JSON.
+
+#### Flag
+
+| Flag                                     | Beskrivelse           |
+| ---------------------------------------- | --------------------- |
+| <nobr><code>{"--cwd"}</code></nobr>      | Arbejdsmappe          |
+| <nobr><code>{"--port"}</code></nobr>     | Port at lytte på      |
+| <nobr><code>{"--hostname"}</code></nobr> | Værtsnavn at lytte på |
+
+---
+
+### uninstall
+
+Afinstaller AWMate og fjern alle relaterede filer.
+
+```bash
+AWMate uninstall
+```
+
+#### Flag
+
+| Flag                                        | Kort | Beskrivelse                                      |
+| ------------------------------------------- | ---- | ------------------------------------------------ |
+| <nobr><code>{"--keep-config"}</code></nobr> | `-c` | Se konfigurationsfiler                           |
+| <nobr><code>{"--keep-data"}</code></nobr>   | `-d` | Gem sessionsdata og snapshots                    |
+| <nobr><code>{"--dry-run"}</code></nobr>     |      | Vis, hvad der ville blive fjernet uden at fjerne |
+| <nobr><code>{"--force"}</code></nobr>       | `-f` | Spring bekræftelsesspørgsmål over                |
+
+---
+
+### upgrade
+
+Opdaterer AWMate til den nyeste version eller en specifik version.
+
+```bash
+AWMate upgrade [target]
+```
+
+For at opgradere til den nyeste version.
+
+```bash
+AWMate upgrade
+```
+
+For at opgradere til en bestemt version.
+
+```bash
+AWMate upgrade v0.1.48
+```
+
+#### upgrade
+
+| Flag                                   | Kort | Beskrivelse                                                      |
+| -------------------------------------- | ---- | ---------------------------------------------------------------- |
+| <nobr><code>{"--method"}</code></nobr> | `-m` | Installationsmetoden, der blev brugt; curl, npm, pnpm, bun, brew |
+
+---
+
+## Globale flag
+
+AWMate CLI tager følgende globale flag.
+
+| Flag                                       | Kort | Beskrivelse                          |
+| ------------------------------------------ | ---- | ------------------------------------ |
+| <nobr><code>{"--help"}</code></nobr>       | `-h` | Vis hjælp                            |
+| <nobr><code>{"--version"}</code></nobr>    | `-v` | Udskriftsversionsnummer              |
+| <nobr><code>{"--print-logs"}</code></nobr> |      | Udskriv logfiler til stderr          |
+| <nobr><code>{"--log-level"}</code></nobr>  |      | Logniveau (DEBUG, INFO, WARN, ERROR) |
+
+---
+
+## Miljøvariabler
+
+AWMate kan konfigureres ved hjælp af miljøvariabler.
+
+| Variabel                              | Skriv   | Beskrivelse                                                           |
+| ------------------------------------- | ------- | --------------------------------------------------------------------- |
+| `AWMate_AUTO_SHARE`                 | boolean | Del automatisk session                                                |
+| `AWMate_GIT_BASH_PATH`              | string  | Sti til Git Bash eksekverbar på Windows                               |
+| `awmate_CONFIG`                     | string  | Sti til konfigurationsfil                                             |
+| `AWMate_TUI_CONFIG`                 | string  | Sti til TUI-konfigurationsfil                                         |
+| `awmate_CONFIG_DIR`                 | string  | Sti til konfigurationsmappe                                           |
+| `awmate_CONFIG_CONTENT`             | string  | Indbygget json-konfigurationsindhold                                  |
+| `AWMate_DISABLE_AUTOUPDATE`         | boolean | Deaktiver automatisk opdateringskontrol                               |
+| `AWMate_DISABLE_PRUNE`              | boolean | Deaktiver beskæring af gamle data                                     |
+| `AWMate_DISABLE_TERMINAL_TITLE`     | boolean | Deaktiver automatisk opdatering af terminaltitel                      |
+| `AWMate_PERMISSION`                 | string  | Indbygget json-tilladelseskonfiguration                               |
+| `AWMate_DISABLE_DEFAULT_PLUGINS`    | boolean | Deaktiver standard plugins                                            |
+| `AWMate_DISABLE_LSP_DOWNLOAD`       | boolean | Deaktiver automatisk LSP-serverdownloads                              |
+| `AWMate_ENABLE_EXPERIMENTAL_MODELS` | boolean | Aktive eksperimentelle modeller                                       |
+| `AWMate_DISABLE_AUTOCOMPACT`        | boolean | Deaktiver automatisk kontekstkomprimering                             |
+| `AWMate_DISABLE_CLAUDE_CODE`        | boolean | Deaktiver læsning fra `.claude` (prompt + færdigheder)                |
+| `AWMate_DISABLE_CLAUDE_CODE_PROMPT` | boolean | Deaktiver læsning `~/.claude/CLAUDE.md`                               |
+| `AWMate_DISABLE_CLAUDE_CODE_SKILLS` | boolean | Deaktiver indlæsning af `.claude/skills`                              |
+| `AWMate_DISABLE_MODELS_FETCH`       | boolean | Deaktivering af modeller fra eksterne kilder                          |
+| `AWMate_FAKE_VCS`                   | string  | Falsk VCS-udbyder til testformål                                      |
+| `AWMate_CLIENT`                     | string  | Klient-id (standard til `cli`)                                        |
+| `AWMate_ENABLE_EXA`                 | boolean | Aktiver Exa-websøgeværktøjer                                          |
+| `AWMate_SERVER_PASSWORD`            | string  | Aktiver grundlæggende godkendelse for `serve`/`web`                   |
+| `AWMate_SERVER_USERNAME`            | string  | Tilsidesæt grundlæggende godkendelsesbrugernavn (standard `AWMate`) |
+| `AWMate_MODELS_URL`                 | string  | Brugerdefineret URL til hentning af modelkonfiguration                |
+
+---
+
+### Eksperimentel
+
+Disse miljøvariabler muliggør eksperimentelle funktioner, der kan ændres eller fjernes.
+
+| Variabel                                        | Skriv   | Beskrivelse                                          |
+| ----------------------------------------------- | ------- | ---------------------------------------------------- |
+| `AWMate_EXPERIMENTAL`                         | boolean | Aktiver eksperimentelle funktioner under samleflaget |
+| `AWMate_EXPERIMENTAL_ICON_DISCOVERY`          | boolean | Aktiver ikonopdagelse                                |
+| `AWMate_EXPERIMENTAL_DISABLE_COPY_ON_SELECT`  | boolean | Deaktiver kopi ved valg i TUI                        |
+| `AWMate_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS` | nummer  | Standard timeout for bash-kommandoer i ms            |
+| `AWMate_EXPERIMENTAL_OUTPUT_TOKEN_MAX`        | nummer  | Maks. output-tokens for LLM-svar                     |
+| `AWMate_EXPERIMENTAL_FILEWATCHER`             | boolean | Aktiver filovervågning for hele dir                  |
+| `AWMate_EXPERIMENTAL_OXFMT`                   | boolean | Aktiver oxfmt formatter                              |
+| `AWMate_EXPERIMENTAL_LSP_TOOL`                | boolean | Aktive eksperimenter LSP værktøj                     |
+| `AWMate_EXPERIMENTAL_DISABLE_FILEWATCHER`     | boolean | Deaktiver filovervågning                             |
+| `AWMate_EXPERIMENTAL_EXA`                     | boolean | Aktive eksperimenter Exa-funktioner                  |
+| `AWMate_EXPERIMENTAL_LSP_TY`                  | boolean | Aktiver TY LSP for python-filer                      |
+| `AWMate_EXPERIMENTAL_PLAN_MODE`               | boolean | Aktiver plantilstand                                 |
+| `AWMate_EXPERIMENTAL_BACKGROUND_SUBAGENTS`    | boolean | Aktiver baggrundsopgaver for subagenter              |
+| `AWMate_EXPERIMENTAL_EVENT_SYSTEM`            | boolean | Aktiver eksperimentelt hændelsessystem               |
+| `AWMate_EXPERIMENTAL_NATIVE_LLM`              | boolean | Aktiver native LLM-anmodningssti                     |
+| `AWMate_EXPERIMENTAL_PARALLEL`                | boolean | Aktiver parallel udførelse af websøgning             |
+| `AWMate_EXPERIMENTAL_SCOUT`                   | boolean | Aktiver Scout-subagent                               |
+| `AWMate_EXPERIMENTAL_WORKSPACES`              | boolean | Aktiver workspace-understøttelse                     |

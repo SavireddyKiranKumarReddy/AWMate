@@ -1,0 +1,166 @@
+name: desktop-release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version without the v prefix (for example 1.17.19)"
+        required: false
+        type: string
+
+concurrency:
+  group: desktop-release-${{ github.ref }}-${{ inputs.version }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  windows-x64:
+    name: Build and publish Windows x64
+    runs-on: windows-2025
+    env:
+      AWMATE_CHANNEL: prod
+      VITE_SUPABASE_URL: ${{ vars.AWMATE_SUPABASE_URL }}
+      VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.AWMATE_SUPABASE_PUBLISHABLE_KEY }}
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_TRUSTED_SIGNING_ACCOUNT_NAME: ${{ secrets.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME }}
+      AZURE_TRUSTED_SIGNING_CERTIFICATE_PROFILE: ${{ secrets.AZURE_TRUSTED_SIGNING_CERTIFICATE_PROFILE }}
+      AZURE_TRUSTED_SIGNING_ENDPOINT: ${{ secrets.AZURE_TRUSTED_SIGNING_ENDPOINT }}
+
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - uses: ./.github/actions/setup-bun
+
+      - name: Validate Supabase public configuration
+        shell: pwsh
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:VITE_SUPABASE_URL)) {
+            throw "Missing repository variable AWMATE_SUPABASE_URL"
+          }
+          if ([string]::IsNullOrWhiteSpace($env:VITE_SUPABASE_PUBLISHABLE_KEY)) {
+            throw "Missing repository variable AWMATE_SUPABASE_PUBLISHABLE_KEY"
+          }
+
+      - name: Resolve and validate version
+        id: version
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $requested = "${{ inputs.version }}".Trim()
+          $version = if ("${{ github.ref_type }}" -eq "tag") {
+            "${{ github.ref_name }}" -replace '^v', ''
+          } elseif ($requested) {
+            $requested
+          } else {
+            $package = Get-Content "packages/desktop/package.json" -Raw | ConvertFrom-Json
+            $base = [version]$package.version
+            $latest = gh api "repos/$env:GITHUB_REPOSITORY/releases/latest" --jq .tag_name 2>$null
+            if ($LASTEXITCODE -eq 0 -and $latest -match '^v?(\d+\.\d+\.\d+)$') {
+              $released = [version]$Matches[1]
+              if ($released -ge $base) {
+                "$($released.Major).$($released.Minor).$($released.Build + 1)"
+              } else {
+                $base.ToString()
+              }
+            } else {
+              $base.ToString()
+            }
+          }
+          if ($version -notmatch '^\d+\.\d+\.\d+$') {
+            throw "Version must use major.minor.patch format; received '$version'"
+          }
+          "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Azure login for code signing
+        if: >-
+          env.AZURE_CLIENT_ID != '' &&
+          env.AZURE_TENANT_ID != '' &&
+          env.AZURE_SUBSCRIPTION_ID != '' &&
+          env.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME != '' &&
+          env.AZURE_TRUSTED_SIGNING_CERTIFICATE_PROFILE != '' &&
+          env.AZURE_TRUSTED_SIGNING_ENDPOINT != ''
+        uses: azure/login@a457da9ea143d694b1b9c7c869ebb04ebe844ef5 # v2.3.0
+        with:
+          client-id: ${{ env.AZURE_CLIENT_ID }}
+          tenant-id: ${{ env.AZURE_TENANT_ID }}
+          subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Prepare production desktop
+        working-directory: packages/desktop
+        env:
+          AWMATE_VERSION: ${{ steps.version.outputs.version }}
+        run: bun ./scripts/prepare.ts
+
+      - name: Build production desktop
+        working-directory: packages/desktop
+        env:
+          AWMATE_VERSION: ${{ steps.version.outputs.version }}
+          NODE_OPTIONS: --max-old-space-size=4096
+        run: bunx electron-vite build
+
+      - name: Package updater-enabled installer
+        working-directory: packages/desktop
+        env:
+          AWMATE_VERSION: ${{ steps.version.outputs.version }}
+        run: bunx electron-builder --win --x64 --publish never --config electron-builder.config.ts
+
+      - name: Verify release artifacts
+        shell: pwsh
+        run: |
+          $version = "${{ steps.version.outputs.version }}"
+          $package = Get-Content "packages/desktop/package.json" -Raw | ConvertFrom-Json
+          if ($package.version -ne $version) {
+            throw "Desktop version mismatch: expected $version, got $($package.version)"
+          }
+          $installer = Get-Item "packages/desktop/dist/awmate-desktop-win-x64.exe"
+          $blockmap = Get-Item "packages/desktop/dist/awmate-desktop-win-x64.exe.blockmap"
+          $metadata = Get-Content "packages/desktop/dist/latest.yml" -Raw
+          if ($metadata -notmatch "(?m)^version: $([regex]::Escape($version))\r?$") {
+            throw "latest.yml does not contain version $version"
+          }
+          if ($env:AZURE_TRUSTED_SIGNING_ENDPOINT) {
+            $signature = Get-AuthenticodeSignature $installer.FullName
+            if ($signature.Status -ne "Valid") {
+              throw "Installer signature is not valid: $($signature.Status)"
+            }
+          } else {
+            Write-Warning "Azure signing is not configured; publishing an unsigned installer"
+          }
+          Write-Host "Verified $($installer.Name), $($blockmap.Name), and latest.yml"
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: awmate-desktop-win-x64-${{ steps.version.outputs.version }}
+          path: |
+            packages/desktop/dist/awmate-desktop-win-x64.exe
+            packages/desktop/dist/awmate-desktop-win-x64.exe.blockmap
+            packages/desktop/dist/latest.yml
+          if-no-files-found: error
+
+      - name: Publish GitHub release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          tag="v${VERSION}"
+          if ! gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$tag" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "AWMate ${VERSION}" --generate-notes
+          fi
+          gh release upload "$tag" \
+            packages/desktop/dist/awmate-desktop-win-x64.exe \
+            packages/desktop/dist/awmate-desktop-win-x64.exe.blockmap \
+            packages/desktop/dist/latest.yml \
+            --clobber --repo "$GITHUB_REPOSITORY"
+          gh release edit "$tag" --latest --repo "$GITHUB_REPOSITORY"

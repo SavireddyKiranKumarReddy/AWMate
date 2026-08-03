@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=AWMate
+Exec=/opt/AWMate/ai.awmate.desktop %U
+Terminal=false
+Type=Application
+Icon=ai.awmate.desktop
+StartupWMClass=ai.awmate.desktop
+NoDisplay=true
+Comment=Open source AI coding agent
+Categories=Development;

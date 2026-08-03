@@ -1,0 +1,53 @@
+diff --git a/dist/chunk/2CTBMVJ4.jsx b/dist/chunk/2CTBMVJ4.jsx
+index d6727fedf8009f6be7adb2232722d8bd9b7d05ab..cb7b2eb9bb71b8c82a4b86f5cc651eda0e07c225 100644
+--- a/dist/chunk/2CTBMVJ4.jsx
++++ b/dist/chunk/2CTBMVJ4.jsx
+@@ -354,9 +354,10 @@ function PopperRoot(props) {
+     }
+   }
+   createEffect2(() => {
++    const anchor = mergedProps.anchorRef?.();
+     const referenceEl = anchorRef();
+     const floatingEl = positionerRef();
+-    if (!referenceEl || !floatingEl) {
++    if (!referenceEl || !floatingEl?.isConnected || anchor?.isConnected === false) {
+       return;
+     }
+     const cleanupAutoUpdate = autoUpdate(
+diff --git a/dist/chunk/LMWVDFW6.js b/dist/chunk/LMWVDFW6.js
+index e59bb7d9dd08bf488458ebb109c9af2654c74bb0..f2eeef6d6939d5842f806e2a11f3f6d419664313 100644
+--- a/dist/chunk/LMWVDFW6.js
++++ b/dist/chunk/LMWVDFW6.js
+@@ -296,9 +296,10 @@ function PopperRoot(props) {
+     }
+   }
+   createEffect(() => {
++    const anchor = mergedProps.anchorRef?.();
+     const referenceEl = anchorRef();
+     const floatingEl = positionerRef();
+-    if (!referenceEl || !floatingEl) {
++    if (!referenceEl || !floatingEl?.isConnected || anchor?.isConnected === false) {
+       return;
+     }
+     const cleanupAutoUpdate = autoUpdate(referenceEl, floatingEl, updatePosition, {
+diff --git a/src/popper/popper-root.tsx b/src/popper/popper-root.tsx
+index 1b7900f51fd39e08b0ce7cae855f8c60126e772b..337bf0d46c52413ba09d4bc7e91f96e3b97f274e 100644
+--- a/src/popper/popper-root.tsx
++++ b/src/popper/popper-root.tsx
+@@ -329,10 +329,15 @@ export function PopperRoot(props: PopperRootProps) {
+ 	}
+ 
+ 	createEffect(() => {
++		const anchor = mergedProps.anchorRef?.();
+ 		const referenceEl = anchorRef();
+ 		const floatingEl = positionerRef();
+ 
+-		if (!referenceEl || !floatingEl) {
++		if (
++			!referenceEl ||
++			!floatingEl?.isConnected ||
++			anchor?.isConnected === false
++		) {
+ 			return;
+ 		}
+ 

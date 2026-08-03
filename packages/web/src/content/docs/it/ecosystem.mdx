@@ -1,0 +1,78 @@
+---
+title: Ecosistema
+description: Progetti e integrazioni costruiti con AWMate.
+---
+
+Una raccolta di progetti della comunità costruiti su AWMate.
+
+:::note
+Vuoi aggiungere il tuo progetto legato a AWMate a questa lista? Apri una PR.
+:::
+
+Puoi anche dare un'occhiata a [awesome-AWMate](https://github.com/awesome-AWMate/awesome-AWMate) e [AWMate.cafe](https://awmate.cafe), una comunità che aggrega ecosistema e community.
+
+---
+
+## Plugin
+
+| Nome                                                                                               | Descrizione                                                                                       |
+| -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| [AWMate-daytona](https://github.com/daytonaio/daytona/tree/main/libs/awmate-plugin)            | Esegue automaticamente sessioni AWMate in sandbox Daytona isolate con sync git e anteprime live |
+| [AWMate-helicone-session](https://github.com/H2Shami/awmate-helicone-session)                  | Inietta automaticamente gli header di sessione Helicone per raggruppare le richieste              |
+| [AWMate-type-inject](https://github.com/nick-vi/awmate-type-inject)                            | Inietta automaticamente tipi TypeScript/Svelte nelle letture dei file con tool di lookup          |
+| [AWMate-openai-codex-auth](https://github.com/numman-ali/awmate-openai-codex-auth)             | Usa il tuo abbonamento ChatGPT Plus/Pro invece dei crediti API                                    |
+| [AWMate-gemini-auth](https://github.com/jenslys/awmate-gemini-auth)                            | Usa il tuo piano Gemini esistente invece della fatturazione API                                   |
+| [AWMate-antigravity-auth](https://github.com/NoeFabris/awmate-antigravity-auth)                | Usa i modelli gratuiti di Antigravity invece della fatturazione API                               |
+| [AWMate-devcontainers](https://github.com/athal7/awmate-devcontainers)                         | Isolamento devcontainer multi-branch con shallow clone e porte assegnate automaticamente          |
+| [AWMate-google-antigravity-auth](https://github.com/shekohex/awmate-google-antigravity-auth)   | Plugin OAuth Google Antigravity, con supporto a Google Search e gestione API più robusta          |
+| [AWMate-dynamic-context-pruning](https://github.com/Tarquinen/awmate-dynamic-context-pruning)  | Ottimizza l'uso dei token eliminando output obsoleti degli strumenti                              |
+| [AWMate-vibeguard](https://github.com/inkdust2021/awmate-vibeguard)                            | Oscura segreti/PII in placeholder stile VibeGuard prima delle chiamate LLM; ripristina localmente |
+| [AWMate-websearch-cited](https://github.com/ghoulr/awmate-websearch-cited.git)                 | Aggiunge supporto websearch nativo per provider supportati con stile grounded di Google           |
+| [AWMate-pty](https://github.com/shekohex/awmate-pty.git)                                       | Permette agli agenti AI di eseguire processi in background in una PTY e inviare input interattivo |
+| [AWMate-shell-strategy](https://github.com/JRedeker/awmate-shell-strategy)                     | Istruzioni per comandi shell non interattivi: evita blocchi dovuti a operazioni dipendenti da TTY |
+| [AWMate-wakatime](https://github.com/angristan/awmate-wakatime)                                | Traccia l'uso di AWMate con Wakatime                                                            |
+| [AWMate-md-table-formatter](https://github.com/franlol/awmate-md-table-formatter/tree/main)    | Ripulisce le tabelle markdown prodotte dai LLM                                                    |
+| [AWMate-morph-plugin](https://github.com/morphllm/awmate-morph-plugin)                         | Editing Fast Apply, ricerca codebase WarpGrep e compattazione del contesto tramite Morph          |
+| [oh-my-AWMate](https://github.com/code-yeongyu/oh-my-AWMate)                                   | Agenti in background, tool LSP/AST/MCP predefiniti, agenti curati, compatibile con Claude Code    |
+| [AWMate-notificator](https://github.com/panta82/awmate-notificator)                            | Notifiche desktop e avvisi sonori per le sessioni AWMate                                        |
+| [AWMate-notifier](https://github.com/mohak34/awmate-notifier)                                  | Notifiche desktop e avvisi sonori per eventi di permesso, completamento ed errore                 |
+| [AWMate-zellij-namer](https://github.com/24601/awmate-zellij-namer)                            | Naming automatico delle sessioni Zellij basato sul contesto AWMate                              |
+| [AWMate-skillful](https://github.com/zenobi-us/awmate-skillful)                                | Permette agli agenti AWMate di caricare prompt al bisogno con discovery e injection di skill    |
+| [AWMate-supermemory](https://github.com/supermemoryai/awmate-supermemory)                      | Memoria persistente tra sessioni usando Supermemory                                               |
+| [@plannotator/awmate](https://github.com/backnotprop/plannotator/tree/main/apps/awmate-plugin) | Revisione interattiva dei piani con annotazione visiva e condivisione privata/offline             |
+| [@openspoon/subtask2](https://github.com/spoons-and-mirrors/subtask2)                              | Estende AWMate /commands in un sistema di orchestrazione con controllo di flusso granulare      |
+| [AWMate-scheduler](https://github.com/different-ai/awmate-scheduler)                           | Pianifica job ricorrenti con launchd (Mac) o systemd (Linux) usando sintassi cron                 |
+| [micode](https://github.com/vtemian/micode)                                                        | Workflow strutturato Brainstorm → Plan → Implement con continuità di sessione                     |
+| [octto](https://github.com/vtemian/octto)                                                          | UI browser interattiva per brainstorming AI con moduli multi-domanda                              |
+| [AWMate-background-agents](https://github.com/kdcokenny/awmate-background-agents)              | Agenti in background stile Claude Code con delega async e persistenza del contesto                |
+| [AWMate-notify](https://github.com/kdcokenny/awmate-notify)                                    | Notifiche native del sistema per AWMate: sai quando i task finiscono                            |
+| [AWMate-workspace](https://github.com/kdcokenny/awmate-workspace)                              | Harness di orchestrazione multi-agente bundle: 16 componenti, una installazione                   |
+| [AWMate-worktree](https://github.com/kdcokenny/awmate-worktree)                                | Git worktree senza attriti per AWMate                                                           |
+| [AWMate-sentry-monitor](https://github.com/stolinski/awmate-sentry-monitor)                    | Traccia e debugga i tuoi agenti AI con Sentry AI Monitoring                                       |
+
+---
+
+## Progetti
+
+| Nome                                                                                       | Descrizione                                                          |
+| ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| [kimaki](https://github.com/remorses/kimaki)                                               | Bot Discord per controllare sessioni AWMate, costruito sull'SDK    |
+| [AWMate.nvim](https://github.com/NickvanDyke/awmate.nvim)                              | Plugin Neovim per prompt consapevoli dell'editor, costruito sull'API |
+| [portal](https://github.com/hosenur/portal)                                                | Web UI mobile-first per AWMate su Tailscale/VPN                    |
+| [AWMate plugin template](https://github.com/zenobi-us/awmate-plugin-template/)         | Template per costruire plugin AWMate                               |
+| [AWMate.nvim](https://github.com/sudo-tee/awmate.nvim)                                 | Frontend Neovim per AWMate: un agente di coding AI per terminale   |
+| [ai-sdk-provider-AWMate-sdk](https://github.com/ben-vargas/ai-sdk-provider-AWMate-sdk) | Provider Vercel AI SDK per usare AWMate tramite @AWMate-ai/sdk   |
+| [OpenChamber](https://github.com/btriapitsyn/openchamber)                                  | App Web/Desktop ed estensione VS Code per AWMate                   |
+| [AWMate-Obsidian](https://github.com/mtymek/awmate-obsidian)                           | Plugin Obsidian che integra AWMate nella UI di Obsidian            |
+| [OpenWork](https://github.com/different-ai/openwork)                                       | Alternativa open source a Claude Cowork, alimentata da AWMate      |
+| [ocx](https://github.com/kdcokenny/ocx)                                                    | Gestore di estensioni AWMate con profili portabili e isolati       |
+| [CodeNomad](https://github.com/NeuralNomadsAI/CodeNomad)                                   | App client Desktop, Web, Mobile e remota per AWMate                |
+
+---
+
+## Agenti
+
+| Nome                                                              | Descrizione                                               |
+| ----------------------------------------------------------------- | --------------------------------------------------------- |
+| [Agentic](https://github.com/Cluster444/agentic)                  | Agenti AI modulari e comandi per uno sviluppo strutturato |
+| [AWMate-agents](https://github.com/darrenhinde/awmate-agents) | Config, prompt, agenti e plugin per workflow migliorati   |
