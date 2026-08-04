@@ -1,4 +1,4 @@
-<p align="center">
+﻿<p align="center">
   <a href="https://ai.awmate.nxtgensec.org">
     <picture>
       <source srcset="packages/console/app/src/asset/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
@@ -58,7 +58,7 @@ brew install awmate              # macOS 和 Linux（官方 brew formula，更�
 sudo pacman -S awmate            # Arch Linux (Stable)
 paru -S awmate-bin               # Arch Linux (Latest from AUR)
 mise use -g awmate               # 任意系统
-nix run nixpkgs#opencode           # 或用 github:anomalyco/awmate 获取最新 dev 分支
+nix run nixpkgs#awmate            # 或用 github:anomalyco/awmate 获取最新 dev 分支
 ```
 
 > [!TIP]
@@ -66,7 +66,7 @@ nix run nixpkgs#opencode           # 或用 github:anomalyco/awmate 获取最新
 
 ### 桌面应用程序 (BETA)
 
-AWMate 也提供桌面版应用。可直接从 [发布页 (releases page)](https://github.com/anomalyco/awmate/releases) 或 [opencode.ai/download](https://ai.awmate.nxtgensec.org/download) 下载。
+AWMate 也提供桌面版应用。可直接从 [发布页 (releases page)](https://github.com/anomalyco/awmate/releases) 或 [ai.awmate.nxtgensec.org/download](https://ai.awmate.nxtgensec.org/download) 下载。
 
 | 平台                  | 下载文件                           |
 | --------------------- | ---------------------------------- |
@@ -121,7 +121,7 @@ AWMate 内置两种 Agent，可用 `Tab` 键快速切换：
 
 ### 基于 AWMate 进行开发
 
-如果你在项目名中使用了 “opencode”（如 “opencode-dashboard” 或 “opencode-mobile”），请在 README 里注明该项目不是 AWMate 团队官方开发，且不存在隶属关系。
+如果你在项目名中使用了 “awmate”（如 “awmate-dashboard” 或 “awmate-mobile”），请在 README 里注明该项目不是 AWMate 团队官方开发，且不存在隶属关系。
 
 ---
 

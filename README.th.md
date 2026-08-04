@@ -58,7 +58,7 @@ brew install awmate              # macOS และ Linux (brew formula อย่
 sudo pacman -S awmate            # Arch Linux (Stable)
 paru -S awmate-bin               # Arch Linux (Latest from AUR)
 mise use -g awmate               # ระบบปฏิบัติการใดก็ได้
-nix run nixpkgs#opencode           # หรือ github:anomalyco/awmate สำหรับสาขาพัฒนาล่าสุด
+nix run nixpkgs#awmate           # หรือ github:anomalyco/awmate สำหรับสาขาพัฒนาล่าสุด
 ```
 
 > [!TIP]
@@ -66,7 +66,7 @@ nix run nixpkgs#opencode           # หรือ github:anomalyco/awmate สำ
 
 ### แอปพลิเคชันเดสก์ท็อป (เบต้า)
 
-AWMate มีให้ใช้งานเป็นแอปพลิเคชันเดสก์ท็อป ดาวน์โหลดโดยตรงจาก [หน้ารุ่น](https://github.com/anomalyco/awmate/releases) หรือ [opencode.ai/download](https://ai.awmate.nxtgensec.org/download)
+AWMate มีให้ใช้งานเป็นแอปพลิเคชันเดสก์ท็อป ดาวน์โหลดโดยตรงจาก [หน้ารุ่น](https://github.com/anomalyco/awmate/releases) หรือ [ai.awmate.nxtgensec.org/download](https://ai.awmate.nxtgensec.org/download)
 
 | แพลตฟอร์ม             | ดาวน์โหลด                          |
 | --------------------- | ---------------------------------- |

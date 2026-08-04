@@ -1,4 +1,4 @@
-<p align="center">
+﻿<p align="center">
   <a href="https://ai.awmate.nxtgensec.org">
     <picture>
       <source srcset="packages/console/app/src/asset/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
@@ -58,7 +58,7 @@ brew install awmate              # macOS e Linux (formula brew ufficiale, aggior
 sudo pacman -S awmate            # Arch Linux (Stable)
 paru -S awmate-bin               # Arch Linux (Latest from AUR)
 mise use -g awmate               # Qualsiasi OS
-nix run nixpkgs#opencode           # oppure github:anomalyco/awmate per l’ultima branch di sviluppo
+nix run nixpkgs#awmate           # oppure github:anomalyco/awmate per l’ultima branch di sviluppo
 ```
 
 > [!TIP]
@@ -66,7 +66,7 @@ nix run nixpkgs#opencode           # oppure github:anomalyco/awmate per l’ulti
 
 ### App Desktop (BETA)
 
-AWMate è disponibile anche come applicazione desktop. Puoi scaricarla direttamente dalla [pagina delle release](https://github.com/anomalyco/awmate/releases) oppure da [opencode.ai/download](https://ai.awmate.nxtgensec.org/download).
+AWMate è disponibile anche come applicazione desktop. Puoi scaricarla direttamente dalla [pagina delle release](https://github.com/anomalyco/awmate/releases) oppure da [ai.awmate.nxtgensec.org/download](https://ai.awmate.nxtgensec.org/download).
 
 | Piattaforma           | Download                           |
 | --------------------- | ---------------------------------- |
@@ -122,7 +122,7 @@ Se sei interessato a contribuire a AWMate, leggi la nostra [guida alla contribuz
 
 ### Costruire su AWMate
 
-Se stai lavorando a un progetto correlato a AWMate e che utilizza “opencode” come parte del nome (ad esempio “opencode-dashboard” o “opencode-mobile”), aggiungi una nota nel tuo README per chiarire che non è sviluppato dal team AWMate e che non è affiliato in alcun modo con noi.
+Se stai lavorando a un progetto correlato a AWMate e che utilizza “awmate” come parte del nome (ad esempio “awmate-dashboard” o “awmate-mobile”), aggiungi una nota nel tuo README per chiarire che non è sviluppato dal team AWMate e che non è affiliato in alcun modo con noi.
 
 ---
 

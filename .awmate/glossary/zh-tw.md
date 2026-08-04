@@ -6,7 +6,7 @@
 
 ## Do Not Translate (Locale Additions)
 
-- `AWMate` (preserve casing in prose; keep `opencode` only when it is part of commands, package names, paths, or code)
+- `AWMate` (preserve casing in prose; keep `opencode` only when it is part of commands, package names, paths, or code — all prose references should use `AWMate`)
 - `AWMate Zen`
 - `AWMate CLI`
 - `CLI`, `TUI`, `MCP`, `OAuth`
@@ -38,5 +38,5 @@ These are preferred terms for docs/UI prose and may evolve.
 
 ## Avoid
 
-- Avoid `opencode` in prose when referring to the product name; use `AWMate`
+- Avoid `opencode` in prose when referring to the product name; always use `AWMate`
 - Avoid mixing alternative terms for the same concept across docs when a preferred term is already established

@@ -58,7 +58,7 @@ brew install awmate              # macOS and Linux (official brew formula, updat
 sudo pacman -S awmate            # Arch Linux (Stable)
 paru -S awmate-bin               # Arch Linux (Latest from AUR)
 mise use -g awmate               # Any OS
-nix run nixpkgs#opencode           # or github:anomalyco/awmate for latest dev branch
+nix run nixpkgs#awmate            # or github:anomalyco/awmate for latest dev branch
 ```
 
 > [!TIP]
@@ -66,7 +66,7 @@ nix run nixpkgs#opencode           # or github:anomalyco/awmate for latest dev b
 
 ### ডেস্কটপ অ্যাপ (BETA)
 
-AWMate ডেস্কটপ অ্যাপ্লিকেশন হিসেবেও উপলব্ধ। সরাসরি [রিলিজ পেজ](https://github.com/anomalyco/awmate/releases) অথবা [opencode.ai/download](https://ai.awmate.nxtgensec.org/download) থেকে ডাউনলোড করুন।
+AWMate ডেস্কটপ অ্যাপ্লিকেশন হিসেবেও উপলব্ধ। সরাসরি [রিলিজ পেজ](https://github.com/anomalyco/awmate/releases) অথবা [ai.awmate.nxtgensec.org/download](https://ai.awmate.nxtgensec.org/download) থেকে ডাউনলোড করুন।
 
 | প্ল্যাটফর্ম           | ডাউনলোড                            |
 | --------------------- | ---------------------------------- |

@@ -58,7 +58,7 @@ brew install awmate              # macOS và Linux (công thức brew chính th�
 sudo pacman -S awmate            # Arch Linux (Bản ổn định)
 paru -S awmate-bin               # Arch Linux (Bản mới nhất từ AUR)
 mise use -g awmate               # Mọi hệ điều hành
-nix run nixpkgs#opencode           # hoặc github:anomalyco/awmate cho nhánh dev mới nhất
+nix run nixpkgs#awmate           # hoặc github:anomalyco/awmate cho nhánh dev mới nhất
 ```
 
 > [!TIP]
@@ -66,7 +66,7 @@ nix run nixpkgs#opencode           # hoặc github:anomalyco/awmate cho nhánh d
 
 ### Ứng dụng Desktop (BETA)
 
-AWMate cũng có sẵn dưới dạng ứng dụng desktop. Tải trực tiếp từ [trang releases](https://github.com/anomalyco/awmate/releases) hoặc [opencode.ai/download](https://ai.awmate.nxtgensec.org/download).
+AWMate cũng có sẵn dưới dạng ứng dụng desktop. Tải trực tiếp từ [trang releases](https://github.com/anomalyco/awmate/releases) hoặc [ai.awmate.nxtgensec.org/download](https://ai.awmate.nxtgensec.org/download).
 
 | Nền tảng              | Tải xuống                          |
 | --------------------- | ---------------------------------- |

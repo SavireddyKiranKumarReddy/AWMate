@@ -58,7 +58,7 @@ brew install awmate              # macOS og Linux (officiel brew formula, opdate
 sudo pacman -S awmate            # Arch Linux (Stable)
 paru -S awmate-bin               # Arch Linux (Latest from AUR)
 mise use -g awmate               # alle OS
-nix run nixpkgs#opencode           # eller github:anomalyco/awmate for nyeste dev-branch
+nix run nixpkgs#awmate            # eller github:anomalyco/awmate for nyeste dev-branch
 ```
 
 > [!TIP]
@@ -66,7 +66,7 @@ nix run nixpkgs#opencode           # eller github:anomalyco/awmate for nyeste de
 
 ### Desktop-app (BETA)
 
-AWMate findes også som desktop-app. Download direkte fra [releases-siden](https://github.com/anomalyco/awmate/releases) eller [opencode.ai/download](https://ai.awmate.nxtgensec.org/download).
+AWMate findes også som desktop-app. Download direkte fra [releases-siden](https://github.com/anomalyco/awmate/releases) eller [ai.awmate.nxtgensec.org/download](https://ai.awmate.nxtgensec.org/download).
 
 | Platform              | Download                           |
 | --------------------- | ---------------------------------- |

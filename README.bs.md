@@ -58,7 +58,7 @@ brew install awmate              # macOS i Linux (zvanična brew formula, rjeđe
 sudo pacman -S awmate            # Arch Linux (Stable)
 paru -S awmate-bin               # Arch Linux (Latest from AUR)
 mise use -g awmate               # Bilo koji OS
-nix run nixpkgs#opencode           # ili github:anomalyco/awmate za najnoviji dev branch
+nix run nixpkgs#awmate            # ili github:anomalyco/awmate za najnoviji dev branch
 ```
 
 > [!TIP]
@@ -66,7 +66,7 @@ nix run nixpkgs#opencode           # ili github:anomalyco/awmate za najnoviji de
 
 ### Desktop aplikacija (BETA)
 
-AWMate je dostupan i kao desktop aplikacija. Preuzmi je direktno sa [stranice izdanja](https://github.com/anomalyco/awmate/releases) ili sa [opencode.ai/download](https://ai.awmate.nxtgensec.org/download).
+AWMate je dostupan i kao desktop aplikacija. Preuzmi je direktno sa [stranice izdanja](https://github.com/anomalyco/awmate/releases) ili sa [ai.awmate.nxtgensec.org/download](https://ai.awmate.nxtgensec.org/download).
 
 | Platforma             | Preuzimanje                        |
 | --------------------- | ---------------------------------- |

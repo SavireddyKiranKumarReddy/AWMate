@@ -58,7 +58,7 @@ brew install awmate              # macOS ve Linux (resmi brew formülü, daha az
 sudo pacman -S awmate            # Arch Linux (Stable)
 paru -S awmate-bin               # Arch Linux (Latest from AUR)
 mise use -g awmate               # Tüm işletim sistemleri
-nix run nixpkgs#opencode           # veya en güncel geliştirme dalı için github:anomalyco/awmate
+nix run nixpkgs#awmate           # veya en güncel geliştirme dalı için github:anomalyco/awmate
 ```
 
 > [!TIP]
@@ -66,7 +66,7 @@ nix run nixpkgs#opencode           # veya en güncel geliştirme dalı için git
 
 ### Masaüstü Uygulaması (BETA)
 
-AWMate ayrıca masaüstü uygulaması olarak da mevcuttur. Doğrudan [sürüm sayfasından](https://github.com/anomalyco/awmate/releases) veya [opencode.ai/download](https://ai.awmate.nxtgensec.org/download) adresinden indirebilirsiniz.
+AWMate ayrıca masaüstü uygulaması olarak da mevcuttur. Doğrudan [sürüm sayfasından](https://github.com/anomalyco/awmate/releases) veya [ai.awmate.nxtgensec.org/download](https://ai.awmate.nxtgensec.org/download) adresinden indirebilirsiniz.
 
 | Platform              | İndirme                            |
 | --------------------- | ---------------------------------- |

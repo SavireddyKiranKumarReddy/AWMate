@@ -58,7 +58,7 @@ brew install awmate              # macOS 與 Linux（官方 brew formula，更�
 sudo pacman -S awmate            # Arch Linux (Stable)
 paru -S awmate-bin               # Arch Linux (Latest from AUR)
 mise use -g awmate               # 任何作業系統
-nix run nixpkgs#opencode           # 或使用 github:anomalyco/awmate 以取得最新開發分支
+nix run nixpkgs#awmate            # 或使用 github:anomalyco/awmate 以取得最新開發分支
 ```
 
 > [!TIP]
@@ -66,7 +66,7 @@ nix run nixpkgs#opencode           # 或使用 github:anomalyco/awmate 以取得
 
 ### 桌面應用程式 (BETA)
 
-AWMate 也提供桌面版應用程式。您可以直接從 [發佈頁面 (releases page)](https://github.com/anomalyco/awmate/releases) 或 [opencode.ai/download](https://ai.awmate.nxtgensec.org/download) 下載。
+AWMate 也提供桌面版應用程式。您可以直接從 [發佈頁面 (releases page)](https://github.com/anomalyco/awmate/releases) 或 [ai.awmate.nxtgensec.org/download](https://ai.awmate.nxtgensec.org/download) 下載。
 
 | 平台                  | 下載連結                           |
 | --------------------- | ---------------------------------- |

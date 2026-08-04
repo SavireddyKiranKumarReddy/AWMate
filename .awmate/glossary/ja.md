@@ -7,7 +7,7 @@
 
 ## Do Not Translate (Locale Additions)
 
-- `AWMate` (preserve casing in prose; keep `opencode` only in commands, package names, paths, or code)
+- `AWMate` (preserve casing in prose; keep `opencode` only in commands, package names, paths, or code — all prose references should use `AWMate`)
 - `AWMate CLI`
 - `CLI`, `TUI`, `MCP`, `OAuth`
 - Commands, flags, file paths, and code literals (keep exactly as written)
