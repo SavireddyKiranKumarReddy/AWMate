@@ -95,6 +95,12 @@ const require = __cjs_mod__.createRequire(import.meta.url);
     publicDir: "../../../app/public",
     root: "src/renderer",
     envDir: "../..",
+    resolve: {
+      // The workspace installs a physical solid-js copy under every package.
+      // Without dedupe each workspace import bundles its own reactive runtime,
+      // so signals created by one copy never reach the DOM rendered by another.
+      dedupe: ["solid-js", "solid-js/web", "solid-js/store", "solid-js/h", "solid-js/html", "solid-js/universal"],
+    },
     build: {
       sourcemap: true,
       rollupOptions: {
