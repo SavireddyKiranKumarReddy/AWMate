@@ -691,6 +691,7 @@ export const dict = {
   "sidebar.project.recentSessions": "Letzte Sitzungen",
   "sidebar.project.viewAllSessions": "Alle Sitzungen anzeigen",
   "sidebar.project.clearNotifications": "Benachrichtigungen löschen",
+  "sidebar.project.remove": "Ordner entfernen",
   "sidebar.empty.title": "Keine Projekte geöffnet",
   "sidebar.empty.description": "Öffnen Sie ein Projekt, um loszulegen",
   "app.name.desktop": "AWMate Desktop",

@@ -728,6 +728,7 @@ export const dict = {
   "sidebar.project.recentSessions": "最近工作階段",
   "sidebar.project.viewAllSessions": "查看全部工作階段",
   "sidebar.project.clearNotifications": "清除通知",
+  "sidebar.project.remove": "移除資料夾",
   "sidebar.empty.title": "未開啟任何專案",
   "sidebar.empty.description": "開啟專案以開始使用",
 

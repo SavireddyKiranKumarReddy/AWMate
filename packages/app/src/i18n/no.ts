@@ -626,6 +626,7 @@ export const dict = {
   "sidebar.project.recentSessions": "Nylige sesjoner",
   "sidebar.project.viewAllSessions": "Vis alle sesjoner",
   "sidebar.project.clearNotifications": "Fjern varsler",
+  "sidebar.project.remove": "Fjern mappe",
 
   "app.name.desktop": "AWMate Desktop",
 
