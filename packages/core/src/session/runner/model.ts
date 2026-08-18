@@ -81,10 +81,10 @@ export class Service extends Context.Service<Service, Interface>()("@awmate/v2/S
 export const layerWith = (resolve: Interface["resolve"]) => Layer.succeed(Service, Service.of({ resolve }))
 
 const apiKey = (model: ModelV2.Info, credential?: Credential.Value) => {
-  if (credential?.type === "key") return Auth.value(credential.key)
-  if (credential?.type === "oauth") return Auth.value(credential.access)
   const value = model.request.body.apiKey ?? model.api.settings?.apiKey
   if (typeof value === "string") return Auth.value(value)
+  if (credential?.type === "key") return Auth.value(credential.key)
+  if (credential?.type === "oauth") return Auth.value(credential.access)
 }
 
 const withDefaults = (model: ModelV2.Info, route: AnyRoute) => {

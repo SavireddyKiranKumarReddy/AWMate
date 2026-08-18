@@ -164,16 +164,19 @@ export const OpencodePlugin = define<HttpClient.HttpClient | EventV2.Service | S
 
       const item = catalog.provider.get(ProviderV2.ID.opencode)
       if (!item) return
-      const hasKey = Boolean(process.env.AWMATE_API_KEY || connected || item.provider.request.body.apiKey)
+      const hasKey = Boolean(process.env.AWMATE_API_KEY || item.provider.request.body.apiKey)
       catalog.provider.update(item.provider.id, (provider) => {
         if (!hasKey) provider.request.body.apiKey = "public"
       })
       if (hasKey) return
-      for (const model of item.models.values()) {
-        if (!model.cost.some((cost) => cost.input > 0)) continue
-        catalog.model.update(item.provider.id, model.id, (draft) => {
-          draft.enabled = false
-        })
+      for (const record of catalog.provider.list()) {
+        if (record.provider.integrationID !== Integration.ID.make("opencode")) continue
+        for (const model of record.models.values()) {
+          if (!model.cost.some((cost) => cost.input > 0)) continue
+          catalog.model.update(record.provider.id, model.id, (draft) => {
+            draft.enabled = false
+          })
+        }
       }
     })
 
