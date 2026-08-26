@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "version": "1.17.27",
+  "version": "1.17.28",
   "name": "@awmate/core",
   "type": "module",
   "license": "MIT",
