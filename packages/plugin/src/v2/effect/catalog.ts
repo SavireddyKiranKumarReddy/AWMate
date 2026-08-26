@@ -21,6 +21,10 @@ export interface CatalogDraft {
       get(): { providerID: string; modelID: string } | undefined
       set(providerID: string, modelID: string): void
     }
+    readonly fallback: {
+      get(): readonly { providerID: string; modelID: string }[]
+      set(chain: { providerID: string; modelID: string }[]): void
+    }
   }
 }
 

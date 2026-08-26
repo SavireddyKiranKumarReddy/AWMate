@@ -24,6 +24,7 @@ export const Event = Catalog.Event
 type Data = {
   providers: Map<ProviderV2.ID, ProviderRecord>
   defaultModel?: DefaultModel
+  modelFallbackChain: DefaultModel[]
 }
 
 export type Draft = {
@@ -41,6 +42,10 @@ export type Draft = {
       get: () => DefaultModel | undefined
       set: (providerID: ProviderV2.ID, modelID: ModelV2.ID) => void
     }
+    fallback: {
+      get: () => readonly DefaultModel[]
+      set: (chain: DefaultModel[]) => void
+    }
   }
 }
 
@@ -55,6 +60,7 @@ export interface Interface extends State.Transformable<Draft> {
     readonly all: () => Effect.Effect<ModelV2.Info[]>
     readonly available: () => Effect.Effect<ModelV2.Info[]>
     readonly default: () => Effect.Effect<ModelV2.Info | undefined>
+    readonly fallback: () => readonly DefaultModel[]
     readonly small: (providerID: ProviderV2.ID) => Effect.Effect<ModelV2.Info | undefined>
   }
 }
@@ -103,7 +109,7 @@ const layer = Layer.effect(
     }
 
     const state = State.create<Data, Draft>({
-      initial: () => ({ providers: new Map() }),
+      initial: () => ({ providers: new Map(), modelFallbackChain: [] }),
       draft: (draft) => {
         const result: Draft = {
           provider: {
@@ -151,6 +157,12 @@ const layer = Layer.effect(
               get: () => draft.defaultModel,
               set: (providerID, modelID) => {
                 draft.defaultModel = { providerID, modelID }
+              },
+            },
+            fallback: {
+              get: () => draft.modelFallbackChain,
+              set: (chain) => {
+                draft.modelFallbackChain = chain
               },
             },
           },
@@ -230,6 +242,8 @@ const layer = Layer.effect(
             ),
           )
         }),
+
+        fallback: () => state.get().modelFallbackChain,
 
         small: Effect.fn("CatalogV2.model.small")(function* (providerID) {
           const record = state.get().providers.get(providerID)

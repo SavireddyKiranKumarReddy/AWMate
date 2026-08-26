@@ -6,6 +6,7 @@ import {
   Message,
   SystemPart,
   isContextOverflowFailure,
+  type Model,
   type ProviderErrorEvent,
 } from "@awmate/llm"
 import { Cause, DateTime, Effect, FiberSet, Layer, Option, Semaphore, Stream } from "effect"
@@ -229,54 +230,87 @@ const layer = Layer.effect(
       const publish = (event: LLMEvent, outputPaths: ReadonlyArray<string> = []) =>
         withPublication(publisher.publish(event, outputPaths))
       let overflowFailure: ProviderErrorEvent | undefined
-      const providerStream = llm.stream(request).pipe(
-        Stream.runForEach((event) =>
-          Effect.gen(function* () {
-            if (overflowFailure || publisher.hasProviderError()) return
-            if (LLMEvent.is.providerError(event)) {
-              if (isContextOverflowFailure(event) && !publisher.hasAssistantStarted()) {
-                overflowFailure = event
+      const buildStream = (model: Model) =>
+        llm.stream(
+          LLM.request({
+            model,
+            providerOptions: { openai: { promptCacheKey } },
+            system: [agent.info?.system, system.baseline]
+              .filter((part): part is string => part !== undefined && part.length > 0)
+              .map(SystemPart.make),
+            messages: [...toLLMMessages(context, model), ...(isLastStep ? [Message.assistant(MAX_STEPS_PROMPT)] : [])],
+            tools: toolMaterialization?.definitions ?? [],
+            toolChoice: isLastStep ? "none" : undefined,
+          }),
+        ).pipe(
+          Stream.runForEach((event) =>
+            Effect.gen(function* () {
+              if (overflowFailure || publisher.hasProviderError()) return
+              if (LLMEvent.is.providerError(event)) {
+                if (isContextOverflowFailure(event) && !publisher.hasAssistantStarted()) {
+                  overflowFailure = event
+                  return
+                }
+              }
+              yield* publish(event)
+              if (event.type !== "tool-call" || event.providerExecuted) return
+              if (!toolMaterialization) {
+                yield* withPublication(publisher.failUnsettledTools("Tools are disabled after the maximum agent steps"))
                 return
               }
-            }
-            yield* publish(event)
-            if (event.type !== "tool-call" || event.providerExecuted) return
-            if (!toolMaterialization) {
-              yield* withPublication(publisher.failUnsettledTools("Tools are disabled after the maximum agent steps"))
-              return
-            }
-            needsContinuation = true
-            const assistantMessageID = yield* publisher.assistantMessageID(event.id)
-            yield* Effect.uninterruptibleMask((restore) =>
-              restore(
-                toolMaterialization.settle({
-                  sessionID: session.id,
-                  agent: agent.id,
-                  assistantMessageID,
-                  call: event,
-                }),
-              ).pipe(
-                Effect.flatMap((settlement) =>
-                  publish(
-                    LLMEvent.toolResult({
-                      id: event.id,
-                      name: event.name,
-                      result: settlement.result,
-                      output: settlement.output,
-                    }),
-                    settlement.outputPaths ?? [],
+              needsContinuation = true
+              const assistantMessageID = yield* publisher.assistantMessageID(event.id)
+              yield* Effect.uninterruptibleMask((restore) =>
+                restore(
+                  toolMaterialization.settle({
+                    sessionID: session.id,
+                    agent: agent.id,
+                    assistantMessageID,
+                    call: event,
+                  }),
+                ).pipe(
+                  Effect.flatMap((settlement) =>
+                    publish(
+                      LLMEvent.toolResult({
+                        id: event.id,
+                        name: event.name,
+                        result: settlement.result,
+                        output: settlement.output,
+                      }),
+                      settlement.outputPaths ?? [],
+                    ),
                   ),
                 ),
-              ),
-            ).pipe(FiberSet.run(toolFibers))
-          }),
-        ),
-        Effect.ensuring(withPublication(publisher.flush())),
-      )
+              ).pipe(FiberSet.run(toolFibers))
+            }),
+          ),
+          Effect.ensuring(withPublication(publisher.flush())),
+        )
+
+      let currentStream = buildStream(model)
+      const fallbackChain = (yield* config.entries())
+        .filter((entry): entry is Config.Document => entry.type === "document")
+        .flatMap((entry) => entry.info.model_fallback ?? [])
+      for (const fallbackEntry of fallbackChain) {
+        if (publisher.hasAssistantStarted() || publisher.hasProviderError()) break
+        const fallbackParsed = ModelV2.parse(fallbackEntry)
+        const fallbackModel = yield* models.resolve(
+          Object.assign({}, session, { model: { ...session.model, providerID: fallbackParsed.providerID, id: fallbackParsed.modelID } }),
+        )
+        currentStream = Effect.gen(function* () {
+          const primary = yield* buildStream(fallbackModel).pipe(Effect.exit)
+          if (primary._tag === "Success") return
+          const primaryError = Option.getOrUndefined(Cause.findErrorOption(primary.cause))
+          if (primaryError instanceof LLMError && primaryError.retryable && !publisher.hasAssistantStarted()) {
+            return yield* buildStream(fallbackModel)
+          }
+          return yield* Effect.failCause(primary.cause)
+        })
+      }
 
       return yield* Effect.uninterruptibleMask((restore) =>
         Effect.gen(function* () {
-          const stream = yield* restore(providerStream).pipe(Effect.exit)
+          const stream = yield* restore(currentStream).pipe(Effect.exit)
           const failure =
             stream._tag === "Failure" ? Option.getOrUndefined(Cause.findErrorOption(stream.cause)) : undefined
           if (

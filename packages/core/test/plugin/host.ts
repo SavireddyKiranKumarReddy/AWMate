@@ -134,6 +134,16 @@ export function catalogHost(catalog: Catalog.Interface): PluginContext["catalog"
               set: (providerID, modelID) =>
                 draft.model.default.set(ProviderV2.ID.make(providerID), ModelV2.ID.make(modelID)),
             },
+            fallback: {
+              get: () => draft.model.fallback.get(),
+              set: (chain) =>
+                draft.model.fallback.set(
+                  chain.map((item) => ({
+                    providerID: ProviderV2.ID.make(item.providerID),
+                    modelID: ModelV2.ID.make(item.modelID),
+                  })),
+                ),
+            },
           },
         }),
       ),

@@ -47,6 +47,15 @@ export const Plugin = define({
           const model = ModelV2.parse(configuredDefault)
           catalog.model.default.set(model.providerID, model.modelID)
         }
+        const configuredFallback = Config.latest(entries, "model_fallback")
+        if (configuredFallback !== undefined && configuredFallback.length > 0) {
+          catalog.model.fallback.set(
+            configuredFallback.map((entry) => {
+              const parsed = ModelV2.parse(entry)
+              return { providerID: parsed.providerID, modelID: parsed.modelID }
+            }),
+          )
+        }
         for (const file of files) {
           for (const [id, item] of Object.entries(file.info.providers ?? {})) {
             const providerID = id
