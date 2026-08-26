@@ -74,6 +74,9 @@ export const Info = Schema.Struct({
   model: Schema.optional(Schema.String).annotate({
     description: "Model to use in the format of provider/model, eg anthropic/claude-2",
   }),
+  model_fallback: Schema.optional(Schema.mutable(Schema.Array(Schema.String))).annotate({
+    description: "Ordered fallback models tried automatically when the default model hits a rate limit or provider error",
+  }),
   small_model: Schema.optional(Schema.String).annotate({
     description: "Small model to use for tasks like title generation in the format of provider/model",
   }),
