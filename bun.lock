@@ -29,7 +29,7 @@
     },
     "packages/app": {
       "name": "@awmate/app",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@awmate/core": "workspace:*",
         "@awmate/schema": "workspace:*",
@@ -95,7 +95,7 @@
     },
     "packages/awmate": {
       "name": "awmate",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "bin": {
         "awmate": "./bin/awmate",
       },
@@ -226,7 +226,7 @@
     },
     "packages/cli": {
       "name": "@awmate/cli",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "bin": {
         "lildax": "./bin/lildax.cjs",
       },
@@ -274,7 +274,7 @@
     },
     "packages/codemode": {
       "name": "@awmate/codemode",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "acorn": "8.15.0",
         "effect": "catalog:",
@@ -288,7 +288,7 @@
     },
     "packages/console/app": {
       "name": "@awmate/console-app",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@awmate/console-core": "workspace:*",
         "@awmate/console-mail": "workspace:*",
@@ -324,7 +324,7 @@
     },
     "packages/console/core": {
       "name": "@awmate/console-core",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@awmate/console-mail": "workspace:*",
         "@awmate/console-resource": "workspace:*",
@@ -351,7 +351,7 @@
     },
     "packages/console/function": {
       "name": "@awmate/console-function",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@ai-sdk/anthropic": "3.0.82",
         "@ai-sdk/openai": "3.0.48",
@@ -373,7 +373,7 @@
     },
     "packages/console/mail": {
       "name": "@awmate/console-mail",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@jsx-email/all": "2.2.3",
         "@jsx-email/cli": "1.4.3",
@@ -397,7 +397,7 @@
     },
     "packages/console/support": {
       "name": "@awmate/console-support",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@awmate/console-core": "workspace:*",
         "@cloudflare/vite-plugin": "1.15.2",
@@ -417,7 +417,7 @@
     },
     "packages/core": {
       "name": "@awmate/core",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "bin": {
         "awmate": "./bin/awmate",
       },
@@ -511,7 +511,7 @@
     },
     "packages/desktop": {
       "name": "@awmate/desktop",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@supabase/supabase-js": "2.57.4",
         "@zip.js/zip.js": "2.7.62",
@@ -566,7 +566,7 @@
     },
     "packages/effect-drizzle-sqlite": {
       "name": "@awmate/effect-drizzle-sqlite",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "drizzle-orm": "catalog:",
         "effect": "catalog:",
@@ -580,7 +580,7 @@
     },
     "packages/effect-sqlite-node": {
       "name": "@awmate/effect-sqlite-node",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "effect": "catalog:",
       },
@@ -592,7 +592,7 @@
     },
     "packages/enterprise": {
       "name": "@awmate/enterprise",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@awmate/core": "workspace:*",
         "@awmate/session-ui": "workspace:*",
@@ -624,7 +624,7 @@
     },
     "packages/function": {
       "name": "@awmate/function",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@octokit/auth-app": "8.0.1",
         "@octokit/rest": "catalog:",
@@ -640,7 +640,7 @@
     },
     "packages/http-recorder": {
       "name": "@awmate/http-recorder",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@effect/platform-node": "4.0.0-beta.83",
         "@effect/platform-node-shared": "4.0.0-beta.83",
@@ -671,7 +671,7 @@
     },
     "packages/llm": {
       "name": "@awmate/llm",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@awmate/schema": "workspace:*",
         "@smithy/eventstream-codec": "4.2.14",
@@ -690,7 +690,7 @@
     },
     "packages/plugin": {
       "name": "@awmate/plugin",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@ai-sdk/provider": "3.0.8",
         "@awmate/sdk": "workspace:*",
@@ -766,7 +766,7 @@
     },
     "packages/sdk/js": {
       "name": "@awmate/sdk",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "cross-spawn": "catalog:",
       },
@@ -781,7 +781,7 @@
     },
     "packages/server": {
       "name": "@awmate/server",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@awmate/core": "workspace:*",
         "@awmate/protocol": "workspace:*",
@@ -796,7 +796,7 @@
     },
     "packages/session-ui": {
       "name": "@awmate/session-ui",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@awmate/core": "workspace:*",
         "@awmate/sdk": "workspace:*",
@@ -840,7 +840,7 @@
     },
     "packages/slack": {
       "name": "@awmate/slack",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@awmate/sdk": "workspace:*",
         "@slack/bolt": "^3.17.1",
@@ -853,7 +853,7 @@
     },
     "packages/stats/app": {
       "name": "@awmate/stats-app",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@awmate/stats-core": "workspace:*",
         "@awmate/ui": "workspace:*",
@@ -886,7 +886,7 @@
     },
     "packages/stats/core": {
       "name": "@awmate/stats-core",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@aws-sdk/client-athena": "3.933.0",
         "@planetscale/database": "1.19.0",
@@ -905,7 +905,7 @@
     },
     "packages/stats/server": {
       "name": "@awmate/stats-server",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@awmate/stats-core": "workspace:*",
         "@aws-sdk/client-firehose": "3.933.0",
@@ -946,7 +946,7 @@
     },
     "packages/tui": {
       "name": "@awmate/tui",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@awmate/core": "workspace:*",
         "@awmate/plugin": "workspace:*",
@@ -973,7 +973,7 @@
     },
     "packages/ui": {
       "name": "@awmate/ui",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@kobalte/core": "catalog:",
         "@pierre/diffs": "catalog:",
@@ -1024,7 +1024,7 @@
     },
     "packages/web": {
       "name": "@awmate/web",
-      "version": "1.17.29",
+      "version": "1.17.33",
       "dependencies": {
         "@astrojs/cloudflare": "12.6.3",
         "@astrojs/markdown-remark": "6.3.1",
