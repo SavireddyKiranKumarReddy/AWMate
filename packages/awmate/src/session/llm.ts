@@ -4,7 +4,7 @@ import { PermissionV1 } from "@awmate/core/v1/permission"
 import { Provider } from "@/provider/provider"
 import { SessionV1 } from "@awmate/core/v1/session"
 import { serviceUse } from "@awmate/core/effect/service-use"
-import { Context, Effect, Layer } from "effect"
+import { Cause, Context, Effect, Layer } from "effect"
 import * as Stream from "effect/Stream"
 import { streamText, wrapLanguageModel, type ModelMessage, type Tool } from "ai"
 import type { LLMEvent } from "@awmate/llm"
@@ -14,7 +14,7 @@ import { GitLabWorkflowLanguageModel } from "gitlab-ai-provider"
 import { ProviderTransform } from "@/provider/transform"
 import { Config } from "@/config/config"
 import type { Agent } from "@/agent/agent"
-import type { MessageV2 } from "./message-v2"
+import { MessageV2 } from "./message-v2"
 import { Plugin } from "@/plugin"
 import { Permission } from "@/permission"
 import { EventV2Bridge } from "@/event-v2-bridge"
@@ -354,6 +354,21 @@ const live: Layer.Layer<
       }
     })
 
+    const fallbackChain = Effect.fn("LLM.fallbackChain")(function* (input: StreamInput) {
+      if (input.small) return []
+      const cfg = yield* config.get()
+      const resolved = yield* Effect.all(
+        (cfg.model_fallback ?? []).map((entry) => {
+          const parsed = Provider.parseModel(entry)
+          return provider
+            .getModel(parsed.providerID, parsed.modelID)
+            .pipe(Effect.catchIf(Provider.ModelNotFoundError.isInstance, () => Effect.succeed(undefined)))
+        }),
+        { concurrency: "unbounded" },
+      )
+      return resolved.filter((model): model is Provider.Model => model !== undefined)
+    })
+
     const stream: Interface["stream"] = (input) =>
       Stream.scoped(
         Stream.unwrap(
@@ -363,19 +378,63 @@ const live: Layer.Layer<
               (ctrl) => Effect.sync(() => ctrl.abort()),
             )
 
-            const result = yield* run({ ...input, abort: ctrl.signal })
+            const buildStream = (model: Provider.Model) =>
+              Effect.gen(function* () {
+                const result = yield* run({ ...input, model, abort: ctrl.signal })
 
-            if (result.type === "native") return result.stream
+                if (result.type === "native") return result.stream
 
-            // Adapter seam: both runtimes expose the same LLMEvent stream. Native
-            // already returns one; AI SDK streams are converted here.
-            const state = LLMAISDK.adapterState()
-            return Stream.fromAsyncIterable(result.result.fullStream, (e) =>
-              e instanceof Error ? e : new Error(String(e)),
-            ).pipe(
-              Stream.mapEffect((event) => LLMAISDK.toLLMEvents(state, event)),
-              Stream.flatMap((events) => Stream.fromIterable(events)),
-            )
+                // Adapter seam: both runtimes expose the same LLMEvent stream. Native
+                // already returns one; AI SDK streams are converted here.
+                const state = LLMAISDK.adapterState()
+                return Stream.fromAsyncIterable(result.result.fullStream, (e) =>
+                  e instanceof Error ? e : new Error(String(e)),
+                ).pipe(
+                  Stream.mapEffect((event) => LLMAISDK.toLLMEvents(state, event)),
+                  Stream.flatMap((events) => Stream.fromIterable(events)),
+                )
+              })
+
+            const isProviderError = (cause: Cause.Cause<unknown>) =>
+              SessionV1.APIError.isInstance(
+                MessageV2.fromError(Cause.squash(cause), { providerID: input.model.providerID }),
+              )
+
+            const fallbackModels = yield* fallbackChain(input)
+            let started = false
+            let current = yield* buildStream(input.model)
+            // Fall back to the next configured model only when the provider fails
+            // before emitting any output, mirroring the V2 runner fallback policy.
+            for (const fallback of fallbackModels) {
+              const previous = current
+              current = previous.pipe(
+                Stream.tap(() =>
+                  Effect.sync(() => {
+                    started = true
+                  }),
+                ),
+                Stream.catchCauseIf(
+                  (cause) => !started && !Cause.hasInterrupts(cause) && !ctrl.signal.aborted && isProviderError(cause),
+                  (cause) => {
+                    const failure = Cause.squash(cause)
+                    return Stream.unwrap(
+                      Effect.gen(function* () {
+                        yield* Effect.logWarning("model fallback invoked", {
+                          providerID: input.model.providerID,
+                          modelID: input.model.id,
+                          "session.id": input.sessionID,
+                          fallbackProviderID: fallback.providerID,
+                          fallbackModelID: fallback.id,
+                          error: failure instanceof Error ? failure.message : String(failure),
+                        })
+                        return yield* buildStream(fallback)
+                      }),
+                    )
+                  },
+                ),
+              )
+            }
+            return current
           }),
         ),
       )
