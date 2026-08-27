@@ -297,14 +297,15 @@ const layer = Layer.effect(
         const fallbackModel = yield* models.resolve(
           Object.assign({}, session, { model: { ...session.model, providerID: fallbackParsed.providerID, id: fallbackParsed.modelID } }),
         )
+        const previous = currentStream
         currentStream = Effect.gen(function* () {
-          const primary = yield* buildStream(fallbackModel).pipe(Effect.exit)
-          if (primary._tag === "Success") return
-          const primaryError = Option.getOrUndefined(Cause.findErrorOption(primary.cause))
-          if (primaryError instanceof LLMError && primaryError.retryable && !publisher.hasAssistantStarted()) {
-            return yield* buildStream(fallbackModel)
+          const attempt = yield* previous.pipe(Effect.exit)
+          if (attempt._tag === "Success") return
+          const attemptError = Option.getOrUndefined(Cause.findErrorOption(attempt.cause))
+          if (publisher.hasAssistantStarted() || !(attemptError instanceof LLMError)) {
+            return yield* Effect.failCause(attempt.cause)
           }
-          return yield* Effect.failCause(primary.cause)
+          return yield* buildStream(fallbackModel)
         })
       }
 
