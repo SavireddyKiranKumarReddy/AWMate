@@ -207,3 +207,30 @@ Status: done
   `github.com/anomalyco/opencode/releases` (404 since the fork's releases
   live on `SavireddyKiranKumarReddy/AWMate`). All five URL references are
   repointed to the fork; `awmate upgrade` now resolves the same source.
+
+### Logo replacement (v1.0.3)
+
+- New 1254x1254 transparent 1:1 AWMate mark shipped across the repo:
+  - Identity marks (96/192/512 px, light+dark), UI favicon set (16/32/48/64/128/256
+    ICO; 96/180/192/512 PNGs; SVG variants), desktop store + platform icons
+    (Windows Square*, StoreLogo, dock; iOS AppIcon set; Android mipmaps incl.
+    adaptive foregrounds; icon.ico / icon.icns rebuilt multi-resolution).
+  - Console brand lockups/wordmarks/previews, lander posters, mail template
+    logos, web/docs/stats logo SVGs and social-share/banner/hero artwork.
+    Wide canvases keep their existing opaque background color (sampled from
+    the source) with the mark centered; transparent canvases stay transparent.
+- SVG logo files (mark*, favicon*, brand/lander/ornate, docs, stats, web
+    lockups) now embed the raster mark as a data-URI image instead of the
+    old path glyphs.
+- Code-drawn logos point at the raster: ui/logo.tsx Mark/Splash/Logo,
+    console IconWorkspaceLogo, stats AWMateMark/DataWordmark now render
+    the imported PNG inside their existing SVG shells (theme-color CSS vars
+    no longer apply to the mark itself).
+- TUI/CLI ASCII logos unchanged: a terminal cannot render the raster mark,
+    so the block-letter AWMate wordmark remains as the text representation.
+- Regeneration was automated with a one-off script
+  (regenerate-logo.ps1);
+  per-file background sampling preserves dark/light variants automatically.
+- Backlog (unchanged): packages/app/public, console/app/public, web/public,
+  enterprise/public favicon/social files are git symlinks whose targets were
+  regenerated (the pointers themselves are untouched).

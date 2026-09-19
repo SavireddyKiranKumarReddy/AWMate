@@ -1,4 +1,5 @@
 import awmateWordmarkDark from "../asset/logo-ornate-dark.svg"
+import awmateMark from "../asset/awmate-mark.png"
 import { query } from "@solidjs/router"
 import { createEffect, createMemo, createSignal, For, onCleanup, onMount, Show } from "solid-js"
 import { useI18n } from "../context/i18n"
@@ -184,21 +185,7 @@ export function Header(props: { githubStars: string; links?: readonly HeaderLink
 function DataWordmark() {
   return (
     <svg data-slot="stats-wordmark" width="66" height="20" viewBox="0 0 66 20" fill="none" aria-hidden="true">
-      <path opacity="0.2" d="M12 16H4V8H12V16Z" fill="currentColor" />
-      <path d="M12 4H4V16H12V4ZM16 20H0V0H16V20Z" fill="currentColor" />
-      <path
-        d="M63.3543 16L62.5119 12.8711H58.6437L57.8013 16H55.7383L59.2454 4H61.9618L65.4689 16H63.3543ZM61.0678 7.851L60.6896 5.94269H60.4489L60.0707 7.851L59.1595 11.1347H61.9962L61.0678 7.851Z"
-        fill="currentColor"
-      />
-      <path d="M52.5951 5.87392V16H50.4461V5.87392H47.4375V4H55.6209V5.87392H52.5951Z" fill="currentColor" />
-      <path
-        d="M45.2059 16L44.3635 12.8711H40.4953L39.6529 16H37.5898L41.097 4H43.8133L47.3205 16H45.2059ZM42.9194 7.851L42.5411 5.94269H42.3004L41.9222 7.851L41.011 11.1347H43.8477L42.9194 7.851Z"
-        fill="currentColor"
-      />
-      <path
-        d="M28 4H32.0917C32.8138 4 33.4556 4.11461 34.0172 4.34384C34.5903 4.5616 35.0716 4.9169 35.4613 5.40974C35.8625 5.89112 36.1662 6.51003 36.3725 7.26648C36.5788 8.02292 36.6819 8.9341 36.6819 10C36.6819 11.0659 36.5788 11.9771 36.3725 12.7335C36.1662 13.49 35.8625 14.1146 35.4613 14.6075C35.0716 15.0888 34.5903 15.4441 34.0172 15.6734C33.4556 15.8911 32.8138 16 32.0917 16H28V4ZM32.0917 14.1261C32.8252 14.1261 33.3926 13.9026 33.7937 13.4556C34.1948 12.9971 34.3954 12.3152 34.3954 11.4097V8.59026C34.3954 7.68481 34.1948 7.0086 33.7937 6.5616C33.3926 6.10315 32.8252 5.87392 32.0917 5.87392H30.149V14.1261H32.0917Z"
-        fill="currentColor"
-      />
+      <image href={awmateMark} width="66" height="20" preserveAspectRatio="xMidYMid meet" />
     </svg>
   )
 }
@@ -206,9 +193,7 @@ function DataWordmark() {
 function AWMateMark() {
   return (
     <svg data-slot="awmate-mark" width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-      <path d="M40 40H0V0H40V40Z" fill="var(--stats-logo-bg)" />
-      <path d="M26 29H14V17H26V29Z" fill="var(--stats-logo-fill)" />
-      <path d="M26 11H14V29H26V11ZM32 35H8V5H32V35Z" fill="var(--stats-logo-stroke)" />
+      <image href={awmateMark} width="40" height="40" preserveAspectRatio="xMidYMid meet" />
     </svg>
   )
 }

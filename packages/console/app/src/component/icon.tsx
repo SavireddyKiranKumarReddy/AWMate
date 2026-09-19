@@ -1,4 +1,5 @@
 import { JSX } from "solid-js"
+import awmateMark from "../asset/brand/awmate-mark.png"
 
 export function IconZen(_props: JSX.SvgSVGAttributes<SVGSVGElement>) {
   return (
@@ -111,7 +112,7 @@ export function IconChevron(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
 export function IconWorkspaceLogo(props: JSX.SvgSVGAttributes<SVGSVGElement>) {
   return (
     <svg {...props} width="24" height="30" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M18 6H6V24H18V6ZM24 30H0V0H24V30Z" fill="currentColor" />
+      <image href={awmateMark} width="24" height="30" preserveAspectRatio="xMidYMid meet" />
     </svg>
   )
 }
