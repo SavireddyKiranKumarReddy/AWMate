@@ -1,0 +1,68 @@
+name: release
+run-name: "${{ format('release {0}', inputs.bump || inputs.version) }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Bump major, minor, or patch"
+        required: false
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+      version:
+        description: "Override version (optional)"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Compute version
+        id: version
+        run: |
+          if [ -n "${{ inputs.version }}" ]; then
+            NEXT="${{ inputs.version }}"
+          else
+            LATEST=$(git tag -l "v*" --sort=-version:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n1)
+            if [ -z "$LATEST" ]; then
+              NEXT="1.0.0"
+            else
+              BASE="${LATEST#v}"
+              MAJOR="${BASE%%.*}"
+              MINOR=$(echo "$BASE" | cut -d. -f2)
+              PATCH=$(echo "$BASE" | cut -d. -f3)
+              case "${{ inputs.bump }}" in
+                major) NEXT="$((MAJOR+1)).0.0" ;;
+                minor) NEXT="$MAJOR.$((MINOR+1)).0" ;;
+                *)     NEXT="$MAJOR.$MINOR.$((PATCH+1))" ;;
+              esac
+            fi
+          fi
+          echo "version=$NEXT" >> "$GITHUB_OUTPUT"
+
+      - name: Create tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "v${{ steps.version.outputs.version }}"
+          git push origin "v${{ steps.version.outputs.version }}"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "v${{ steps.version.outputs.version }}" \
+            --title "v${{ steps.version.outputs.version }}" \
+            --generate-notes

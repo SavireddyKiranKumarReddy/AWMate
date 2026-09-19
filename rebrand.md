@@ -158,3 +158,35 @@ Status: done
   `bun run generate` from `packages/client` after any Protocol/HttpApi
   change; generated files are checked in under `src/generated` and
   `src/generated-effect`.
+## Release & versioning (AWMate-owned tags)
+
+- AWMate ships its own version sequence starting at `v1.0.0`. The fork
+  remote carries no release tags (all tags are upstream's); local
+  upstream tags were pruned so `Script.version` and the release workflow
+  compute versions from AWMate's own `vX.Y.Z` tags.
+- `packages/script/src/index.ts` previously derived release versions by
+  bumping upstream's npm `opencode-ai/latest`. It now derives from the
+  highest local `vX.Y.Z` git tag (default `v1.0.0`) instead, so bumps are
+  self-contained and no longer follow the upstream npm registry.
+- `.github/workflows/release.yml`: manual `workflow_dispatch` with
+  `major` | `minor` | `patch` (or an explicit `version` override),
+  which reads the latest AWMate tag, bumps it, creates the `vX.Y.Z` tag,
+  and drafts a GitHub release with auto-generated notes. Standalone fork
+  entrypoint; the upstream publish.yml stays gated to `anomalyco/opencode`.
+
+## Post-wave fixes (stale internals from the blanket rename)
+
+- `packages/sdk/js/script/build.ts`: regenerates the legacy JS SDK by
+  running `bun dev generate` in the CLI package. The rename had rewritten
+  the path to `../../awmate` (nonexistent); reverted to `../../opencode`
+  because the CLI package directory is NOT renamed.
+- `packages/opencode/bin/awmate` (npm wrapper bin shim): resolve package
+  names, cached binary path, and error text still used `opencode-*` /
+  `.opencode`. Now matches the `awmate-<os>-<arch>` platform packages
+  and `awmate` binary produced by `script/build.ts` (same as the already
+  renamed `script/postinstall.mjs`).
+- `packages/opencode/Dockerfile`: copied `dist/opencode-*/bin/opencode`
+  into the image as `opencode`; build output is now
+  `dist/awmate-*/bin/awmate`, so the image now installs/runs `awmate`.
+- Root `package.json` `sso` script: `--sso-session` label renamed
+  `opencode` -> `awmate` (cosmetic, single occurrence).
