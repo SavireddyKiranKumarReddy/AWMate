@@ -171,8 +171,14 @@ Status: done
 - `.github/workflows/release.yml`: manual `workflow_dispatch` with
   `major` | `minor` | `patch` (or an explicit `version` override),
   which reads the latest AWMate tag, bumps it, creates the `vX.Y.Z` tag,
-  and drafts a GitHub release with auto-generated notes. Standalone fork
-  entrypoint; the upstream publish.yml stays gated to `anomalyco/opencode`.
+  creates the GitHub release, then builds all platform binaries and
+  uploads the `awmate-*.zip` / `awmate-*.tar.gz` assets to the release.
+  `script/build.ts` already produces `awmate-<os>-<arch>[-baseline][-musl]`
+  archives when `AWMATE_RELEASE=1` and uploads via
+  `gh release upload --repo $GH_REPO`. The workflow pins
+  `AWMATE_VERSION`, `AWMATE_CHANNEL=latest`, `AWMATE_RELEASE=1`, and
+  `GH_REPO=SavireddyKiranKumarReddy/AWMate`. Standalone fork entrypoint;
+  the upstream publish.yml stays gated to `anomalyco/opencode`.
 
 ## Post-wave fixes (stale internals from the blanket rename)
 
@@ -190,3 +196,14 @@ Status: done
   `dist/awmate-*/bin/awmate`, so the image now installs/runs `awmate`.
 - Root `package.json` `sso` script: `--sso-session` label renamed
   `opencode` -> `awmate` (cosmetic, single occurrence).
+
+### Fixed in v1.0.1 - v1.0.2
+
+- `packages/console/app/src/routes/oauth/opencode/` -> `oauth/awmate/`:
+  the route directory (not the `PATH` constant) was missed by the rename,
+  so the served OAuth client-metadata URL disagreed with its declared
+  `client_id`. The whole folder is now `awmate`.
+- `install` script: downloaded `awmate-*` binaries from
+  `github.com/anomalyco/opencode/releases` (404 since the fork's releases
+  live on `SavireddyKiranKumarReddy/AWMate`). All five URL references are
+  repointed to the fork; `awmate upgrade` now resolves the same source.

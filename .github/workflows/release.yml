@@ -66,3 +66,16 @@ jobs:
           gh release create "v${{ steps.version.outputs.version }}" \
             --title "v${{ steps.version.outputs.version }}" \
             --generate-notes
+
+      - uses: ./.github/actions/setup-bun
+
+      - name: Build binaries and attach assets
+        working-directory: packages/opencode
+        env:
+          AWMATE_CHANNEL: latest
+          AWMATE_VERSION: ${{ steps.version.outputs.version }}
+          AWMATE_RELEASE: "1"
+          GH_REPO: SavireddyKiranKumarReddy/AWMate
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bun run build
