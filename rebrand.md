@@ -141,6 +141,10 @@ Status: done
   is clean of opencode identifiers (only doc-comment URLs remain) and will
   be regenerated via `bun run generate` from `packages/client` when the
   upstream Protocol/HttpApi changes.
+- Smoke-tested the renamed CLI: `bun run ./src/index.ts --version` and
+  `--help` from `packages/opencode` both exit 0 and report version `local`
+  under the awmate binary. Full native `bun run build` (Bun.compile) is
+  heavy (>10 min) and was not completed on this machine.
 
 ## Remaining work (not yet started)
 
