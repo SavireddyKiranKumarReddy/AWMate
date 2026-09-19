@@ -130,11 +130,10 @@ Status: done
     setup-git-committer inputs) are upstream infra and stay.
   - `packages/opencode/src/installation` keeps brew/choco/scoop/npm name
     checks (`opencode` / `opencode-ai`) and `opencode.ai` URLs by design.
-  - Cosmetics: `packages/console/app` brand asset filenames
-    (`opencode-logo-*`, `opencode-wordmark-*`, `preview-opencode-*`,
-    lander images, `opencode-brand-assets.zip`) and repository/workflow
-    file names still use `opencode`; these are binary assets / not-yet-
-    re-authored artwork, deferred to a dedicated asset pass.
+  - `packages/ui/src/assets/icons/provider/opencode.svg` and
+    `opencode-go.svg` are provider logotypes fetched at build time from the
+    protected `models.opencode.ai` catalog; they match upstream provider ids
+    and are not AWMate brand assets (upstream baseline also has them).
   - Repo's `install` script download URLs and README install snippets still
     use `https://opencode.ai/install` (protected upstream).
 - `packages/client` generated code (`src/generated`, `src/generated-effect`)
@@ -150,9 +149,11 @@ Status: done
 
 - External distribution surfaces (`github/` action, `sdks/vscode`) still
   pinned to upstream and not yet wired to AWMate published packages.
-- Cosmetics: AWMate-branded logo/wordmark assets to replace the upstream
-  `opencode-*` asset files in `packages/console/app` (binary artwork,
-  deferred).
+- Cosmetics: `packages/console/app` brand assets were renamed to `awmate-*`
+  to match the already-renamed imports; the files still render the upstream
+  glyph artwork (SVG wordmarks/logos are blank path glyphs, PNG-derived
+  `preview-*` and lander images still bear the prior artwork). Re-authoring
+  the artwork itself is a designer task, deferred.
 - `packages/client` generated code must be regenerated via
   `bun run generate` from `packages/client` after any Protocol/HttpApi
   change; generated files are checked in under `src/generated` and
