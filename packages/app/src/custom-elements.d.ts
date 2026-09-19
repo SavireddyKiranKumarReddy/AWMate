@@ -1,1 +1,1 @@
-../../ui/src/custom-elements.d.ts
+C:/Users/Savir/OneDrive/Desktop/AWMate/packages/ui/src/custom-elements.d.ts

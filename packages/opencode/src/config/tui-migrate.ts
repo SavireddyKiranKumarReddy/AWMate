@@ -2,9 +2,9 @@ import path from "path"
 import { type ParseError as JsoncParseError, applyEdits, modify, parse as parseJsonc } from "jsonc-parser"
 import { unique } from "remeda"
 import { Option, Schema } from "effect"
-import { TuiConfig } from "@opencode-ai/tui/config"
-import { Flag } from "@opencode-ai/core/flag/flag"
-import { Global } from "@opencode-ai/core/global"
+import { TuiConfig } from "@awmate/tui/config"
+import { Flag } from "@awmate/core/flag/flag"
+import { Global } from "@awmate/core/global"
 import { Filesystem } from "@/util/filesystem"
 import * as ConfigPaths from "@/config/paths"
 
@@ -22,13 +22,13 @@ interface MigrateInput {
 }
 
 /**
- * Migrates tui-specific keys (theme, keybinds, tui) from opencode.json files
+ * Migrates tui-specific keys (theme, keybinds, tui) from awmate.json files
  * into dedicated tui.json files. Migration is performed per-directory and
  * skips only locations where a tui.json already exists.
  */
 export async function migrateTuiConfig(input: MigrateInput) {
-  const opencode = await opencodeFiles(input)
-  for (const file of opencode) {
+  const awmate = await awmateFiles(input)
+  for (const file of awmate) {
     const source = await Filesystem.readText(file).catch(() => undefined)
     if (!source) continue
     const errors: JsoncParseError[] = []
@@ -112,15 +112,15 @@ async function backupAndStripLegacy(file: string, source: string) {
     .catch(() => false)
 }
 
-async function opencodeFiles(input: { directories: string[]; cwd: string }) {
+async function awmateFiles(input: { directories: string[]; cwd: string }) {
   const files = [
-    ...ConfigPaths.fileInDirectory(Global.Path.config, "opencode"),
-    ...(await Filesystem.findUp(["opencode.json", "opencode.jsonc"], input.cwd, undefined, { rootFirst: true })),
+    ...ConfigPaths.fileInDirectory(Global.Path.config, "awmate"),
+    ...(await Filesystem.findUp(["awmate.json", "awmate.jsonc"], input.cwd, undefined, { rootFirst: true })),
   ]
   for (const dir of unique(input.directories)) {
-    files.push(...ConfigPaths.fileInDirectory(dir, "opencode"))
+    files.push(...ConfigPaths.fileInDirectory(dir, "awmate"))
   }
-  if (Flag.OPENCODE_CONFIG) files.push(Flag.OPENCODE_CONFIG)
+  if (Flag.AWMATE_CONFIG) files.push(Flag.AWMATE_CONFIG)
 
   const existing = await Promise.all(
     unique(files).map(async (file) => {

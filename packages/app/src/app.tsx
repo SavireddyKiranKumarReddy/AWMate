@@ -1,12 +1,12 @@
 import "@/index.css"
 import * as Sentry from "@sentry/solid"
-import { I18nProvider } from "@opencode-ai/ui/context"
-import { DialogProvider } from "@opencode-ai/ui/context/dialog"
-import { FileComponentProvider } from "@opencode-ai/ui/context/file"
-import { File } from "@opencode-ai/session-ui/file"
-import { Font } from "@opencode-ai/ui/font"
-import { Splash } from "@opencode-ai/ui/logo"
-import { ThemeProvider } from "@opencode-ai/ui/theme/context"
+import { I18nProvider } from "@awmate/ui/context"
+import { DialogProvider } from "@awmate/ui/context/dialog"
+import { FileComponentProvider } from "@awmate/ui/context/file"
+import { File } from "@awmate/session-ui/file"
+import { Font } from "@awmate/ui/font"
+import { Splash } from "@awmate/ui/logo"
+import { ThemeProvider } from "@awmate/ui/theme/context"
 import { MetaProvider } from "@solidjs/meta"
 import {
   type BaseRouterProps,
@@ -20,7 +20,7 @@ import {
 } from "@solidjs/router"
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query"
 import { Effect } from "effect"
-import { base64Encode } from "@opencode-ai/core/util/encode"
+import { base64Encode } from "@awmate/core/util/encode"
 import {
   type Component,
   createEffect,
@@ -268,7 +268,7 @@ function LayoutCompatibility(props: ParentProps) {
 
 declare global {
   interface Window {
-    __OPENCODE__?: {
+    __AWMATE__?: {
       deepLinks?: string[]
     }
     api?: {

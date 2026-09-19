@@ -1,10 +1,10 @@
 import { registerCustomTheme } from "@pierre/diffs"
-import { OpenCodeTheme } from "./marked-theme"
+import { AWMateTheme } from "./marked-theme"
 
 let registered = false
 
-export function registerOpenCodeTheme() {
+export function registerAWMateTheme() {
   if (registered) return
   registered = true
-  registerCustomTheme("OpenCode", () => Promise.resolve(OpenCodeTheme))
+  registerCustomTheme("AWMate", () => Promise.resolve(AWMateTheme))
 }

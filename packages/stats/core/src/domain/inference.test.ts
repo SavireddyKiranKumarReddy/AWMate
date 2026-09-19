@@ -46,14 +46,14 @@ describe("inference stat normalization", () => {
     expect(modelAuthor("OMEN-ALPHA-free:global")).toBe("unknown")
   })
 
-  test("uses provider.model to resolve opencode route providers", () => {
+  test("uses provider.model to resolve awmate route providers", () => {
     expect(statModel("big-pickle", "claude-sonnet-4-5")).toBe("claude-sonnet-4-5")
     expect(statModel("big-pickle", "gpt-5-free")).toBe("gpt-5")
     expect(statModel("big-pickle", "xiaomi/mimo-v2.5")).toBe("mimo-v2.5")
     expect(statModel("big-pickle", "")).toBe("unknown")
-    expect(statProvider("big-pickle", "claude-sonnet-4-5", "opencode")).toBe("anthropic")
-    expect(statProvider("big-pickle", "gpt-5", "opencode")).toBe("openai")
-    expect(statProvider("big-pickle", "", "opencode")).toBe("unknown")
+    expect(statProvider("big-pickle", "claude-sonnet-4-5", "awmate")).toBe("anthropic")
+    expect(statProvider("big-pickle", "gpt-5", "awmate")).toBe("openai")
+    expect(statProvider("big-pickle", "", "awmate")).toBe("unknown")
     expect(statProvider("unknown", "", "custom-provider")).toBe("custom-provider")
   })
 
@@ -85,7 +85,7 @@ describe("inference stat normalization", () => {
     expect(toRetentionAggregate({ ...row, cohort_date: "2026-08-10", eligible_users: "12" })).toMatchObject([
       { model: "omen-alpha", provider: "unknown", eligibleUsers: 12 },
     ])
-    ;["opencode-go/union-alpha", "opencode/union-alpha"].forEach((model) => {
+    ;["awmate-go/union-alpha", "awmate/union-alpha"].forEach((model) => {
       expect(statModel(model, "")).toBe("union-alpha")
       expect(statProvider(model, "gpt-test-model", "test-provider")).toBe("unknown")
 
@@ -152,7 +152,7 @@ describe("inference stat normalization", () => {
     ])
 
     expect(
-      toModelAggregate({ ...aggregate("big-pickle", "opencode"), provider_model: "claude-sonnet-4-5" }),
+      toModelAggregate({ ...aggregate("big-pickle", "awmate"), provider_model: "claude-sonnet-4-5" }),
     ).toMatchObject([
       {
         provider: "anthropic",
@@ -162,18 +162,18 @@ describe("inference stat normalization", () => {
     ])
   })
 
-  test("provider aggregates never keep opencode as the provider", () => {
-    expect(toProviderAggregate({ ...aggregate("big-pickle", "opencode"), provider_model: "gpt-5" })).toMatchObject([
+  test("provider aggregates never keep awmate as the provider", () => {
+    expect(toProviderAggregate({ ...aggregate("big-pickle", "awmate"), provider_model: "gpt-5" })).toMatchObject([
       { provider: "openai" },
     ])
-    expect(toProviderAggregate(aggregate("big-pickle", "opencode"))).toMatchObject([{ provider: "unknown" }])
+    expect(toProviderAggregate(aggregate("big-pickle", "awmate"))).toMatchObject([{ provider: "unknown" }])
     expect(toProviderAggregate(aggregate("muse-spark-1.2-contributor", "unknown"))).toMatchObject([
       { provider: "meta" },
     ])
   })
 
-  test("geo aggregates never keep opencode or big-pickle dimensions", () => {
-    expect(toGeoAggregate({ ...aggregate("big-pickle", "opencode"), country: "US" })).toMatchObject([
+  test("geo aggregates never keep awmate or big-pickle dimensions", () => {
+    expect(toGeoAggregate({ ...aggregate("big-pickle", "awmate"), country: "US" })).toMatchObject([
       { provider: "unknown", model: "unknown", country: "US" },
     ])
   })
@@ -199,8 +199,8 @@ describe("inference stat normalization", () => {
     queries.forEach((query) => {
       expect(query).toContain("WHERE lower(model) NOT IN ('alpha-gpt-next')")
       expect(query).toContain("CASE\n      WHEN lower(model) IN ('omen-alpha', 'union-alpha') THEN 'unknown'\n")
-      expect(query).toContain("= 'opencode-go/union-alpha' THEN 'union-alpha'")
-      expect(query).toContain("= 'opencode/union-alpha' THEN 'union-alpha'")
+      expect(query).toContain("= 'awmate-go/union-alpha' THEN 'union-alpha'")
+      expect(query).toContain("= 'awmate/union-alpha' THEN 'union-alpha'")
       expect(query).toContain("= 'deepseek-flash' THEN 'deepseek-v4.1-flash'")
     })
     expect(queries[0]).toContain("'week' AS grain")
@@ -272,8 +272,8 @@ describe("inference stat normalization", () => {
     expect(queries[0]?.query).toContain(
       "CASE\n      WHEN lower(model) IN ('omen-alpha', 'union-alpha') THEN 'unknown'\n",
     )
-    expect(queries[0]?.query).toContain("= 'opencode-go/union-alpha' THEN 'union-alpha'")
-    expect(queries[0]?.query).toContain("= 'opencode/union-alpha' THEN 'union-alpha'")
+    expect(queries[0]?.query).toContain("= 'awmate-go/union-alpha' THEN 'union-alpha'")
+    expect(queries[0]?.query).toContain("= 'awmate/union-alpha' THEN 'union-alpha'")
     expect(queries[0]?.query).toContain("COUNT(*) AS model_requests")
     expect(queries[0]?.query).toContain("SUM(model_requests) AS total_requests")
     expect(queries[0]?.query).toContain("MAX(model_requests) AS max_model_requests")

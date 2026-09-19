@@ -1,6 +1,6 @@
 import { describe, expect } from "bun:test"
-import { LayerNode } from "@opencode-ai/core/effect/layer-node"
-import { httpClient } from "@opencode-ai/core/effect/app-node-platform"
+import { LayerNode } from "@awmate/core/effect/layer-node"
+import { httpClient } from "@awmate/core/effect/app-node-platform"
 import { Effect, Layer } from "effect"
 import { FetchHttpClient, HttpClient } from "effect/unstable/http"
 import { Agent } from "../../src/agent/agent"

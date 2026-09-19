@@ -1,10 +1,10 @@
 import { describe, expect, test } from "bun:test"
-import { ConfigV1 } from "@opencode-ai/core/v1/config/config"
-import { LayerNode } from "@opencode-ai/core/effect/layer-node"
-import { httpClient } from "@opencode-ai/core/effect/app-node-platform"
-import { FSUtil } from "@opencode-ai/core/fs-util"
-import { CrossSpawnSpawner } from "@opencode-ai/core/cross-spawn-spawner"
-import { Npm } from "@opencode-ai/core/npm"
+import { ConfigV1 } from "@awmate/core/v1/config/config"
+import { LayerNode } from "@awmate/core/effect/layer-node"
+import { httpClient } from "@awmate/core/effect/app-node-platform"
+import { FSUtil } from "@awmate/core/fs-util"
+import { CrossSpawnSpawner } from "@awmate/core/cross-spawn-spawner"
+import { Npm } from "@awmate/core/npm"
 import { Effect, Layer, Logger } from "effect"
 import { HttpClient } from "effect/unstable/http"
 import path from "path"
@@ -288,7 +288,7 @@ describe("V2 configuration loading", () => {
     Effect.gen(function* () {
       const instance = yield* TestInstance
       const fs = yield* FSUtil.Service
-      const file = path.join(instance.directory, "opencode.jsonc")
+      const file = path.join(instance.directory, "awmate.jsonc")
       const text =
         '{\n  // Retain this comment\n  "$schema": "https://opencode.ai/config.json",\n  "plugins": ["native-only"]\n}\n'
       yield* fs.writeWithDirs(file, text)
@@ -317,7 +317,7 @@ describe("V2 configuration loading", () => {
       const instance = yield* TestInstance
       const fs = yield* FSUtil.Service
       yield* fs.writeWithDirs(
-        path.join(instance.directory, "opencode.json"),
+        path.join(instance.directory, "awmate.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           model: { providerID: "anthropic", model: "claude-sonnet", variant: "fast" },
@@ -373,7 +373,7 @@ describe("V2 configuration loading", () => {
       const instance = yield* TestInstance
       const fs = yield* FSUtil.Service
       yield* fs.writeWithDirs(
-        path.join(instance.directory, "opencode.json"),
+        path.join(instance.directory, "awmate.json"),
         JSON.stringify({
           $schema: "https://opencode.ai/config.json",
           model: { providerID: "openai", model: "gpt-4.1" },

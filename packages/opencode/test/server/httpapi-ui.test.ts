@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto"
 import { describe, expect } from "bun:test"
-import { Flag } from "@opencode-ai/core/flag/flag"
+import { Flag } from "@awmate/core/flag/flag"
 import { ConfigProvider, Effect, Layer, Option } from "effect"
-import { AppNodeBuilder } from "@opencode-ai/core/effect/app-node-builder"
+import { AppNodeBuilder } from "@awmate/core/effect/app-node-builder"
 import {
   HttpClient,
   HttpClientRequest,
@@ -12,7 +12,7 @@ import {
   HttpServerRequest,
   HttpServerResponse,
 } from "effect/unstable/http"
-import { FSUtil } from "@opencode-ai/core/fs-util"
+import { FSUtil } from "@awmate/core/fs-util"
 import { RuntimeFlags } from "../../src/effect/runtime-flags"
 import { ServerAuth } from "../../src/server/auth"
 import { authorizationRouterMiddleware } from "../../src/server/routes/instance/httpapi/middleware/authorization"
@@ -23,18 +23,18 @@ import { testEffect } from "../lib/effect"
 const testStateLayer = Layer.effectDiscard(
   Effect.gen(function* () {
     const original = {
-      OPENCODE_SERVER_PASSWORD: Flag.OPENCODE_SERVER_PASSWORD,
-      OPENCODE_SERVER_USERNAME: Flag.OPENCODE_SERVER_USERNAME,
-      envPassword: process.env.OPENCODE_SERVER_PASSWORD,
-      envUsername: process.env.OPENCODE_SERVER_USERNAME,
+      AWMATE_SERVER_PASSWORD: Flag.AWMATE_SERVER_PASSWORD,
+      AWMATE_SERVER_USERNAME: Flag.AWMATE_SERVER_USERNAME,
+      envPassword: process.env.AWMATE_SERVER_PASSWORD,
+      envUsername: process.env.AWMATE_SERVER_USERNAME,
     }
 
     yield* Effect.addFinalizer(() =>
       Effect.sync(() => {
-        Flag.OPENCODE_SERVER_PASSWORD = original.OPENCODE_SERVER_PASSWORD
-        Flag.OPENCODE_SERVER_USERNAME = original.OPENCODE_SERVER_USERNAME
-        restoreEnv("OPENCODE_SERVER_PASSWORD", original.envPassword)
-        restoreEnv("OPENCODE_SERVER_USERNAME", original.envUsername)
+        Flag.AWMATE_SERVER_PASSWORD = original.AWMATE_SERVER_PASSWORD
+        Flag.AWMATE_SERVER_USERNAME = original.AWMATE_SERVER_USERNAME
+        restoreEnv("AWMATE_SERVER_PASSWORD", original.envPassword)
+        restoreEnv("AWMATE_SERVER_USERNAME", original.envUsername)
       }),
     )
   }),
@@ -46,7 +46,7 @@ const it = testEffect(Layer.mergeAll(testStateLayer, fsUtilLayer, RuntimeFlags.l
 function authConfigLayer(input?: { password?: string; username?: string }) {
   return ServerAuth.Config.configLayer({
     password: input?.password === undefined ? Option.none() : Option.some(input.password),
-    username: input?.username ?? "opencode",
+    username: input?.username ?? "awmate",
   })
 }
 
@@ -64,8 +64,8 @@ function app(input?: { password?: string; username?: string }) {
       Layer.provide(
         ConfigProvider.layer(
           ConfigProvider.fromUnknown({
-            OPENCODE_SERVER_PASSWORD: input?.password,
-            OPENCODE_SERVER_USERNAME: input?.username,
+            AWMATE_SERVER_PASSWORD: input?.password,
+            AWMATE_SERVER_USERNAME: input?.username,
           }),
         ),
       ),
@@ -191,7 +191,7 @@ describe("HttpApi UI fallback", () => {
       const response = yield* uiApp({
         disableEmbeddedWebUi: true,
         client: httpClient(
-          new Response("<html>opencode</html>", { headers: { "content-type": "text/html" } }),
+          new Response("<html>awmate</html>", { headers: { "content-type": "text/html" } }),
           (request) => {
             proxiedUrl = request.url
           },
@@ -200,7 +200,7 @@ describe("HttpApi UI fallback", () => {
 
       expect(response.status).toBe(200)
       expect(response.headers.get("content-type")).toContain("text/html")
-      expect(yield* responseText(response)).toBe("<html>opencode</html>")
+      expect(yield* responseText(response)).toBe("<html>awmate</html>")
       expect(proxiedUrl).toBe("https://app.opencode.ai/")
     }),
   )
@@ -278,7 +278,7 @@ describe("HttpApi UI fallback", () => {
                 Effect.succeed(
                   HttpClientResponse.fromWeb(
                     request,
-                    new Response("<html>opencode</html>", {
+                    new Response("<html>awmate</html>", {
                       headers: {
                         "transfer-encoding": "chunked",
                         "content-type": "text/html",
@@ -295,7 +295,7 @@ describe("HttpApi UI fallback", () => {
 
       expect(response.status).toBe(200)
       expect(response.headers.get("transfer-encoding")).toBeNull()
-      expect(yield* responseText(response)).toBe("<html>opencode</html>")
+      expect(yield* responseText(response)).toBe("<html>awmate</html>")
     }),
   )
 
@@ -370,7 +370,7 @@ describe("HttpApi UI fallback", () => {
     Effect.gen(function* () {
       const response = yield* uiApp({
         password: "secret",
-        username: "opencode",
+        username: "awmate",
         disableEmbeddedWebUi: true,
       }).request("/")
 
@@ -383,13 +383,13 @@ describe("HttpApi UI fallback", () => {
     Effect.gen(function* () {
       const response = yield* uiApp({
         password: "secret",
-        username: "opencode",
+        username: "awmate",
         disableEmbeddedWebUi: true,
-        client: httpClient(new Response("<html>opencode</html>", { headers: { "content-type": "text/html" } })),
-      }).request(`/?auth_token=${btoa("opencode:secret")}`)
+        client: httpClient(new Response("<html>awmate</html>", { headers: { "content-type": "text/html" } })),
+      }).request(`/?auth_token=${btoa("awmate:secret")}`)
 
       expect(response.status).toBe(200)
-      expect(yield* responseText(response)).toBe("<html>opencode</html>")
+      expect(yield* responseText(response)).toBe("<html>awmate</html>")
     }),
   )
 
@@ -397,10 +397,10 @@ describe("HttpApi UI fallback", () => {
     Effect.gen(function* () {
       const response = yield* uiApp({
         password: "secret",
-        username: "opencode",
+        username: "awmate",
         disableEmbeddedWebUi: true,
       }).request("/", {
-        headers: { authorization: `Basic ${btoa("opencode:secret")}` },
+        headers: { authorization: `Basic ${btoa("awmate:secret")}` },
       })
 
       expect(response.status).toBe(200)
@@ -411,10 +411,10 @@ describe("HttpApi UI fallback", () => {
     Effect.gen(function* () {
       const response = yield* uiApp({
         password: "sec:ret",
-        username: "opencode",
+        username: "awmate",
         disableEmbeddedWebUi: true,
       }).request("/", {
-        headers: { authorization: `Basic ${btoa("opencode:sec:ret")}` },
+        headers: { authorization: `Basic ${btoa("awmate:sec:ret")}` },
       })
 
       expect(response.status).toBe(200)
@@ -431,7 +431,7 @@ describe("HttpApi UI fallback", () => {
       for (const path of ["/site.webmanifest", "/web-app-manifest-192x192.png", "/web-app-manifest-512x512.png"]) {
         const response = yield* uiApp({
           password: "secret",
-          username: "opencode",
+          username: "awmate",
           disableEmbeddedWebUi: true,
           client: httpClient(new Response("ok")),
         }).request(path)
@@ -442,7 +442,7 @@ describe("HttpApi UI fallback", () => {
 
   it.live("allows web UI preflight without auth", () =>
     Effect.gen(function* () {
-      const response = yield* app({ password: "secret", username: "opencode" }).request("/", {
+      const response = yield* app({ password: "secret", username: "awmate" }).request("/", {
         method: "OPTIONS",
         headers: {
           origin: "http://localhost:3000",

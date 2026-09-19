@@ -1,19 +1,19 @@
 import type { APIEvent } from "@solidjs/start/server"
-import { and, Database, eq, isNull, lt, or, sql } from "@opencode-ai/console-core/drizzle/index.js"
-import { KeyTable } from "@opencode-ai/console-core/schema/key.sql.js"
-import { BillingTable, LiteTable, SubscriptionTable, UsageTable } from "@opencode-ai/console-core/schema/billing.sql.js"
-import { centsToMicroCents } from "@opencode-ai/console-core/util/price.js"
-import { getMonthlyBounds, getWeekBounds } from "@opencode-ai/console-core/util/date.js"
-import { Identifier } from "@opencode-ai/console-core/identifier.js"
-import { Billing } from "@opencode-ai/console-core/billing.js"
-import { Actor } from "@opencode-ai/console-core/actor.js"
-import { WorkspaceTable } from "@opencode-ai/console-core/schema/workspace.sql.js"
-import { ZenData } from "@opencode-ai/console-core/model.js"
-import { Subscription } from "@opencode-ai/console-core/subscription.js"
-import { BlackData } from "@opencode-ai/console-core/black.js"
-import { UserTable } from "@opencode-ai/console-core/schema/user.sql.js"
-import { ModelTable } from "@opencode-ai/console-core/schema/model.sql.js"
-import { ProviderTable } from "@opencode-ai/console-core/schema/provider.sql.js"
+import { and, Database, eq, isNull, lt, or, sql } from "@awmate/console-core/drizzle/index.js"
+import { KeyTable } from "@awmate/console-core/schema/key.sql.js"
+import { BillingTable, LiteTable, SubscriptionTable, UsageTable } from "@awmate/console-core/schema/billing.sql.js"
+import { centsToMicroCents } from "@awmate/console-core/util/price.js"
+import { getMonthlyBounds, getWeekBounds } from "@awmate/console-core/util/date.js"
+import { Identifier } from "@awmate/console-core/identifier.js"
+import { Billing } from "@awmate/console-core/billing.js"
+import { Actor } from "@awmate/console-core/actor.js"
+import { WorkspaceTable } from "@awmate/console-core/schema/workspace.sql.js"
+import { ZenData } from "@awmate/console-core/model.js"
+import { Subscription } from "@awmate/console-core/subscription.js"
+import { BlackData } from "@awmate/console-core/black.js"
+import { UserTable } from "@awmate/console-core/schema/user.sql.js"
+import { ModelTable } from "@awmate/console-core/schema/model.sql.js"
+import { ProviderTable } from "@awmate/console-core/schema/provider.sql.js"
 import { logger } from "./logger"
 import {
   AuthError,
@@ -38,15 +38,15 @@ import { createRateLimiter as createIpRateLimiter } from "./ipRateLimiter"
 import { createRateLimiter as createKeyRateLimiter } from "./keyRateLimiter"
 import { createTrialLimiter } from "./trialLimiter"
 import { createStickyTracker } from "./stickyProviderTracker"
-import { LiteData } from "@opencode-ai/console-core/lite.js"
-import { Resource } from "@opencode-ai/console-resource"
+import { LiteData } from "@awmate/console-core/lite.js"
+import { Resource } from "@awmate/console-resource"
 import { i18n, type Key } from "~/i18n"
 import { localeFromRequest } from "~/lib/language"
 import { createModelTpmLimiter } from "./modelTpmLimiter"
 import { createModelTpsLimiter } from "./modelTpsLimiter"
 import { createProviderBudgetTracker } from "./providerBudgetTracker"
 import { accumulateUsage, HOT_WORKSPACES } from "./usageBatcher"
-import { Workspace } from "@opencode-ai/console-core/workspace.js"
+import { Workspace } from "@awmate/console-core/workspace.js"
 import { countryFromRequest, isModelCountryRestricted } from "~/lib/request-country"
 import { isPeakPricing } from "./pricing"
 import { prepareRequestBody } from "./requestBody"
@@ -122,10 +122,10 @@ export async function handler(
       })
       if (response) return response
     }
-    const sessionId = input.request.headers.get("x-opencode-session") ?? ""
-    const requestId = input.request.headers.get("x-opencode-request") ?? ""
-    const ocClient = input.request.headers.get("x-opencode-client") ?? ""
-    const projectId = input.request.headers.get("x-opencode-project") ?? ""
+    const sessionId = input.request.headers.get("x-awmate-session") ?? ""
+    const requestId = input.request.headers.get("x-awmate-request") ?? ""
+    const ocClient = input.request.headers.get("x-awmate-client") ?? ""
+    const projectId = input.request.headers.get("x-awmate-project") ?? ""
     const userAgent = input.request.headers.get("user-agent") ?? ""
     logger.metric({
       session: sessionId,
@@ -259,10 +259,10 @@ export async function handler(
           headers.delete("host")
           headers.delete("content-length")
           if (!isNewInference) {
-            headers.delete("x-opencode-session")
-            headers.delete("x-opencode-project")
-            headers.delete("x-opencode-client")
-            headers.delete("x-opencode-request")
+            headers.delete("x-awmate-session")
+            headers.delete("x-awmate-project")
+            headers.delete("x-awmate-client")
+            headers.delete("x-awmate-request")
             headers.delete("x-zen-model")
             headers.delete("x-zen-billing-source")
           }
@@ -278,8 +278,8 @@ export async function handler(
       logger.metric({ is_stream: isStream })
 
       if (isNewInference) {
-        const resEndpointId = res.headers.get("x-opencode-endpoint-id")
-        const resEndpointModelId = res.headers.get("x-opencode-upstream-model-id")
+        const resEndpointId = res.headers.get("x-awmate-endpoint-id")
+        const resEndpointModelId = res.headers.get("x-awmate-upstream-model-id")
         if (resEndpointId && resEndpointModelId)
           logger.metric({
             provider: resEndpointId,

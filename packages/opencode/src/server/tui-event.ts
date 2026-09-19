@@ -1,1 +1,1 @@
-export { TuiEvent } from "@opencode-ai/schema/tui-event"
+export { TuiEvent } from "@awmate/schema/tui-event"

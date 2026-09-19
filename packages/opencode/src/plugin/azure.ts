@@ -1,6 +1,6 @@
-import { InstallationVersion } from "@opencode-ai/core/installation/version"
-import { which } from "@opencode-ai/core/util/which"
-import type { Hooks } from "@opencode-ai/plugin"
+import { InstallationVersion } from "@awmate/core/installation/version"
+import { which } from "@awmate/core/util/which"
+import type { Hooks } from "@awmate/plugin"
 import { Schema } from "effect"
 import { OAUTH_DUMMY_KEY } from "../auth"
 import { Process } from "../util/process"
@@ -65,7 +65,7 @@ export function createAzureAuthHooks(
             headers.delete("api-key")
             headers.delete("x-api-key")
             headers.set("authorization", `Bearer ${await token(scopeForRequest(input))}`)
-            headers.set("User-Agent", `opencode/${InstallationVersion}`)
+            headers.set("User-Agent", `awmate/${InstallationVersion}`)
             return request(input, { ...init, headers })
           },
         }

@@ -1,13 +1,13 @@
 import { afterEach, expect, test } from "bun:test"
 import { mkdir, unlink } from "fs/promises"
 import path from "path"
-import { LayerNode } from "@opencode-ai/core/effect/layer-node"
-import { AppNodeBuilder } from "@opencode-ai/core/effect/app-node-builder"
+import { LayerNode } from "@awmate/core/effect/layer-node"
+import { AppNodeBuilder } from "@awmate/core/effect/app-node-builder"
 import { Effect, Layer } from "effect"
-import { ModelsDev } from "@opencode-ai/core/models-dev"
-import { FSUtil } from "@opencode-ai/core/fs-util"
-import { CrossSpawnSpawner } from "@opencode-ai/core/cross-spawn-spawner"
-import { Global } from "@opencode-ai/core/global"
+import { ModelsDev } from "@awmate/core/models-dev"
+import { FSUtil } from "@awmate/core/fs-util"
+import { CrossSpawnSpawner } from "@awmate/core/cross-spawn-spawner"
+import { Global } from "@awmate/core/global"
 import { disposeAllInstances, provideInstanceEffect, tmpdirScoped, TestInstance } from "../fixture/fixture"
 import { markPluginDependenciesReady } from "../fixture/plugin"
 import { Auth } from "@/auth"
@@ -21,8 +21,8 @@ import { Filesystem } from "@/util/filesystem"
 import { InstanceBootstrap } from "@/project/bootstrap"
 import { InstanceStore } from "@/project/instance-store"
 import { testEffect } from "../lib/effect"
-import { ProviderV2 } from "@opencode-ai/core/provider"
-import { ModelV2 } from "@opencode-ai/core/model"
+import { ProviderV2 } from "@awmate/core/provider"
+import { ModelV2 } from "@awmate/core/model"
 
 const originalEnv = new Map<string, string | undefined>()
 
@@ -77,7 +77,7 @@ const providerLayer = (flags: Partial<RuntimeFlags.Info> = {}) =>
 const list = Provider.use.list()
 
 const paid = (providers: Record<string, { models: Record<string, { cost: { input: number } }> }>) => {
-  const item = providers[ProviderV2.ID.make("opencode")]
+  const item = providers[ProviderV2.ID.make("awmate")]
   expect(item).toBeDefined()
   return Object.values(item.models).filter((model) => model.cost.input > 0).length
 }
@@ -1191,9 +1191,9 @@ it.instance("ModelNotFoundError for provider includes suggestions", () =>
 
 it.instance("ModelNotFoundError suggests catalog models for unloaded providers", () =>
   Effect.gen(function* () {
-    yield* remove("OPENCODE_API_KEY")
+    yield* remove("AWMATE_API_KEY")
     const error = yield* Provider.use
-      .getModel(ProviderV2.ID.opencode, ModelV2.ID.make("claude-haiku-fake-model"))
+      .getModel(ProviderV2.ID.awmate, ModelV2.ID.make("claude-haiku-fake-model"))
       .pipe(Effect.flip)
     if (!Provider.ModelNotFoundError.isInstance(error)) throw error
     expect(error.suggestions ?? []).toContain("claude-haiku-4-5")
@@ -1281,8 +1281,8 @@ it.instance(
     const providers = yield* list
     expect(providers[ProviderV2.ID.make("nvidia")].options.headers).toEqual({
       "HTTP-Referer": "https://opencode.ai/",
-      "X-Title": "opencode",
-      "X-BILLING-INVOKE-ORIGIN": "OpenCode",
+      "X-Title": "awmate",
+      "X-BILLING-INVOKE-ORIGIN": "AWMate",
     })
   }),
   { config: { provider: { nvidia: { options: { apiKey: "test-api-key" } } } } },
@@ -1294,8 +1294,8 @@ it.instance(
     const providers = yield* list
     expect(providers[ProviderV2.ID.make("nvidia")].options.headers).toEqual({
       "HTTP-Referer": "https://opencode.ai/",
-      "X-Title": "opencode",
-      "X-BILLING-INVOKE-ORIGIN": "OpenCode",
+      "X-Title": "awmate",
+      "X-BILLING-INVOKE-ORIGIN": "AWMate",
     })
   }),
   { config: { provider: { nvidia: { options: { apiKey: "test-api-key", baseURL: "http://localhost:8000/v1" } } } } },
@@ -1955,12 +1955,12 @@ it.instance(
     expect(providers[ProviderV2.ID.make("cloudflare-ai-gateway")]).toBeDefined()
     expect(providers[ProviderV2.ID.make("cloudflare-ai-gateway")].options.metadata).toEqual({
       invoked_by: "test",
-      project: "opencode",
+      project: "awmate",
     })
   }),
   {
     config: {
-      provider: { "cloudflare-ai-gateway": { options: { metadata: { invoked_by: "test", project: "opencode" } } } },
+      provider: { "cloudflare-ai-gateway": { options: { metadata: { invoked_by: "test", project: "awmate" } } } },
     },
   },
 )
@@ -1977,7 +1977,7 @@ const provideMultiInstance = <A, E, R>(eff: Effect.Effect<A, E, R>) =>
 it.effect("plugin config providers persist after instance dispose", () =>
   Effect.gen(function* () {
     const dir = yield* tmpdirScoped()
-    const configDir = path.join(dir, ".opencode")
+    const configDir = path.join(dir, ".awmate")
     const root = path.join(configDir, "plugin")
     yield* Effect.promise(() => mkdir(root, { recursive: true }))
     yield* Effect.promise(() => markPluginDependenciesReady(configDir))
@@ -2034,7 +2034,7 @@ it.instance(
   "plugin config enabled and disabled providers are honored",
   Effect.gen(function* () {
     const instance = yield* TestInstance
-    const configDir = path.join(instance.directory, ".opencode")
+    const configDir = path.join(instance.directory, ".awmate")
     const root = path.join(configDir, "plugin")
     yield* Effect.promise(() => mkdir(root, { recursive: true }))
     yield* Effect.promise(() => markPluginDependenciesReady(configDir))
@@ -2064,11 +2064,11 @@ it.instance(
   }),
 )
 
-it.effect("opencode loader keeps paid models when config apiKey is present", () =>
+it.effect("awmate loader keeps paid models when config apiKey is present", () =>
   Effect.gen(function* () {
     const noneDir = yield* tmpdirScoped()
     const keyedDir = yield* tmpdirScoped({
-      config: { provider: { opencode: { options: { apiKey: "test-key" } } } },
+      config: { provider: { awmate: { options: { apiKey: "test-key" } } } },
     })
 
     const listIn = (directory: string) =>
@@ -2085,7 +2085,7 @@ it.effect("opencode loader keeps paid models when config apiKey is present", () 
   }).pipe(provideMultiInstance),
 )
 
-it.effect("opencode loader keeps paid models when auth exists", () =>
+it.effect("awmate loader keeps paid models when auth exists", () =>
   Effect.gen(function* () {
     const noneDir = yield* tmpdirScoped()
     const keyedDir = yield* tmpdirScoped()
@@ -2102,7 +2102,7 @@ it.effect("opencode loader keeps paid models when auth exists", () =>
     const original = yield* Effect.promise(() => Filesystem.readText(authPath).catch(() => undefined))
 
     yield* Effect.acquireRelease(
-      Effect.promise(() => Filesystem.write(authPath, JSON.stringify({ opencode: { type: "api", key: "test-key" } }))),
+      Effect.promise(() => Filesystem.write(authPath, JSON.stringify({ awmate: { type: "api", key: "test-key" } }))),
       () =>
         Effect.promise(async () => {
           if (original !== undefined) await Filesystem.write(authPath, original)

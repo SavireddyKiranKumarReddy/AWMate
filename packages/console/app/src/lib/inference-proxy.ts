@@ -1,8 +1,8 @@
-import { Resource } from "@opencode-ai/console-resource"
-import { and, Database, eq, isNotNull, isNull, sql } from "@opencode-ai/console-core/drizzle/index.js"
-import { KeyTable } from "@opencode-ai/console-core/schema/key.sql.js"
-import { ProviderTable } from "@opencode-ai/console-core/schema/provider.sql.js"
-import { WorkspaceTable } from "@opencode-ai/console-core/schema/workspace.sql.js"
+import { Resource } from "@awmate/console-resource"
+import { and, Database, eq, isNotNull, isNull, sql } from "@awmate/console-core/drizzle/index.js"
+import { KeyTable } from "@awmate/console-core/schema/key.sql.js"
+import { ProviderTable } from "@awmate/console-core/schema/provider.sql.js"
+import { WorkspaceTable } from "@awmate/console-core/schema/workspace.sql.js"
 
 const paths: Record<string, string | undefined> = {
   "POST /zen/v1/chat/completions": "/openai/v1/chat/completions",
@@ -83,8 +83,8 @@ export async function proxyInference(
   forwarded.headers.set("authorization", `Bearer ${key}`)
   const ip = request.headers.get("cf-connecting-ip")
   if (ip) forwarded.headers.set("x-real-ip", ip)
-  const requestID = request.headers.get("x-opencode-request-id") ?? request.headers.get("x-opencode-request")
-  if (requestID) forwarded.headers.set("x-opencode-request-id", requestID)
+  const requestID = request.headers.get("x-awmate-request-id") ?? request.headers.get("x-awmate-request")
+  if (requestID) forwarded.headers.set("x-awmate-request-id", requestID)
 
   return fetch(forwarded, { redirect: "manual" })
 }

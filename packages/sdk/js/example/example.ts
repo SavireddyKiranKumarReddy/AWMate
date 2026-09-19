@@ -1,8 +1,8 @@
-import { createOpencodeClient, createOpencodeServer } from "@opencode-ai/sdk"
+import { createAWMateClient, createAWMateServer } from "@awmate/sdk"
 import { pathToFileURL } from "bun"
 
-const server = await createOpencodeServer()
-const client = createOpencodeClient({ baseUrl: server.url })
+const server = await createAWMateServer()
+const client = createAWMateClient({ baseUrl: server.url })
 
 const input = await Array.fromAsync(new Bun.Glob("packages/core/*.ts").scan())
 

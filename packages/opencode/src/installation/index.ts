@@ -1,19 +1,19 @@
-import { LayerNode } from "@opencode-ai/core/effect/layer-node"
-import { AppNodeBuilder } from "@opencode-ai/core/effect/app-node-builder"
-import { httpClient } from "@opencode-ai/core/effect/app-node-platform"
+import { LayerNode } from "@awmate/core/effect/layer-node"
+import { AppNodeBuilder } from "@awmate/core/effect/app-node-builder"
+import { httpClient } from "@awmate/core/effect/app-node-platform"
 import { Effect, Layer, Schema, Context, Stream } from "effect"
-import { serviceUse } from "@opencode-ai/core/effect/service-use"
+import { serviceUse } from "@awmate/core/effect/service-use"
 import { HttpClient, HttpClientRequest, HttpClientResponse } from "effect/unstable/http"
 import { withTransientReadRetry } from "@/util/effect-http-client"
 import { errorMessage } from "@/util/error"
 import { ChildProcess } from "effect/unstable/process"
-import { AppProcess } from "@opencode-ai/core/process"
+import { AppProcess } from "@awmate/core/process"
 import path from "path"
-import { makeRuntime } from "@opencode-ai/core/effect/runtime"
+import { makeRuntime } from "@awmate/core/effect/runtime"
 import semver from "semver"
-import { InstallationChannel, InstallationVersion } from "@opencode-ai/core/installation/version"
-import { NpmConfig } from "@opencode-ai/core/npm-config"
-import { InstallationEvent } from "@opencode-ai/schema/installation-event"
+import { InstallationChannel, InstallationVersion } from "@awmate/core/installation/version"
+import { NpmConfig } from "@awmate/core/npm-config"
+import { InstallationEvent } from "@awmate/schema/installation-event"
 
 export type Method = "curl" | "npm" | "yarn" | "pnpm" | "bun" | "brew" | "scoop" | "choco" | "unknown"
 
@@ -79,7 +79,7 @@ export interface Interface {
   readonly upgrade: (method: Method, target: string) => Effect.Effect<void, UpgradeFailedError>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/Installation") {}
+export class Service extends Context.Service<Service, Interface>()("@awmate/Installation") {}
 
 export const use = serviceUse(Service)
 
@@ -172,7 +172,7 @@ const layer: Layer.Layer<Service, never, HttpClient.HttpClient | AppProcess.Serv
         }
       }),
       method: Effect.fn("Installation.method")(function* () {
-        if (process.execPath.includes(path.join(".opencode", "bin"))) return "curl" as Method
+        if (process.execPath.includes(path.join(".awmate", "bin"))) return "curl" as Method
         if (process.execPath.includes(path.join(".local", "bin"))) return "curl" as Method
         const exec = process.execPath.toLowerCase()
 

@@ -1,7 +1,7 @@
-import type { GlobalEvent } from "@opencode-ai/sdk/v2"
-import type { EventSource } from "@opencode-ai/tui/context/sdk"
+import type { GlobalEvent } from "@awmate/sdk/v2"
+import type { EventSource } from "@awmate/tui/context/sdk"
 
-export const worktree = "/tmp/opencode"
+export const worktree = "/tmp/awmate"
 export const directory = `${worktree}/packages/opencode`
 
 export function json(data: unknown, init?: ResponseInit) {

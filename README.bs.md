@@ -3,11 +3,11 @@
     <picture>
       <source srcset="packages/console/app/src/asset/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
       <source srcset="packages/console/app/src/asset/logo-ornate-light.svg" media="(prefers-color-scheme: light)">
-      <img src="packages/console/app/src/asset/logo-ornate-light.svg" alt="OpenCode logo">
+      <img src="packages/console/app/src/asset/logo-ornate-light.svg" alt="AWMate logo">
     </picture>
   </a>
 </p>
-<p align="center">OpenCode je open source AI agent za programiranje.</p>
+<p align="center">AWMate je open source AI agent za programiranje.</p>
 <p align="center">
   <a href="https://opencode.ai/discord"><img alt="Discord" src="https://img.shields.io/discord/1391832426048651334?style=flat-square&label=discord" /></a>
   <a href="https://www.npmjs.com/package/opencode-ai"><img alt="npm" src="https://img.shields.io/npm/v/opencode-ai?style=flat-square" /></a>
@@ -39,7 +39,7 @@
   <a href="README.vi.md">Tiếng Việt</a>
 </p>
 
-[![OpenCode Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://opencode.ai)
+[![AWMate Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://opencode.ai)
 
 ---
 
@@ -51,14 +51,14 @@ curl -fsSL https://opencode.ai/install | bash
 
 # Package manageri
 npm i -g opencode-ai@latest        # ili bun/pnpm/yarn
-scoop install opencode             # Windows
-choco install opencode             # Windows
+scoop install awmate             # Windows
+choco install awmate             # Windows
 brew install anomalyco/tap/opencode # macOS i Linux (preporučeno, uvijek ažurno)
-brew install opencode              # macOS i Linux (zvanična brew formula, rjeđe se ažurira)
-sudo pacman -S opencode            # Arch Linux (Stable)
-paru -S opencode-bin               # Arch Linux (Latest from AUR)
-mise use -g opencode               # Bilo koji OS
-nix run nixpkgs#opencode           # ili github:anomalyco/opencode za najnoviji dev branch
+brew install awmate              # macOS i Linux (zvanična brew formula, rjeđe se ažurira)
+sudo pacman -S awmate            # Arch Linux (Stable)
+paru -S awmate-bin               # Arch Linux (Latest from AUR)
+mise use -g awmate               # Bilo koji OS
+nix run nixpkgs#awmate           # ili github:anomalyco/opencode za najnoviji dev branch
 ```
 
 > [!TIP]
@@ -66,40 +66,40 @@ nix run nixpkgs#opencode           # ili github:anomalyco/opencode za najnoviji 
 
 ### Desktop aplikacija (BETA)
 
-OpenCode je dostupan i kao desktop aplikacija. Preuzmi je direktno sa [stranice izdanja](https://github.com/anomalyco/opencode/releases) ili sa [opencode.ai/download](https://opencode.ai/download).
+AWMate je dostupan i kao desktop aplikacija. Preuzmi je direktno sa [stranice izdanja](https://github.com/anomalyco/opencode/releases) ili sa [opencode.ai/download](https://opencode.ai/download).
 
 | Platforma             | Preuzimanje                        |
 | --------------------- | ---------------------------------- |
-| macOS (Apple Silicon) | `opencode-desktop-mac-arm64.dmg`   |
-| macOS (Intel)         | `opencode-desktop-mac-x64.dmg`     |
-| Windows               | `opencode-desktop-windows-x64.exe` |
+| macOS (Apple Silicon) | `awmate-desktop-mac-arm64.dmg`   |
+| macOS (Intel)         | `awmate-desktop-mac-x64.dmg`     |
+| Windows               | `awmate-desktop-windows-x64.exe` |
 | Linux                 | `.deb`, `.rpm`, ili AppImage       |
 
 ```bash
 # macOS (Homebrew)
-brew install --cask opencode-desktop
+brew install --cask awmate-desktop
 # Windows (Scoop)
-scoop bucket add extras; scoop install extras/opencode-desktop
+scoop bucket add extras; scoop install extras/awmate-desktop
 ```
 
 #### Instalacijski direktorij
 
 Instalacijska skripta koristi sljedeći redoslijed prioriteta za putanju instalacije:
 
-1. `$OPENCODE_INSTALL_DIR` - Prilagođeni instalacijski direktorij
+1. `$AWMATE_INSTALL_DIR` - Prilagođeni instalacijski direktorij
 2. `$XDG_BIN_DIR` - Putanja usklađena sa XDG Base Directory specifikacijom
 3. `$HOME/bin` - Standardni korisnički bin direktorij (ako postoji ili se može kreirati)
-4. `$HOME/.opencode/bin` - Podrazumijevana rezervna lokacija
+4. `$HOME/.awmate/bin` - Podrazumijevana rezervna lokacija
 
 ```bash
 # Primjeri
-OPENCODE_INSTALL_DIR=/usr/local/bin curl -fsSL https://opencode.ai/install | bash
+AWMATE_INSTALL_DIR=/usr/local/bin curl -fsSL https://opencode.ai/install | bash
 XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://opencode.ai/install | bash
 ```
 
 ### Agenti
 
-OpenCode uključuje dva ugrađena agenta između kojih možeš prebacivati tasterom `Tab`.
+AWMate uključuje dva ugrađena agenta između kojih možeš prebacivati tasterom `Tab`.
 
 - **build** - Podrazumijevani agent sa punim pristupom za razvoj
 - **plan** - Agent samo za čitanje za analizu i istraživanje koda
@@ -114,16 +114,16 @@ Saznaj više o [agentima](https://opencode.ai/docs/agents).
 
 ### Dokumentacija
 
-Za više informacija o konfiguraciji OpenCode-a, [**pogledaj dokumentaciju**](https://opencode.ai/docs).
+Za više informacija o konfiguraciji AWMate-a, [**pogledaj dokumentaciju**](https://opencode.ai/docs).
 
 ### Doprinosi
 
-Ako želiš doprinositi OpenCode-u, pročitaj [upute za doprinošenje](./CONTRIBUTING.md) prije slanja pull requesta.
+Ako želiš doprinositi AWMate-u, pročitaj [upute za doprinošenje](./CONTRIBUTING.md) prije slanja pull requesta.
 
-### Gradnja na OpenCode-u
+### Gradnja na AWMate-u
 
-Ako radiš na projektu koji je povezan s OpenCode-om i koristi "opencode" kao dio naziva, npr. "opencode-dashboard" ili "opencode-mobile", dodaj napomenu u svoj README da projekat nije napravio OpenCode tim i da nije povezan s nama.
+Ako radiš na projektu koji je povezan s AWMate-om i koristi "awmate" kao dio naziva, npr. "awmate-dashboard" ili "awmate-mobile", dodaj napomenu u svoj README da projekat nije napravio AWMate tim i da nije povezan s nama.
 
 ---
 
-**Pridruži se našoj zajednici** [Discord](https://discord.gg/opencode) | [X.com](https://x.com/opencode)
+**Pridruži se našoj zajednici** [Discord](https://discord.gg/awmate) | [X.com](https://x.com/awmate)

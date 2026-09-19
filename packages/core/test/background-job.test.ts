@@ -1,6 +1,6 @@
 import { describe, expect } from "bun:test"
-import { BackgroundJob } from "@opencode-ai/core/background-job"
-import { LayerNode } from "@opencode-ai/core/effect/layer-node"
+import { BackgroundJob } from "@awmate/core/background-job"
+import { LayerNode } from "@awmate/core/effect/layer-node"
 import { Deferred, Effect, Exit, Scope } from "effect"
 import { it } from "./lib/effect"
 

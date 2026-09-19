@@ -1,29 +1,29 @@
-import { Flag } from "@opencode-ai/core/flag/flag"
+import { Flag } from "@awmate/core/flag/flag"
 import { Effect } from "effect"
 import path from "path"
 
-const preserveExerciseGlobalRoot = !!process.env.OPENCODE_HTTPAPI_EXERCISE_GLOBAL
+const preserveExerciseGlobalRoot = !!process.env.AWMATE_HTTPAPI_EXERCISE_GLOBAL
 export const exerciseGlobalRoot =
-  process.env.OPENCODE_HTTPAPI_EXERCISE_GLOBAL ??
-  path.join(process.env.TMPDIR ?? "/tmp", `opencode-httpapi-global-${process.pid}`)
+  process.env.AWMATE_HTTPAPI_EXERCISE_GLOBAL ??
+  path.join(process.env.TMPDIR ?? "/tmp", `awmate-httpapi-global-${process.pid}`)
 process.env.XDG_DATA_HOME = path.join(exerciseGlobalRoot, "data")
 process.env.XDG_CONFIG_HOME = path.join(exerciseGlobalRoot, "config")
 process.env.XDG_STATE_HOME = path.join(exerciseGlobalRoot, "state")
 process.env.XDG_CACHE_HOME = path.join(exerciseGlobalRoot, "cache")
-process.env.OPENCODE_DISABLE_SHARE = "true"
-export const exerciseConfigDirectory = path.join(exerciseGlobalRoot, "config", "opencode")
-export const exerciseDataDirectory = path.join(exerciseGlobalRoot, "data", "opencode")
+process.env.AWMATE_DISABLE_SHARE = "true"
+export const exerciseConfigDirectory = path.join(exerciseGlobalRoot, "config", "awmate")
+export const exerciseDataDirectory = path.join(exerciseGlobalRoot, "data", "awmate")
 
-const preserveExerciseDatabase = !!process.env.OPENCODE_HTTPAPI_EXERCISE_DB
+const preserveExerciseDatabase = !!process.env.AWMATE_HTTPAPI_EXERCISE_DB
 export const exerciseDatabasePath =
-  process.env.OPENCODE_HTTPAPI_EXERCISE_DB ??
-  path.join(process.env.TMPDIR ?? "/tmp", `opencode-httpapi-exercise-${process.pid}.db`)
-process.env.OPENCODE_DB = exerciseDatabasePath
-Flag.OPENCODE_DB = exerciseDatabasePath
+  process.env.AWMATE_HTTPAPI_EXERCISE_DB ??
+  path.join(process.env.TMPDIR ?? "/tmp", `awmate-httpapi-exercise-${process.pid}.db`)
+process.env.AWMATE_DB = exerciseDatabasePath
+Flag.AWMATE_DB = exerciseDatabasePath
 
 export const original = {
-  OPENCODE_SERVER_PASSWORD: Flag.OPENCODE_SERVER_PASSWORD,
-  OPENCODE_SERVER_USERNAME: Flag.OPENCODE_SERVER_USERNAME,
+  AWMATE_SERVER_PASSWORD: Flag.AWMATE_SERVER_PASSWORD,
+  AWMATE_SERVER_USERNAME: Flag.AWMATE_SERVER_USERNAME,
 }
 
 export const cleanupExercisePaths = Effect.promise(async () => {

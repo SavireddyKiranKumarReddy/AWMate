@@ -1,6 +1,6 @@
-# OpenCode Desktop
+# AWMate Desktop
 
-The OpenCode Desktop app, built with Electron.
+The AWMate Desktop app, built with Electron.
 
 ## Development
 

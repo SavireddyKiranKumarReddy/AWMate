@@ -1,6 +1,6 @@
-import { Global } from "@opencode-ai/core/global"
-import { InstallationVersion } from "@opencode-ai/core/installation/version"
-import { Flag } from "@opencode-ai/core/flag/flag"
+import { Global } from "@awmate/core/global"
+import { InstallationVersion } from "@awmate/core/installation/version"
+import { Flag } from "@awmate/core/flag/flag"
 import os from "os"
 import { Duration, Effect } from "effect"
 import { effectCmd } from "../../effect-cmd"
@@ -58,11 +58,11 @@ const InfoCommand = effectCmd({
       : undefined
     const terminal = [termProgram, process.env.TERM].filter((item): item is string => Boolean(item)).join(" / ")
 
-    console.log(`opencode version: ${InstallationVersion}`)
+    console.log(`awmate version: ${InstallationVersion}`)
     console.log(`os: ${os.type()} ${os.release()} ${os.arch()}`)
     console.log(`terminal: ${terminal || "unknown"}`)
     console.log("plugins:")
-    if (Flag.OPENCODE_PURE) {
+    if (Flag.AWMATE_PURE) {
       console.log("external plugins disabled (--pure)")
       return
     }

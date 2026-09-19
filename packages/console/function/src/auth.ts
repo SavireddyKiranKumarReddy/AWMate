@@ -7,16 +7,16 @@ import { THEME_OPENAUTH } from "@openauthjs/openauth/ui/theme"
 import { GithubProvider } from "@openauthjs/openauth/provider/github"
 import { GoogleOidcProvider } from "@openauthjs/openauth/provider/google"
 import { CloudflareStorage } from "@openauthjs/openauth/storage/cloudflare"
-import { Account } from "@opencode-ai/console-core/account.js"
-import { Workspace } from "@opencode-ai/console-core/workspace.js"
-import { Actor } from "@opencode-ai/console-core/actor.js"
-import { Resource } from "@opencode-ai/console-resource"
-import { User } from "@opencode-ai/console-core/user.js"
-import { and, Database, eq, isNull, or } from "@opencode-ai/console-core/drizzle/index.js"
-import { WorkspaceTable } from "@opencode-ai/console-core/schema/workspace.sql.js"
-import { UserTable } from "@opencode-ai/console-core/schema/user.sql.js"
-import { AuthTable } from "@opencode-ai/console-core/schema/auth.sql.js"
-import { Identifier } from "@opencode-ai/console-core/identifier.js"
+import { Account } from "@awmate/console-core/account.js"
+import { Workspace } from "@awmate/console-core/workspace.js"
+import { Actor } from "@awmate/console-core/actor.js"
+import { Resource } from "@awmate/console-resource"
+import { User } from "@awmate/console-core/user.js"
+import { and, Database, eq, isNull, or } from "@awmate/console-core/drizzle/index.js"
+import { WorkspaceTable } from "@awmate/console-core/schema/workspace.sql.js"
+import { UserTable } from "@awmate/console-core/schema/user.sql.js"
+import { AuthTable } from "@awmate/console-core/schema/auth.sql.js"
+import { Identifier } from "@awmate/console-core/identifier.js"
 import { isAllowedAuthorizationRedirect } from "./auth-redirect.js"
 
 type Env = {
@@ -125,14 +125,14 @@ export default {
           const emails = (await fetch("https://api.github.com/user/emails", {
             headers: {
               Authorization: `Bearer ${response.tokenset.access}`,
-              "User-Agent": "opencode",
+              "User-Agent": "awmate",
               Accept: "application/vnd.github+json",
             },
           }).then((x) => x.json())) as any
           const user = (await fetch("https://api.github.com/user", {
             headers: {
               Authorization: `Bearer ${response.tokenset.access}`,
-              "User-Agent": "opencode",
+              "User-Agent": "awmate",
               Accept: "application/vnd.github+json",
             },
           }).then((x) => x.json())) as any

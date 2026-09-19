@@ -3,7 +3,7 @@
     <picture>
       <source srcset="packages/console/app/src/asset/logo-ornate-dark.svg" media="(prefers-color-scheme: dark)">
       <source srcset="packages/console/app/src/asset/logo-ornate-light.svg" media="(prefers-color-scheme: light)">
-      <img src="packages/console/app/src/asset/logo-ornate-light.svg" alt="OpenCode logo">
+      <img src="packages/console/app/src/asset/logo-ornate-light.svg" alt="AWMate logo">
     </picture>
   </a>
 </p>
@@ -39,7 +39,7 @@
   <a href="README.vi.md">Tiếng Việt</a>
 </p>
 
-[![OpenCode Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://opencode.ai)
+[![AWMate Terminal UI](packages/web/src/assets/lander/screenshot.png)](https://opencode.ai)
 
 ---
 
@@ -51,14 +51,14 @@ curl -fsSL https://opencode.ai/install | bash
 
 # Pakkehåndteringer
 npm i -g opencode-ai@latest        # eller bun/pnpm/yarn
-scoop install opencode             # Windows
-choco install opencode             # Windows
+scoop install awmate             # Windows
+choco install awmate             # Windows
 brew install anomalyco/tap/opencode # macOS og Linux (anbefalet, altid up to date)
-brew install opencode              # macOS og Linux (officiel brew formula, opdateres sjældnere)
-sudo pacman -S opencode            # Arch Linux (Stable)
-paru -S opencode-bin               # Arch Linux (Latest from AUR)
-mise use -g opencode               # alle OS
-nix run nixpkgs#opencode           # eller github:anomalyco/opencode for nyeste dev-branch
+brew install awmate              # macOS og Linux (officiel brew formula, opdateres sjældnere)
+sudo pacman -S awmate            # Arch Linux (Stable)
+paru -S awmate-bin               # Arch Linux (Latest from AUR)
+mise use -g awmate               # alle OS
+nix run nixpkgs#awmate           # eller github:anomalyco/opencode for nyeste dev-branch
 ```
 
 > [!TIP]
@@ -66,40 +66,40 @@ nix run nixpkgs#opencode           # eller github:anomalyco/opencode for nyeste 
 
 ### Desktop-app (BETA)
 
-OpenCode findes også som desktop-app. Download direkte fra [releases-siden](https://github.com/anomalyco/opencode/releases) eller [opencode.ai/download](https://opencode.ai/download).
+AWMate findes også som desktop-app. Download direkte fra [releases-siden](https://github.com/anomalyco/opencode/releases) eller [opencode.ai/download](https://opencode.ai/download).
 
 | Platform              | Download                           |
 | --------------------- | ---------------------------------- |
-| macOS (Apple Silicon) | `opencode-desktop-mac-arm64.dmg`   |
-| macOS (Intel)         | `opencode-desktop-mac-x64.dmg`     |
-| Windows               | `opencode-desktop-windows-x64.exe` |
+| macOS (Apple Silicon) | `awmate-desktop-mac-arm64.dmg`   |
+| macOS (Intel)         | `awmate-desktop-mac-x64.dmg`     |
+| Windows               | `awmate-desktop-windows-x64.exe` |
 | Linux                 | `.deb`, `.rpm`, eller AppImage     |
 
 ```bash
 # macOS (Homebrew)
-brew install --cask opencode-desktop
+brew install --cask awmate-desktop
 # Windows (Scoop)
-scoop bucket add extras; scoop install extras/opencode-desktop
+scoop bucket add extras; scoop install extras/awmate-desktop
 ```
 
 #### Installationsmappe
 
 Installationsscriptet bruger følgende prioriteringsrækkefølge for installationsstien:
 
-1. `$OPENCODE_INSTALL_DIR` - Tilpasset installationsmappe
+1. `$AWMATE_INSTALL_DIR` - Tilpasset installationsmappe
 2. `$XDG_BIN_DIR` - Sti der følger XDG Base Directory Specification
 3. `$HOME/bin` - Standard bruger-bin-mappe (hvis den findes eller kan oprettes)
-4. `$HOME/.opencode/bin` - Standard fallback
+4. `$HOME/.awmate/bin` - Standard fallback
 
 ```bash
 # Eksempler
-OPENCODE_INSTALL_DIR=/usr/local/bin curl -fsSL https://opencode.ai/install | bash
+AWMATE_INSTALL_DIR=/usr/local/bin curl -fsSL https://opencode.ai/install | bash
 XDG_BIN_DIR=$HOME/.local/bin curl -fsSL https://opencode.ai/install | bash
 ```
 
 ### Agents
 
-OpenCode har to indbyggede agents, som du kan skifte mellem med `Tab`-tasten.
+AWMate har to indbyggede agents, som du kan skifte mellem med `Tab`-tasten.
 
 - **build** - Standard, agent med fuld adgang til udviklingsarbejde
 - **plan** - Skrivebeskyttet agent til analyse og kodeudforskning
@@ -114,16 +114,16 @@ Læs mere om [agents](https://opencode.ai/docs/agents).
 
 ### Dokumentation
 
-For mere info om konfiguration af OpenCode, [**se vores docs**](https://opencode.ai/docs).
+For mere info om konfiguration af AWMate, [**se vores docs**](https://opencode.ai/docs).
 
 ### Bidrag
 
-Hvis du vil bidrage til OpenCode, så læs vores [contributing docs](./CONTRIBUTING.md) før du sender en pull request.
+Hvis du vil bidrage til AWMate, så læs vores [contributing docs](./CONTRIBUTING.md) før du sender en pull request.
 
-### Bygget på OpenCode
+### Bygget på AWMate
 
-Hvis du arbejder på et projekt der er relateret til OpenCode og bruger "opencode" som en del af navnet; f.eks. "opencode-dashboard" eller "opencode-mobile", så tilføj en note i din README, der tydeliggør at projektet ikke er bygget af OpenCode-teamet og ikke er tilknyttet os på nogen måde.
+Hvis du arbejder på et projekt der er relateret til AWMate og bruger "awmate" som en del af navnet; f.eks. "awmate-dashboard" eller "awmate-mobile", så tilføj en note i din README, der tydeliggør at projektet ikke er bygget af AWMate-teamet og ikke er tilknyttet os på nogen måde.
 
 ---
 
-**Bliv en del af vores community** [Discord](https://discord.gg/opencode) | [X.com](https://x.com/opencode)
+**Bliv en del af vores community** [Discord](https://discord.gg/awmate) | [X.com](https://x.com/awmate)

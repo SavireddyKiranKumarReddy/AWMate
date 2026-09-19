@@ -18,9 +18,9 @@ app
     openAPIRouteHandler(app, {
       documentation: {
         info: {
-          title: "Opencode Enterprise API",
+          title: "AWMate Enterprise API",
           version: "1.0.0",
-          description: "Opencode Enterprise API endpoints",
+          description: "AWMate Enterprise API endpoints",
         },
         openapi: "3.1.1",
       },

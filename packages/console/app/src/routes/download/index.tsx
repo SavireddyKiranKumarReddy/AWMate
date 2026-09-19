@@ -59,15 +59,15 @@ export default function Download() {
                 </code>
                 <CopyStatus />
               </button>
-              <button data-component="cli-row" onClick={handleCopyClick("npm install -g @opencode/cli")}>
+              <button data-component="cli-row" onClick={handleCopyClick("npm install -g @awmate/cli")}>
                 <code>
-                  npm install -g <strong>@opencode/cli</strong>
+                  npm install -g <strong>@awmate/cli</strong>
                 </code>
                 <CopyStatus />
               </button>
-              <button data-component="cli-row" onClick={handleCopyClick("bun install -g --trust @opencode/cli")}>
+              <button data-component="cli-row" onClick={handleCopyClick("bun install -g --trust @awmate/cli")}>
                 <code>
-                  bun install -g --trust <strong>@opencode/cli</strong>
+                  bun install -g --trust <strong>@awmate/cli</strong>
                 </code>
                 <CopyStatus />
               </button>
@@ -77,15 +77,15 @@ export default function Download() {
                 </code>
                 <CopyStatus />
               </button>
-              <button data-component="cli-row" onClick={handleCopyClick("paru -S opencode-beta")}>
+              <button data-component="cli-row" onClick={handleCopyClick("paru -S awmate-beta")}>
                 <code>
-                  paru -S <strong>opencode-beta</strong>
+                  paru -S <strong>awmate-beta</strong>
                 </code>
                 <CopyStatus />
               </button>
-              <button data-component="cli-row" onClick={handleCopyClick("yay -S opencode-beta")}>
+              <button data-component="cli-row" onClick={handleCopyClick("yay -S awmate-beta")}>
                 <code>
-                  yay -S <strong>opencode-beta</strong>
+                  yay -S <strong>awmate-beta</strong>
                 </code>
                 <CopyStatus />
               </button>
@@ -97,9 +97,9 @@ export default function Download() {
               <span>[2]</span> {i18n.t("download.section.desktop")}
             </div>
             <div data-component="section-content">
-              <button data-component="cli-row" onClick={handleCopyClick("brew install --cask opencode-desktop")}>
+              <button data-component="cli-row" onClick={handleCopyClick("brew install --cask awmate-desktop")}>
                 <code>
-                  brew install --cask <strong>opencode-desktop</strong>
+                  brew install --cask <strong>awmate-desktop</strong>
                 </code>
                 <CopyStatus />
               </button>

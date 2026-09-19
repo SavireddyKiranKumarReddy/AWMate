@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, mock, spyOn, test } from "bun:test"
-import { OpencodeClient } from "@opencode-ai/sdk/v2"
+import { AWMateClient } from "@awmate/sdk/v2"
 import { runInteractiveMode } from "@/cli/cmd/run/runtime"
 import type { FooterApi, RunProvider } from "@/cli/cmd/run/types"
 
-type SessionMessage = NonNullable<Awaited<ReturnType<OpencodeClient["session"]["messages"]>>["data"]>[number]
+type SessionMessage = NonNullable<Awaited<ReturnType<AWMateClient["session"]["messages"]>>["data"]>[number]
 
 const provider: RunProvider = {
   id: "openai",
@@ -76,7 +76,7 @@ function ok<T>(data: T) {
   return Promise.resolve({
     data,
     error: undefined,
-    request: new Request("https://opencode.test"),
+    request: new Request("https://awmate.test"),
     response: new Response(),
   })
 }
@@ -140,7 +140,7 @@ describe("run interactive runtime", () => {
     const providersStarted = defer<void>()
     const providers = defer<void>()
 
-    const sdk = new OpencodeClient()
+    const sdk = new AWMateClient()
     spyOn(sdk.config, "providers").mockImplementation(async () => {
       providersStarted.resolve()
       await providers.promise

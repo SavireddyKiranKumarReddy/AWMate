@@ -1,29 +1,29 @@
-import { LayerNode } from "@opencode-ai/core/effect/layer-node"
-import { httpClient } from "@opencode-ai/core/effect/app-node-platform"
+import { LayerNode } from "@awmate/core/effect/layer-node"
+import { httpClient } from "@awmate/core/effect/app-node-platform"
 import { Context, Effect, FiberMap, Iterable, Layer, Schema, Stream } from "effect"
-import { serviceUse } from "@opencode-ai/core/effect/service-use"
+import { serviceUse } from "@awmate/core/effect/service-use"
 import { FetchHttpClient, HttpBody, HttpClient, HttpClientError, HttpClientRequest } from "effect/unstable/http"
-import { Database } from "@opencode-ai/core/database/database"
+import { Database } from "@awmate/core/database/database"
 import { asc } from "drizzle-orm"
 import { eq } from "drizzle-orm"
 import { inArray } from "drizzle-orm"
 import { Project } from "@/project/project"
 import { GlobalBus } from "@/bus/global"
 import { Auth } from "@/auth"
-import { EventV2 } from "@opencode-ai/core/event"
+import { EventV2 } from "@awmate/core/event"
 import { EventV2Bridge } from "@/event-v2-bridge"
-import { EventSequenceTable, EventTable } from "@opencode-ai/core/event/sql"
-import { FSUtil } from "@opencode-ai/core/fs-util"
+import { EventSequenceTable, EventTable } from "@awmate/core/event/sql"
+import { FSUtil } from "@awmate/core/fs-util"
 import { RuntimeFlags } from "@/effect/runtime-flags"
-import { ProjectV2 } from "@opencode-ai/core/project"
-import { Slug } from "@opencode-ai/core/util/slug"
-import { WorkspaceTable } from "@opencode-ai/core/control-plane/workspace.sql"
+import { ProjectV2 } from "@awmate/core/project"
+import { Slug } from "@awmate/core/util/slug"
+import { WorkspaceTable } from "@awmate/core/control-plane/workspace.sql"
 import { getAdapter, registeredAdapters } from "./adapters"
 import { type Target, type WorkspaceInfo, WorkspaceInfo as WorkspaceInfoSchema } from "./types"
-import { WorkspaceV2 } from "@opencode-ai/core/workspace"
+import { WorkspaceV2 } from "@awmate/core/workspace"
 import { Session } from "@/session/session"
 import { SessionPrompt } from "@/session/prompt"
-import { SessionTable } from "@opencode-ai/core/session/sql"
+import { SessionTable } from "@awmate/core/session/sql"
 import { SessionID } from "@/session/schema"
 import { NotFoundError } from "@/storage/storage"
 import { errorData } from "@/util/error"
@@ -33,7 +33,7 @@ import { Vcs } from "@/project/vcs"
 import { InstanceStore } from "@/project/instance-store"
 import { WorkspaceAdapterRuntime } from "./workspace-adapter-runtime"
 import { AppNodeBuilderV1 } from "@/effect/app-node-builder-v1"
-import { WorkspaceEvent } from "@opencode-ai/schema/workspace-event"
+import { WorkspaceEvent } from "@awmate/schema/workspace-event"
 
 export const Info = Schema.Struct({
   ...WorkspaceInfoSchema.fields,
@@ -146,7 +146,7 @@ export interface Interface {
   readonly startWorkspaceSyncing: (projectID: ProjectV2.ID) => Effect.Effect<void>
 }
 
-export class Service extends Context.Service<Service, Interface>()("@opencode/Workspace") {}
+export class Service extends Context.Service<Service, Interface>()("@awmate/Workspace") {}
 
 export const use = serviceUse(Service)
 
@@ -527,9 +527,9 @@ const layer = Layer.effect(
         .pipe(Effect.orDie)
 
       const env = {
-        OPENCODE_AUTH_CONTENT: JSON.stringify(yield* auth.all()),
-        OPENCODE_WORKSPACE_ID: config.id,
-        OPENCODE_EXPERIMENTAL_WORKSPACES: "true",
+        AWMATE_AUTH_CONTENT: JSON.stringify(yield* auth.all()),
+        AWMATE_WORKSPACE_ID: config.id,
+        AWMATE_EXPERIMENTAL_WORKSPACES: "true",
         OTEL_EXPORTER_OTLP_HEADERS: process.env.OTEL_EXPORTER_OTLP_HEADERS,
         OTEL_EXPORTER_OTLP_ENDPOINT: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
         OTEL_RESOURCE_ATTRIBUTES: process.env.OTEL_RESOURCE_ATTRIBUTES,

@@ -1,8 +1,8 @@
-import { ConfigV1 } from "@opencode-ai/core/v1/config/config"
-import { SessionV1 } from "@opencode-ai/core/v1/session"
-import { ModelsDev } from "@opencode-ai/core/models-dev"
-import { HttpRecorder } from "@opencode-ai/http-recorder"
-import { HttpRecorderInternal } from "@opencode-ai/http-recorder/internal"
+import { ConfigV1 } from "@awmate/core/v1/config/config"
+import { SessionV1 } from "@awmate/core/v1/session"
+import { ModelsDev } from "@awmate/core/models-dev"
+import { HttpRecorder } from "@awmate/http-recorder"
+import { HttpRecorderInternal } from "@awmate/http-recorder/internal"
 import { describe, expect, test } from "bun:test"
 import { tool, type ModelMessage, type JSONValue } from "ai"
 import { Effect, Layer, Option, Schema, Stream } from "effect"
@@ -12,19 +12,19 @@ import { Auth } from "@/auth"
 import { Provider } from "@/provider/provider"
 
 import { Filesystem } from "@/util/filesystem"
-import { LLMEvent, LLMResponse } from "@opencode-ai/llm"
-import { RequestExecutor } from "@opencode-ai/llm/route"
+import { LLMEvent, LLMResponse } from "@awmate/llm"
+import { RequestExecutor } from "@awmate/llm/route"
 import { RuntimeFlags } from "@/effect/runtime-flags"
 import type { Agent } from "../../src/agent/agent"
 import { LLM } from "../../src/session/llm"
 import { MessageID, SessionID } from "../../src/session/schema"
 import { TestInstance } from "../fixture/fixture"
 import { testEffect } from "../lib/effect"
-import { ProviderV2 } from "@opencode-ai/core/provider"
-import { ModelV2 } from "@opencode-ai/core/model"
-import { AppNodeBuilder } from "@opencode-ai/core/effect/app-node-builder"
-import { LayerNode } from "@opencode-ai/core/effect/layer-node"
-import { LayerNodePlatform } from "@opencode-ai/core/effect/app-node-platform"
+import { ProviderV2 } from "@awmate/core/provider"
+import { ModelV2 } from "@awmate/core/model"
+import { AppNodeBuilder } from "@awmate/core/effect/app-node-builder"
+import { LayerNode } from "@awmate/core/effect/layer-node"
+import { LayerNodePlatform } from "@awmate/core/effect/app-node-platform"
 
 const FIXTURES_DIR = path.join(import.meta.dir, "../fixtures/recordings")
 
@@ -79,7 +79,7 @@ const recordOpenAIOAuth = (() => {
 })()
 
 function decodeRecordOpenAIOAuth() {
-  const value = process.env.OPENCODE_RECORD_OPENAI_AUTH
+  const value = process.env.AWMATE_RECORD_OPENAI_AUTH
   if (!value) return undefined
   try {
     const auth = Option.getOrUndefined(decodeAuth(JSON.parse(value)))
@@ -119,8 +119,8 @@ const RECORDED_SCENARIOS = [
     modelID: "gpt-4.1-mini",
     cassette: "session/native-openai-tool-loop",
     protocol: "openai-responses",
-    tags: ["opencode", "native", "tool-loop"],
-    canRecord: () => Boolean(envValue("OPENCODE_RECORD_OPENAI_API_KEY", "OPENAI_API_KEY")),
+    tags: ["awmate", "native", "tool-loop"],
+    canRecord: () => Boolean(envValue("AWMATE_RECORD_OPENAI_API_KEY", "OPENAI_API_KEY")),
     config: (model) =>
       providerConfig({
         providerID: ProviderV2.ID.openai,
@@ -130,7 +130,7 @@ const RECORDED_SCENARIOS = [
         api: "https://api.openai.com/v1",
         model,
         options: {
-          apiKey: envValue("OPENCODE_RECORD_OPENAI_API_KEY", "OPENAI_API_KEY") ?? "fixture-openai-key",
+          apiKey: envValue("AWMATE_RECORD_OPENAI_API_KEY", "OPENAI_API_KEY") ?? "fixture-openai-key",
           baseURL: "https://api.openai.com/v1",
         },
       }),
@@ -142,7 +142,7 @@ const RECORDED_SCENARIOS = [
     modelID: "gpt-5.5",
     cassette: "session/native-openai-oauth-tool-loop",
     protocol: "openai-responses",
-    tags: ["opencode", "native", "oauth", "tool-loop"],
+    tags: ["awmate", "native", "oauth", "tool-loop"],
     canRecord: () => recordOpenAIOAuth() !== undefined,
     recordAuth: recordOpenAIOAuth,
     replayAuth: replayOpenAIOAuth,
@@ -159,25 +159,25 @@ const RECORDED_SCENARIOS = [
       }),
   },
   {
-    id: "opencode-proxy",
-    name: "OpenCode proxy",
-    providerID: ProviderV2.ID.opencode,
+    id: "awmate-proxy",
+    name: "AWMate proxy",
+    providerID: ProviderV2.ID.awmate,
     modelID: "gpt-5.2-codex",
     cassette: "session/native-zen-tool-loop",
     protocol: "openai-responses",
-    tags: ["opencode", "zen", "native", "tool-loop"],
-    canRecord: () => Boolean(process.env.OPENCODE_RECORD_CONSOLE_TOKEN && process.env.OPENCODE_RECORD_ZEN_ORG_ID),
+    tags: ["awmate", "zen", "native", "tool-loop"],
+    canRecord: () => Boolean(process.env.AWMATE_RECORD_CONSOLE_TOKEN && process.env.AWMATE_RECORD_ZEN_ORG_ID),
     config: (model) =>
       providerConfig({
-        providerID: ProviderV2.ID.opencode,
-        name: "OpenCode Zen",
-        env: ["OPENCODE_CONSOLE_TOKEN"],
+        providerID: ProviderV2.ID.awmate,
+        name: "AWMate Zen",
+        env: ["AWMATE_CONSOLE_TOKEN"],
         npm: "@ai-sdk/openai-compatible",
-        api: zenURL(process.env.OPENCODE_RECORD_ZEN_CONNECTION ?? "fixture"),
+        api: zenURL(process.env.AWMATE_RECORD_ZEN_CONNECTION ?? "fixture"),
         model,
         options: {
-          apiKey: process.env.OPENCODE_RECORD_CONSOLE_TOKEN ?? "fixture-console-token",
-          headers: { "x-org-id": process.env.OPENCODE_RECORD_ZEN_ORG_ID ?? "fixture-org" },
+          apiKey: process.env.AWMATE_RECORD_CONSOLE_TOKEN ?? "fixture-console-token",
+          headers: { "x-org-id": process.env.AWMATE_RECORD_ZEN_ORG_ID ?? "fixture-org" },
         },
       }),
   },
@@ -188,8 +188,8 @@ const RECORDED_SCENARIOS = [
     modelID: "claude-haiku-4-5-20251001",
     cassette: "session/native-anthropic-tool-loop",
     protocol: "anthropic-messages",
-    tags: ["opencode", "native", "tool-loop"],
-    canRecord: () => Boolean(envValue("OPENCODE_RECORD_ANTHROPIC_API_KEY", "ANTHROPIC_API_KEY")),
+    tags: ["awmate", "native", "tool-loop"],
+    canRecord: () => Boolean(envValue("AWMATE_RECORD_ANTHROPIC_API_KEY", "ANTHROPIC_API_KEY")),
     config: (model) =>
       providerConfig({
         providerID: ProviderV2.ID.anthropic,
@@ -199,7 +199,7 @@ const RECORDED_SCENARIOS = [
         api: "https://api.anthropic.com/v1",
         model,
         options: {
-          apiKey: envValue("OPENCODE_RECORD_ANTHROPIC_API_KEY", "ANTHROPIC_API_KEY") ?? "fixture-anthropic-key",
+          apiKey: envValue("AWMATE_RECORD_ANTHROPIC_API_KEY", "ANTHROPIC_API_KEY") ?? "fixture-anthropic-key",
           baseURL: "https://api.anthropic.com/v1",
         },
       }),
@@ -208,7 +208,7 @@ const RECORDED_SCENARIOS = [
 
 const shouldRecord = process.env.RECORD === "true"
 const selectedScenarios = new Set(
-  (envValue("OPENCODE_RECORDED_SCENARIO", "RECORDED_PROVIDER") ?? "")
+  (envValue("AWMATE_RECORDED_SCENARIO", "RECORDED_PROVIDER") ?? "")
     .split(",")
     .map((item) => item.trim().toLowerCase())
     .filter(Boolean),
@@ -228,7 +228,7 @@ const canRun = (scenario: RecordedScenario) =>
 
 const recordError = (scenario: RecordedScenario) =>
   scenario.id === "openai-oauth"
-    ? "Set OPENCODE_RECORD_OPENAI_AUTH to an OAuth auth JSON object in the recording environment."
+    ? "Set AWMATE_RECORD_OPENAI_AUTH to an OAuth auth JSON object in the recording environment."
     : `Missing recording credentials for ${scenario.name}.`
 
 const redactRecordedBody = (body: string) =>
@@ -261,7 +261,7 @@ const modelsFixture = Filesystem.readJson<Record<string, ModelsDev.Provider>>(
 
 function recordedNativeLLMLayer(scenario: RecordedScenario) {
   const auth = authLayer(scenario)
-  // Only the HTTP client is recorded; RequestExecutor and the opencode LLM stack remain real.
+  // Only the HTTP client is recorded; RequestExecutor and the awmate LLM stack remain real.
   const metadata = {
     provider: scenario.providerID,
     protocol: scenario.protocol,
@@ -290,7 +290,7 @@ function recordedNativeLLMLayer(scenario: RecordedScenario) {
 const writeConfig = (directory: string, scenario: RecordedScenario, model: ModelsDev.Provider["models"][string]) =>
   Effect.promise(() =>
     Bun.write(
-      path.join(directory, "opencode.json"),
+      path.join(directory, "awmate.json"),
       JSON.stringify({ $schema: "https://opencode.ai/config.json", ...scenario.config(model) }),
     ),
   )

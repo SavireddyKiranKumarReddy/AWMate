@@ -8,13 +8,13 @@ const c = {
 }
 const MONO = '"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace'
 
-// verified: NZ OpenCode Go, week of Jun 22-28, 2026 (2026-W26)
+// verified: NZ AWMate Go, week of Jun 22-28, 2026 (2026-W26)
 const TOKENS = 40_915_594_381 // 40.9B
 const SHEEP = 23_600_000 // 23.6M
 const PER_SHEEP = Math.round(TOKENS / SHEEP) // 1,734
 const nf = new Intl.NumberFormat("en-US")
 
-// the correct opencode "DATA" wordmark (white, over photo)
+// the correct awmate "DATA" wordmark (white, over photo)
 function DataWordmark({ height = 30 }: { height?: number }) {
   return (
     <svg width={(height * 66) / 20} height={height} viewBox="0 0 66 20" fill="none" style={{ color: c.white }}>
